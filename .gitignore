@@ -1,0 +1,4 @@
+# ignore dir of docker
+/etc/
+/data/
+/php/

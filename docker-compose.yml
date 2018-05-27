@@ -1,0 +1,76 @@
+version: '3.3'
+
+services:
+    api:
+        image: nginx:${NGINX_VERSION}
+        links:
+            - php
+            - mysqldb
+        container_name: Nginx
+        volumes:
+            - ./etc/nginx/default.conf:/etc/nginx/conf.d/default.conf
+            - ./etc/ssl:/etc/ssl
+            - ./api:/var/www/html
+            - ./etc/nginx/default.template.conf:/etc/nginx/conf.d/default.template
+        ports:
+            - "8000:80"
+            - "3000:443"
+        environment:
+            - NGINX_HOST=${NGINX_HOST}
+        command: /bin/sh -c "envsubst '$$NGINX_HOST' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+        restart: always
+        depends_on:
+            - php
+            - composer
+            - myadmin
+            - mysqldb
+
+    php:
+        build: ./php
+        links:
+            - mysqldb
+        container_name: PHP7-fpm
+        restart: always
+        volumes:
+            - ./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+            - ./api:/var/www/html
+
+    composer:
+        image: composer
+        links:
+            - php
+        container_name: Composer
+        volumes:
+            - ./api:/api
+        command: install
+
+    myadmin:
+        image: phpmyadmin/phpmyadmin
+        links:
+            - mysqldb
+        container_name: MyAdmin
+        ports:
+            - "8080:80"
+        environment:
+            - PMA_ARBITRARY=1
+            - PMA_HOST=${MYSQL_HOST}
+        restart: always
+        depends_on:
+            - mysqldb
+
+    mysqldb:
+        image: mysql:${MYSQL_VERSION}
+        container_name: MySQL
+        restart: always
+        env_file:
+            - .env
+        environment:
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        ports:
+            - "8989:3306"
+        volumes:
+            - ./data/db/mysql:/var/lib/mysql
+            - ./database/setup.sql:/docker-entrypoint-initdb.d/setup.sql
