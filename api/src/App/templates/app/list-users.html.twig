@@ -1,62 +1,86 @@
-{% block title %}
-    <h1>
-        All users
-    </h1>
-{% endblock %}
+{% extends '@layout/index.html.twig' %}
+
+{% block title %}All users{% endblock %}
 
 {% block content %}
-    <table>
-        <thead>
-            <tr>
-                <th>
-                    ID
-                </th>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Email
-                </th>
-                <th>
-                    Password
-                </th>
-                <th>
-                    Admin
-                </th>
-                <th>
-                    Created at
-                </th>
-                <th>
-                    Status
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in users %}
+    {% if users is defined %}
+        <table>
+            <thead>
                 <tr>
-                    <td>
-                        {{ user.id }}
-                    </td>
-                    <td>
-                        {{ user.name }}
-                    </td>
-                    <td>
-                        {{ user.email }}
-                    </td>
-                    <td>
-                        {{ user.password }}
-                    </td>
-                    <td>
-                        {{ user.admin }}
-                    </td>
-                    <td>
-                        {{ user.createdAt }}
-                    </td>
-                    <td>
-                        {{ user.status }}
-                    </td>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Password
+                    </th>
+                    <th>
+                        Admin
+                    </th>
+                    <th>
+                        Created at
+                    </th>
+                    <th>
+                        Status
+                    </th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>
+                            {{ user.id }}
+                        </td>
+                        <td>
+                            {{ user.name }}
+                        </td>
+                        <td>
+                            {{ user.email }}
+                        </td>
+                        <td>
+                            {{ user.password }}
+                        </td>
+                        <td>
+                            {{ user.admin }}
+                        </td>
+                        <td>
+                            {{ user.createdAt }}
+                        </td>
+                        <td>
+                            {{ user.status }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% elseif user is defined %}
+        <ul>
+            <li>
+                ID: <span>{{ user.id }}</span>
+            </li>
+            <li>
+                Name: <span>{{ user.name }}</span>
+            </li>
+            <li>
+                Email: <span>{{ user.email }}</span>
+            </li>
+            <li>
+                Password: <span>{{ user.password }}</span>
+            </li>
+            <li>
+                Admin: <span>{{ user.admin }}</span>
+            </li>
+            <li>
+                Created At: <span>{{ user.createdAt }}</span>
+            </li>
+            <li>
+                Status: <span>{{ user.status }}</span>
+            </li>
+        </ul>
+    {% endif %}
 {% endblock %}

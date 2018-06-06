@@ -38,6 +38,10 @@ final class Get implements MiddlewareInterface, CrudInterface
             ], 404);
         }
 
-        return new JsonResponse($user);
+        if ($request->getHeader('Content-Type')[0] === 'application/json') {
+            return new JsonResponse($user);
+        }
+
+        return $handler->handle($request->withAttribute(self::class, $user));
     }
 }

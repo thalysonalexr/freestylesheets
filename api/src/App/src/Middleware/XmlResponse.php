@@ -12,6 +12,7 @@ use Tuupola\Middleware\JwtAuthentication;
 use Zend\Expressive\Twig\TwigRenderer;
 use Zend\Diactoros\Response\XmlResponse as Xml;
 use App\Domain\Handler\User\GetAll;
+use App\Domain\Handler\User\Get;
 
 final class XmlResponse implements MiddlewareInterface
 {
@@ -28,9 +29,12 @@ final class XmlResponse implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
         if ($request->getHeader('Content-Type')[0] === 'application/xml') {
-            $users = $request->getAttribute(GetAll::class);
 
-            $data['users'] = $users;
+            if ($users = $request->getAttribute(GetAll::class)) {
+                $data['users'] = $users;
+            } else {
+                $data['user'] = $request->getAttribute(Get::class);
+            }
 
             return new Xml($this->template->render('app::list-users.xml.twig', $data));
         }

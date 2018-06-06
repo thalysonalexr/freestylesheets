@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 {% block content %}
-    <list-users>
-        {% for user in users %}
-            <user>
-                <id>{{ user.id }}</id>
-                <name>{{ user.name }}</name>
-                <email>{{ user.email }}</email>
-                <password>{{ user.password }}</password>
-                <admin>{{ user.admin }}</admin>
-                <created>{{ user.createdAt }}</created>
-                <status>{{ user.status }}</status>
-            </user>
-        {% endfor %}
-    </list-users>
+    {% if users is defined %}
+        <list-users>
+            {% for user in users %}
+                <user>
+                    <id>{{ user.id }}</id>
+                    <name>{{ user.name }}</name>
+                    <email>{{ user.email }}</email>
+                    <password>{{ user.password }}</password>
+                    <admin>{{ user.admin }}</admin>
+                    <created-at>{{ user.createdAt }}</created-at>
+                    <status>{{ user.status }}</status>
+                </user>
+            {% endfor %}
+        </list-users>
+    {% elseif user is defined %}
+        <user>
+            <id>{{ user.id }}</id>
+            <name>{{ user.name }}</name>
+            <email>{{ user.email }}</email>
+            <password>{{ user.password }}</password>
+            <admin>{{ user.admin }}</admin>
+            <created-at>{{ user.createdAt }}</created-at>
+            <status>{{ user.status }}</status>
+        </user>
+    {% endif %}
 {% endblock %}

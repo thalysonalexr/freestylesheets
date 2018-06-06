@@ -12,6 +12,7 @@ use Tuupola\Middleware\JwtAuthentication;
 use Zend\Expressive\Twig\TwigRenderer;
 use Zend\Diactoros\Response\HtmlResponse as Html;
 use App\Domain\Handler\User\GetAll;
+use App\Domain\Handler\User\Get;
 
 final class HtmlResponse implements MiddlewareInterface
 {
@@ -27,9 +28,11 @@ final class HtmlResponse implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
-        $users = $request->getAttribute(GetAll::class);
-
-        $data['users'] = $users;
+        if ($users = $request->getAttribute(GetAll::class)) {
+            $data['users'] = $users;
+        } else {
+            $data['user'] = $request->getAttribute(Get::class);
+        }
 
         return new Html($this->template->render('app::list-users', $data));
     }

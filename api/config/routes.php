@@ -51,7 +51,9 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 
     $app->get('/api/v1/users/{id_user}', [
         \App\Middleware\Authentication::class,
-        \App\Domain\Handler\User\Get::class
+        \App\Domain\Handler\User\Get::class,
+        \App\Middleware\XmlResponse::class,
+        \App\Middleware\HtmlResponse::class
     ], 'user.get');
 
     $app->patch('/api/v1/users/{id_user}', [
