@@ -26,6 +26,12 @@ final class GetAll implements MiddlewareInterface, CrudInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
-        return new JsonResponse($this->usersService->getAll());
+        $data = $this->usersService->getAll();
+
+        if ($request->getHeader('Content-Type')[0] === 'application/json') {
+            return new JsonResponse($data);
+        }
+
+        return $handler->handle($request->withAttribute(self::class, $data));
     }
 }

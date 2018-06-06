@@ -60,7 +60,7 @@ final class Auth implements MiddlewareInterface
             ], 401);
         }
 
-        $future = new \DateTime('+30 minutes');
+        $future = new \DateTime('+60 minutes');
 
         $payload = [
             'iat' => (new \DateTime())->getTimestamp(),
