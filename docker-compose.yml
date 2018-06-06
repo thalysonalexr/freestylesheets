@@ -41,8 +41,10 @@ services:
             - php
         container_name: Composer
         volumes:
-            - ./api:/api
+            - ./api:/var/www/html
+            - /var/www/html/vendor
         command: install
+        restart: 'no'
 
     myadmin:
         image: phpmyadmin/phpmyadmin
