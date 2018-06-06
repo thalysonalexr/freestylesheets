@@ -1,0 +1,62 @@
+{% block title %}
+    <h1>
+        All users
+    </h1>
+{% endblock %}
+
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Password
+                </th>
+                <th>
+                    Admin
+                </th>
+                <th>
+                    Created at
+                </th>
+                <th>
+                    Status
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>
+                        {{ user.id }}
+                    </td>
+                    <td>
+                        {{ user.name }}
+                    </td>
+                    <td>
+                        {{ user.email }}
+                    </td>
+                    <td>
+                        {{ user.password }}
+                    </td>
+                    <td>
+                        {{ user.admin }}
+                    </td>
+                    <td>
+                        {{ user.createdAt }}
+                    </td>
+                    <td>
+                        {{ user.status }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

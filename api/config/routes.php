@@ -44,7 +44,9 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->get('/api/v1/users', [
         \App\Middleware\Authentication::class,
         \App\Middleware\Authorization::class,
-        \App\Domain\Handler\User\GetAll::class
+        \App\Domain\Handler\User\GetAll::class,
+        \App\Middleware\XmlResponse::class,
+        \App\Middleware\HtmlResponse::class
     ], 'user.all.get');
 
     $app->get('/api/v1/users/{id_user}', [

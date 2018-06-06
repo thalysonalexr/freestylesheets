@@ -42,6 +42,8 @@ return [
             // middlewares
             \App\Middleware\Authentication::class => \App\Core\Middleware\JwtAuthenticationFactory::class,
             \App\Middleware\Authorization::class => \App\Core\Middleware\AuthorizationFactory::class,
+            \App\Middleware\HtmlResponse::class => \App\Core\Middleware\TemplateResponseFactory::class,
+            \App\Middleware\XmlResponse::class => \App\Core\Middleware\TemplateResponseFactory::class,
         ],
     ],
 ];
