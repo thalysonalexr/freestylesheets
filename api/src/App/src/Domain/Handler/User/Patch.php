@@ -42,7 +42,7 @@ final class Patch implements MiddlewareInterface, CrudInterface
 
         if (1 === $count) {
             return new JsonResponse([
-                'code' => $count,
+                'code' => '200',
                 'message' => 'Update success'
             ], 200);
         }

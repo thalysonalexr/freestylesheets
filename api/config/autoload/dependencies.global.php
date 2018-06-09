@@ -11,7 +11,6 @@ return [
         // key is the alias name, the value is the service to which it points.
         'aliases' => [
             // Fully\Qualified\ClassOrInterfaceName::class => Fully\Qualified\ClassName::class,
-            'App\Core\RelationalManager' => \Doctrine\DBAL\Connection::class
         ],
         // Use 'invokables' for constructor-less services, or services that do
         // not require arguments to the constructor. Map a service name to the
@@ -23,9 +22,11 @@ return [
         'factories'  => [
             // Fully\Qualified\ClassName::class => Fully\Qualified\FactoryName::class,
             \Doctrine\DBAL\Connection::class => \App\Core\Factory\RelationalManagerFactory::class,
-            
+
             // actions | users
             \App\Domain\Handler\User\Auth::class => \App\Core\Factory\AuthHandlerFactory::class,
+            \App\Domain\Handler\User\ForgotPassword::class => \App\Core\Factory\ForgotPasswordFactory::class,
+            \App\Domain\Handler\User\ChangePassword::class => \App\Core\Factory\AuthHandlerFactory::class,
             \App\Domain\Handler\User\Create::class => \App\Core\Factory\UsersHandlerFactory::class,
             \App\Domain\Handler\User\GetAll::class => \App\Core\Factory\UsersHandlerFactory::class,
             \App\Domain\Handler\User\Get::class => \App\Core\Factory\UsersHandlerFactory::class,
@@ -44,6 +45,7 @@ return [
             \App\Middleware\Authorization::class => \App\Core\Middleware\AuthorizationFactory::class,
             \App\Middleware\HtmlResponse::class => \App\Core\Middleware\TemplateResponseFactory::class,
             \App\Middleware\XmlResponse::class => \App\Core\Middleware\TemplateResponseFactory::class,
+            \App\Middleware\SendMail::class => \App\Core\Middleware\SendMailFactory::class
         ],
     ],
 ];

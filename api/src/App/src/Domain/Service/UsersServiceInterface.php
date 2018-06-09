@@ -22,4 +22,6 @@ interface UsersServiceInterface
     public function edit(int $id, array $data): int;
 
     public function delete(int $id): int;
+
+    public function updatePassword(int $id, array $newPassword): int;
 }

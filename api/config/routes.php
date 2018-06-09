@@ -37,9 +37,16 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->get('/api/ping', \App\Handler\PingHandler::class, 'api.ping');
 
     // users
+    $app->post('/api/v1/users', \App\Domain\Handler\User\Create::class, 'user.post');
+
     $app->post('/api/v1/users/login', App\Domain\Handler\User\Auth::class, 'user.auth.post');
 
-    $app->post('/api/v1/users', \App\Domain\Handler\User\Create::class, 'user.post');
+    $app->post('/api/v1/users/change-password', App\Domain\Handler\User\ChangePassword::class, 'user.change-password.post');
+
+    $app->post('/api/v1/users/forgot-password', [
+        App\Domain\Handler\User\ForgotPassword::class,
+        App\Middleware\SendMail::class
+    ], 'user.forgot-password.post');
 
     $app->get('/api/v1/users', [
         \App\Middleware\Authentication::class,

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Service;
 
 use App\Domain\Entity\User;
+use App\Domain\Value\Password;
 use App\Infrastructure\Repository\Users;
 use App\Domain\Service\Exception\UserNotFoundException;
 use App\Domain\Service\Exception\UserEmailExistsException;
@@ -86,5 +87,12 @@ final class UsersService implements UsersServiceInterface
     public function delete(int $id): int
     {
         return $this->users->remove($id);
+    }
+
+    public function updatePassword(int $id, array $newPassword): int
+    {
+        $newPassword['password'] = Password::hash($newPassword['password']);
+
+        return $this->users->editPartial($id, $newPassword);
     }
 }

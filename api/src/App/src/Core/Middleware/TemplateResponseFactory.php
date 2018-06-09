@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Core\Middleware;
 
-use App\Middleware\HtmlResponse;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 

@@ -8,13 +8,13 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Tuupola\Middleware\JwtAuthentication;
 use Zend\Expressive\Twig\TwigRenderer;
 use Zend\Diactoros\Response\XmlResponse as Xml;
 use App\Domain\Handler\User\GetAll;
 use App\Domain\Handler\User\Get;
+use App\Middleware\TemplateResponseInterface;
 
-final class XmlResponse implements MiddlewareInterface
+final class XmlResponse implements MiddlewareInterface, TemplateResponseInterface
 {
     /**
      * @var TwigRenderer
@@ -28,15 +28,24 @@ final class XmlResponse implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
-        if ($request->getHeader('Content-Type')[0] === 'application/xml') {
+        if ($request->getHeader('Accept')[0] === 'application/xml') {
 
-            if ($users = $request->getAttribute(GetAll::class)) {
-                $data['users'] = $users;
-            } else {
-                $data['user'] = $request->getAttribute(Get::class);
+            switch ($data[0]) {
+                case \App\Domain\Handler\User\Get::class:
+                case \App\Domain\Handler\User\GetAll::class:
+                    $template = 'app::list-users.xml.twig';
+                    break;
+                case \App\Domain\Handler\Css\Get::class:
+                case \App\Domain\Handler\Css\GetAll::class:
+                    $template = 'app::list-css.xml.twig';
+                    break;
+                case \App\Domain\Handler\Fonts\Get::class:
+                case \App\Domain\Handler\Fonts\GetAll::class:
+                    $template = 'app::list-fonts.xml.twig';
+                    break;
             }
 
-            return new Xml($this->template->render('app::list-users.xml.twig', $data));
+            return new Xml($this->template->render($template, $data));
         }
 
         return $handler->handle($request);

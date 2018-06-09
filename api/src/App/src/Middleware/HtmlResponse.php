@@ -8,13 +8,11 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Tuupola\Middleware\JwtAuthentication;
 use Zend\Expressive\Twig\TwigRenderer;
 use Zend\Diactoros\Response\HtmlResponse as Html;
-use App\Domain\Handler\User\GetAll;
-use App\Domain\Handler\User\Get;
+use App\Middleware\TemplateResponseInterface;
 
-final class HtmlResponse implements MiddlewareInterface
+final class HtmlResponse implements MiddlewareInterface, TemplateResponseInterface
 {
     /**
      * @var TwigRenderer
@@ -28,12 +26,23 @@ final class HtmlResponse implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
-        if ($users = $request->getAttribute(GetAll::class)) {
-            $data['users'] = $users;
-        } else {
-            $data['user'] = $request->getAttribute(Get::class);
+        $data = $request->getAttribute(TemplateResponseInterface::class);
+
+        switch ($data[0]) {
+            case \App\Domain\Handler\User\Get::class:
+            case \App\Domain\Handler\User\GetAll::class:
+                $template = 'app::list-users';
+                break;
+            case \App\Domain\Handler\Css\Get::class:
+            case \App\Domain\Handler\Css\GetAll::class:
+                $template = 'app::list-css';
+                break;
+            case \App\Domain\Handler\Fonts\Get::class:
+            case \App\Domain\Handler\Fonts\GetAll::class:
+                $template = 'app::list-fonts';
+                break;
         }
 
-        return new Html($this->template->render('app::list-users', $data));
+        return new Html($this->template->render($template, $data[1]));
     }
 }

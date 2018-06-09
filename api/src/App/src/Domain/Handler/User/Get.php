@@ -12,6 +12,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 use App\Core\Crud\CrudInterface;
 use Zend\Diactoros\Response\JsonResponse;
 use App\Domain\Service\Exception\UserNotFoundException;
+use App\Middleware\TemplateResponseInterface;
 
 final class Get implements MiddlewareInterface, CrudInterface
 {
@@ -38,10 +39,15 @@ final class Get implements MiddlewareInterface, CrudInterface
             ], 404);
         }
 
-        if ($request->getHeader('Content-Type')[0] === 'application/json') {
+        if ($request->getHeader('Accept')[0] === 'application/json') {
             return new JsonResponse($user);
         }
 
-        return $handler->handle($request->withAttribute(self::class, $user));
+        $data['user'] = $user;
+
+        return $handler->handle($request->withAttribute(TemplateResponseInterface::class, [
+            self::class,
+            $data
+        ]));
     }
 }
