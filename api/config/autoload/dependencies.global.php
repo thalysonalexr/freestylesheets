@@ -34,18 +34,29 @@ return [
             \App\Domain\Handler\User\Put::class => \App\Core\Factory\UsersHandlerFactory::class,
             \App\Domain\Handler\User\Delete::class => \App\Core\Factory\UsersHandlerFactory::class,
 
+            // actions | css
+            \App\Domain\Handler\Css\Create::class => \App\Core\Factory\CssHandlerFactory::class,
+
             // services
             \App\Domain\Service\UsersServiceInterface::class => \App\Core\Domain\Service\UsersServiceFactory::class,
+            \App\Domain\Service\CssServiceInterface::class => \App\Core\Domain\Service\CssServiceFactory::class,
             
             // repositories
             \App\Infrastructure\Repository\Users::class => \App\Core\Infrastructure\Repository\SqlRepositoryFactory::class,
-            
+            \App\Infrastructure\Repository\Css::class => \App\Core\Infrastructure\Repository\SqlRepositoryFactory::class,
+
             // middlewares
             \App\Middleware\Authentication::class => \App\Core\Middleware\JwtAuthenticationFactory::class,
             \App\Middleware\Authorization::class => \App\Core\Middleware\AuthorizationFactory::class,
             \App\Middleware\HtmlResponse::class => \App\Core\Middleware\TemplateResponseFactory::class,
             \App\Middleware\XmlResponse::class => \App\Core\Middleware\TemplateResponseFactory::class,
-            \App\Middleware\SendMail::class => \App\Core\Middleware\SendMailFactory::class
+            \App\Middleware\SendMail::class => \App\Core\Middleware\SendMailFactory::class,
+            
+            // filters
+            \App\Middleware\InputFilter\UserInputFilter::class => \App\Core\Middleware\InputFilter\UserInputFilterFactory::class,
+            \App\Middleware\InputFilter\LoginInputFilter::class => \App\Core\Middleware\InputFilter\LoginInputFilterFactory::class,
+            \App\Middleware\InputFilter\EmailInputFilter::class => \App\Core\Middleware\InputFilter\EmailInputFilterFactory::class,
+            \App\Middleware\InputFilter\PasswordInputFilter::class => \App\Core\Middleware\InputFilter\PasswordInputFilterFactory::class,
         ],
     ],
 ];

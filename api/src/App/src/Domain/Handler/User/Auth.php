@@ -14,7 +14,6 @@ use App\Domain\Value\Exception\WrongPasswordException;
 use App\Domain\Value\Password;
 use Tuupola\Base62;
 use Firebase\JWT\JWT;
-use Zend\Diactoros\Response\EmptyResponse;
 use Zend\Diactoros\Response\JsonResponse;
 
 final class Auth implements MiddlewareInterface
@@ -37,10 +36,6 @@ final class Auth implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
         $data = $request->getParsedBody();
-
-        if ( ! isset($data['email']) || ! isset($data['password'])) {
-            return new EmptyResponse(400);
-        }
 
         try {
             $user = $this->usersService->getByEmail($data['email']);

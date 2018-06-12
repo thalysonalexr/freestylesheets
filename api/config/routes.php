@@ -33,19 +33,33 @@ use Zend\Expressive\MiddlewareFactory;
  * );
  */
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
+    
+    // documentation
     $app->get('/', \App\Handler\HomePageHandler::class, 'home');
+    
+    // test
     $app->get('/api/ping', \App\Handler\PingHandler::class, 'api.ping');
 
     // users
-    $app->post('/api/v1/users', \App\Domain\Handler\User\Create::class, 'user.post');
+    $app->post('/api/v1/users', [
+        \App\Middleware\InputFilter\UserInputFilter::class,
+        \App\Domain\Handler\User\Create::class
+    ], 'user.post');
 
-    $app->post('/api/v1/users/login', App\Domain\Handler\User\Auth::class, 'user.auth.post');
+    $app->post('/api/v1/users/login', [
+        \App\Middleware\InputFilter\LoginInputFilter::class,
+        \App\Domain\Handler\User\Auth::class
+    ], 'user.auth.post');
 
-    $app->post('/api/v1/users/change-password', App\Domain\Handler\User\ChangePassword::class, 'user.change-password.post');
+    $app->post('/api/v1/users/change-password', [
+        \App\Middleware\InputFilter\PasswordInputFilter::class,
+        \App\Domain\Handler\User\ChangePassword::class
+    ], 'user.change-password.post');
 
     $app->post('/api/v1/users/forgot-password', [
-        App\Domain\Handler\User\ForgotPassword::class,
-        App\Middleware\SendMail::class
+        \App\Middleware\InputFilter\EmailInputFilter::class,
+        \App\Domain\Handler\User\ForgotPassword::class,
+        \App\Middleware\SendMail::class
     ], 'user.forgot-password.post');
 
     $app->get('/api/v1/users', [
@@ -77,4 +91,41 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
         \App\Middleware\Authentication::class,
         \App\Domain\Handler\User\Delete::class
     ], 'user.delete');
+
+    // css
+    $app->post('/api/v1/css', [
+        \App\Middleware\Authentication::class,
+        \App\Domain\Handler\Css\Create::class
+    ], 'css.post');
+
+    $app->get('/api/v1/css', [
+        \App\Middleware\Authentication::class,
+        \App\Middleware\Authorization::class,
+        \App\Domain\Handler\Css\GetAll::class,
+        \App\Middleware\XmlResponse::class,
+        \App\Middleware\HtmlResponse::class
+    ], 'css.all.get');
+
+    $app->get('/api/v1/css/{id_style}', [
+        \App\Domain\Handler\Css\Get::class,
+        \App\Middleware\CssResponse::class,
+        \App\Middleware\XmlResponse::class,
+        \App\Middleware\HtmlResponse::class
+    ], 'css.get');
+
+    $app->patch('/api/v1/css/{id_style}', [
+        \App\Middleware\Authentication::class,
+        \App\Domain\Handler\Css\Patch::class
+    ], 'css.patch');
+
+    $app->put('/api/v1/css/{id_style}', [
+        \App\Middleware\Authentication::class,
+        \App\Domain\Handler\Css\Put::class
+    ], 'css.put');
+
+    $app->delete('/api/v1/css/{id_style}', [
+        \App\Middleware\Authentication::class,
+        \App\Middleware\Authorization::class,
+        \App\Domain\Handler\Css\Delete::class
+    ], 'css.delete');
 };

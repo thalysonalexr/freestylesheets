@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Handler\User;
 
-use App\Core\Crud\CrudInterface;
 use App\Domain\Service\UsersServiceInterface;
 use App\Domain\Service\Exception\UserNotFoundException;
 use Psr\Http\Message\ResponseInterface;
@@ -43,13 +42,6 @@ final class ForgotPassword implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
         $data = $request->getParsedBody();
-
-        if ( ! isset($data['email']) || ! filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            return new JsonResponse([
-                'code' => '400',
-                'message' => 'The request requires a valid email'
-            ], 400);
-        }
 
         try {
             $user = $this->usersService->getByEmail($data['email']);

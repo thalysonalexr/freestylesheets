@@ -42,13 +42,6 @@ final class ChangePassword implements MiddlewareInterface
 
         $data = $request->getParsedBody();
 
-        if ( ! isset($data['password']) || empty($data['password'])) {
-            return new JsonResponse([
-                'code' => '400',
-                'message' => 'Invalid or not passed in request body (new password)'
-            ], 400);
-        }
-
         $token = JWT::decode($token['token'], $this->jwtSecret, ['HS256']);
 
         $updated = $this->usersService->updatePassword((int) $token->data->id, $data);

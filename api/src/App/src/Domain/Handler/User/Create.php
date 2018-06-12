@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Handler\User;
 
-use App\Core\Crud\CrudInterface;
+use App\Core\Crud\UsersCrudInterface;
 use App\Domain\Service\UsersServiceInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -13,7 +13,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\JsonResponse;
 use App\Domain\Service\Exception\UserEmailExistsException;
 
-final class Create implements MiddlewareInterface, CrudInterface
+final class Create implements MiddlewareInterface, UsersCrudInterface
 {
     /**
      * @var UsersServiceInterface
@@ -28,18 +28,6 @@ final class Create implements MiddlewareInterface, CrudInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
         $body = $request->getParsedBody();
-
-        if (
-            ! isset($body['name']) ||
-            ! isset($body['email']) ||
-            ! isset($body['password']) ||
-            ! isset($body['admin'])
-        ) {
-            return new JsonResponse([
-                'code' => '400',
-                'message' => 'Fill in all the fields: "name", "email", "password", "admin"'
-            ], 400);
-        }
 
         try {
             $id = $this->usersService->register(
