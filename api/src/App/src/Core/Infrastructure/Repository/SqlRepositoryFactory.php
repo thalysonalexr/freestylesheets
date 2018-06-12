@@ -15,7 +15,7 @@ final class SqlRepositoryFactory
     public function __invoke(ContainerInterface $container, string $name)
     {
         $className = $this->addSqlToClassName($name);
-        
+
         return new $className(
             $container->get(Connection::class)
         );
