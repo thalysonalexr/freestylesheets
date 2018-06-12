@@ -9,10 +9,10 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use App\Core\Crud\CrudInterface;
+use App\Core\Crud\UsersCrudInterface;
 use Zend\Diactoros\Response\JsonResponse;
 
-final class Delete implements MiddlewareInterface, CrudInterface
+final class Delete implements MiddlewareInterface, UsersCrudInterface
 {
     /**
      * @var UsersServiceInterface

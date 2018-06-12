@@ -9,11 +9,11 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use App\Core\Crud\CrudInterface;
+use App\Core\Crud\UsersCrudInterface;
 use Zend\Diactoros\Response\JsonResponse;
 use App\Domain\Service\Exception\UserEmailExistsException;
 
-final class Put implements MiddlewareInterface, CrudInterface
+final class Put implements MiddlewareInterface, UsersCrudInterface
 {
     /**
      * @var UsersServiceInterface

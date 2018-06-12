@@ -9,12 +9,12 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use App\Core\Crud\CrudInterface;
+use App\Core\Crud\UsersCrudInterface;
 use Zend\Diactoros\Response\JsonResponse;
 use App\Domain\Service\Exception\UserNotFoundException;
 use App\Middleware\TemplateResponseInterface;
 
-final class Get implements MiddlewareInterface, CrudInterface
+final class Get implements MiddlewareInterface, UsersCrudInterface
 {
     /**
      * @var UsersServiceInterface
