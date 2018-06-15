@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+{% block content %}
+    {% if user is defined %}
+        <user>
+            <id>{{ user.id }}</id>
+            <name>{{ user.name }}</name>
+            <email>{{ user.email }}</email>
+            <password>{{ user.password }}</password>
+            <admin>{{ user.admin }}</admin>
+            <created-at>{{ user.createdAt }}</created-at>
+            <status>{{ user.status }}</status>
+        </user>
+    {% endif %}
+{% endblock %}

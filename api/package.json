@@ -1,0 +1,20 @@
+{
+  "name": "REST-STYLES-CSS3",
+  "version": "1.0.0",
+  "description": "REST API for consumption of styles and fonts in css3",
+  "author": "Thalyson Rodrigues <tha.motog@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "popper.js": "^1.14.3"
+  },
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.20.1",
+    "bootstrap": "^4.1.1",
+    "bootstrap-sass": "^3.3.7",
+    "jquery": "3.3.1",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.0.3",
+    "webpack-notifier": "^1.6.0"
+  }
+}

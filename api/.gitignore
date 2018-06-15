@@ -5,3 +5,9 @@ clover.xml
 coveralls-upload.json
 phpunit.xml
 vendor/
+
+node_modules/
+public/build/
+yarn-error.log
+composer.lock
+yarn.lock

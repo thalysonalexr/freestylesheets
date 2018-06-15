@@ -1,0 +1,38 @@
+{% extends '@layout/index.html.twig' %}
+
+{% block title %}All users{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('build/css/bootstrap.css') }}">
+{% endblock %}
+
+{% block content %}
+    {% if users is defined %}
+        <table class="table table-hover table-dark">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Admin</th>
+                    <th scope="col">Created at</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td title="{{ user.password }}">*****</td>
+                        <td>{{ user.admin == 1 ? 'Yes' : 'No' }}</td>
+                        <td>{{ user.createdAt }}</td>
+                        <td>{{ user.status == 1 ? 'Active' : 'Inactive' }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
