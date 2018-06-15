@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 return [
     'jwt' => [
-        'secret' => 'helloworld'
+        'secret' => hash('sha256', 'helloworld')
     ]
 ];
