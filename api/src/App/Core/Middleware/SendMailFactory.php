@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Core\Middleware;
 
 use App\Middleware\SendMail;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
 final class SendMailFactory
@@ -14,7 +14,7 @@ final class SendMailFactory
     {
         $config = $container->get('config')['smtp']['mailtrap.io'];
 
-        $mail = new \PHPMailer\PHPMailer\PHPMailer;
+        $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
         $mail->isSMTP();
         $mail->SMTPAuth = true;
         $mail->Host = $config['hostname'];
@@ -24,6 +24,7 @@ final class SendMailFactory
         $mail->Port = $config['port'];
         $mail->CharSet = $config['charset'];
         $mail->isHTML(true);
+        // $mail->SMTPDebug = 2;
 
         return new SendMail($mail);
     }

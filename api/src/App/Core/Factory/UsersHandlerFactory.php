@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Core\Factory;
 
 use App\Domain\Service\UsersServiceInterface;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 final class UsersHandlerFactory
 {

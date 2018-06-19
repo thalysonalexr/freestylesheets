@@ -6,7 +6,7 @@ namespace App\Core\Factory;
 
 use App\Domain\Handler\User\ForgotPassword;
 use App\Domain\Service\UsersServiceInterface;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
 final class ForgotPasswordFactory

@@ -6,7 +6,7 @@ namespace App\Core\Factory;
 
 use App\Domain\Service\UsersServiceInterface;
 use App\Domain\Service\LogsServiceInterface;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 final class AuthHandlerFactory
 {

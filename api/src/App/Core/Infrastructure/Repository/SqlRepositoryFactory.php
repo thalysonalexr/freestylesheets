@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Core\Infrastructure\Repository;
 
 use Doctrine\DBAL\Connection;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 final class SqlRepositoryFactory
 {

@@ -21,3 +21,28 @@ html, body{
     min-height: 100%;
     min-width: 100%;
 }
+
+.app { padding-top: 90px; }
+
+.app { min-height: 120vh; }
+
+.app-footer { padding-bottom: 1em; }
+
+/* home */
+
+.center{ margin: auto; }
+
+.logo{ width: 100%; }
+
+.format{
+    background-color: #808080;
+    color: #fcfcfc;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+/* contact */
+
+.title{ margin-bottom: 2%; }
+
+ul{ list-style: none; }

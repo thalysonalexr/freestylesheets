@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Core\Middleware\InputFilter;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use App\Middleware\InputFilter\LoginInputFilter;
 
 final class LoginInputFilterFactory

@@ -6,7 +6,7 @@ namespace App\Core\Domain\Service;
 
 use App\Domain\Service\LogsService;
 use App\Infrastructure\Repository\Logs;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 final class LogsServiceFactory
 {

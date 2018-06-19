@@ -8,14 +8,43 @@
 
 {% block content %}
     {% if user is defined %}
-        <ul>
-            <li>ID: <span>{{ user.id }}</span></li>
-            <li>Name: <span>{{ user.name }}</span></li>
-            <li>Email: <span>{{ user.email }}</span></li>
-            <li>Password: <span>{{ user.password }}</span></li>
-            <li>Admin: <span>{{ user.admin == 1 ? 'Yes' : 'No' }}</span></li>
-            <li>Created At: <span>{{ user.createdAt }}</span></li>
-            <li>Status: <span>{{ user.status == 1 ? 'Active' : 'Inactive' }}</span></li>
-        </ul>
+        <table class="table table-hover table-dark">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Key</th>
+                    <th scope="col">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ID</td>
+                    <td>{{ user.id }}</td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td>{{ user.name }}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{{ user.email }}</td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td title="{{ user.password }}">*****</td>
+                </tr>
+                <tr>
+                    <td>Admin</td>
+                    <td>{{ user.admin == 1 ? 'Yes' : 'No' }}</td>
+                </tr>
+                <tr>
+                    <td>Created At</td>
+                    <td>{{ user.createdAt }}</td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td>{{ user.status == 1 ? 'Active' : 'Inactive' }}</td>
+                </tr>
+            </tbody>
+        </table>
     {% endif %}
 {% endblock %}

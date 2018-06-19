@@ -6,7 +6,7 @@ namespace App\Core\Domain\Service;
 
 use App\Domain\Service\CssService;
 use App\Infrastructure\Repository\Css;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 final class CssServiceFactory
 {

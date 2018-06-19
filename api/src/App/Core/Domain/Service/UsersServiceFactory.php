@@ -6,7 +6,7 @@ namespace App\Core\Domain\Service;
 
 use App\Domain\Service\UsersService;
 use App\Infrastructure\Repository\Users;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 final class UsersServiceFactory
 {
