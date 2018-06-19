@@ -1,0 +1,59 @@
+{% extends '@layout/default.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+    <div>
+        {% if errors is defined %}
+            <div id="errors">
+                <ul>
+                    {% for error in errors %}
+                        <li class="alert alert-danger">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <!-- title and subtitle -->
+        <header class="title">
+            <h1>Send a message to us!</h1>
+            <h2 class="text-muted lead"><small>Get in touch, suggest solutions, ask questions, open new paths...</small></h2>
+        </header>
+        <!-- form contact -->
+        <form action="{{ path('contact.post') }}" method="POST">
+            <div class="form-row">
+                <div class="col-md-6 mb-4">
+                    <label for="f-name">First name</label>
+                    <input type="text" class="form-control" id="f-name" name="firstName" placeholder="Mark John" maxlength="255" required>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <label for="l-name">Last name</label>
+                    <input type="text" class="form-control" id="l-name" name="lastName" placeholder="Otto" maxlength="255" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6 mb-4">
+                    <label for="email">E-mail address</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">@</span>
+                        </div>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="example@email.com" required>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <label for="subject">Subject</label>
+                    <input type="text" class="form-control" id="subject" name="subject" placeholder="What it is?" maxlength="255" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-12 mb-4">
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea class="form-control" id="message" rows="5" name="message" placeholder="Type your message here..." maxlength="1500" required></textarea>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Send my message!</button>
+        </form>
+    </div>
+{% endblock %}
