@@ -7,6 +7,7 @@ return [
         'extension' => 'html.twig',
         'paths'     => [
             'app'    => ['resources/templates/app'],
+            'pages'  => ['resources/templates/pages'],
             'layout' => ['resources/templates/layout'],
             'error'  => ['resources/templates/error'],
             'xml'    => ['resources/templates/xml'],

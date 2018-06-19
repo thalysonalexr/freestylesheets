@@ -36,7 +36,20 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     
     // documentation
     $app->get('/', \App\Handler\HomePageHandler::class, 'home');
-    
+
+    $app->get('/api/versions', \App\Handler\VersionsPageHandler::class, 'versions');
+
+    $app->get('/api/versions/{version}', \App\Handler\VersionPageHandler::class, 'version');
+
+    $app->get('/api/about', \App\Handler\AboutPageHandler::class, 'about');
+
+    $app->get('/api/contact', \App\Handler\ContactPageHandler::class, 'contact');
+
+    $app->post('/api/contact', [
+        \App\Handler\Middleware\InputFilter\ContactInputFilter::class,
+        \App\Handler\Middleware\ContactPostHandler::class
+    ], 'contact.post');
+
     // test
     $app->get('/api/ping', \App\Handler\PingHandler::class, 'api.ping');
 
