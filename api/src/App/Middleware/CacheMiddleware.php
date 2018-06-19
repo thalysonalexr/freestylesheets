@@ -19,6 +19,7 @@ use function pathinfo;
 use function file_get_contents;
 use function file_put_contents;
 use function json_decode;
+use function strpos;
 
 class CacheMiddleware implements MiddlewareInterface
 {
@@ -54,6 +55,14 @@ class CacheMiddleware implements MiddlewareInterface
         $file .= self::getExtension($file);
 
         if ($this->config['enabled'] && file_exists($file) && (time() - filemtime($file)) < $this->config['lifetime']) {
+
+            if ($request->getHeaderLine('If-Modified-Since')) {
+                return (new EmptyResponse())
+                    ->withStatus(304)
+                    ->withHeaders([
+                        'Last-Modified' => date('D, d M Y H:i:s T', filemtime($cacheFilePath))
+                    ]);
+            }
 
             switch (pathinfo($file, PATHINFO_EXTENSION)) {
                 case 'json':
