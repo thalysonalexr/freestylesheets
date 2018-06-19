@@ -17,11 +17,24 @@ return [
         // class name.
         'invokables' => [
             // Fully\Qualified\InterfaceName::class => Fully\Qualified\ClassName::class,
+            \App\Handler\PingHandler::class => \App\Handler\PingHandler::class,
         ],
         // Use 'factories' for services provided by callbacks/factory classes.
         'factories'  => [
             // Fully\Qualified\ClassName::class => Fully\Qualified\FactoryName::class,
+
+            // connection
             \Doctrine\DBAL\Connection::class => \App\Core\Factory\RelationalManagerFactory::class,
+
+            // documentation
+            \App\Handler\HomePageHandler::class => \App\Handler\TemplateRendererFactory::class,
+            \App\Handler\VersionsPageHandler::class => \App\Handler\TemplateRendererFactory::class,
+            \App\Handler\VersionPageHandler::class => \App\Handler\TemplateRendererFactory::class,
+            \App\Handler\ContactPageHandler::class => \App\Handler\TemplateRendererFactory::class,
+            \App\Handler\Middleware\ContactPostHandler::class => \App\Handler\Middleware\ContactPostHandlerFactory::class,
+            \App\Handler\Middleware\InputFilter\ContactInputFilter::class => \App\Handler\Middleware\InputFilter\ContactInputFilterFactory::class,
+
+            // bussiness | my domain
 
             // actions | users
             \App\Domain\Handler\User\Auth::class => \App\Core\Factory\AuthHandlerFactory::class,
@@ -56,6 +69,7 @@ return [
             \App\Middleware\XmlFormatter::class => \App\Core\Middleware\TemplateResponseFactory::class,
             \App\Middleware\HtmlFormatter::class => \App\Core\Middleware\TemplateResponseFactory::class,
             \App\Middleware\SendMail::class => \App\Core\Middleware\SendMailFactory::class,
+            \App\Middleware\CacheMiddleware::class => \App\Core\Middleware\CacheMiddlewareFactory::class,
     
             // filters
             \App\Middleware\InputFilter\UserInputFilter::class => \App\Core\Middleware\InputFilter\UserInputFilterFactory::class,
