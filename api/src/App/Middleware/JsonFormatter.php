@@ -15,7 +15,7 @@ final class JsonFormatter implements MiddlewareInterface
 {
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        if ($request->getHeader('Accept')[0] === 'application/json') {
+        if ($request->getHeaderLine('Accept') === 'application/json') {
             return new JsonResponse($request->getAttribute(TemplateFormatterInterface::class));
         }
 

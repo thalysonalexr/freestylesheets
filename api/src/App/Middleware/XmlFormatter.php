@@ -26,7 +26,7 @@ final class XmlFormatter implements MiddlewareInterface, TemplateFormatterInterf
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
-        if ($request->getHeader('Accept')[0] === 'application/xml') {
+        if ($request->getHeaderLine('Accept') === 'application/xml') {
 
             $data = $request->getAttribute(TemplateFormatterInterface::class);
 

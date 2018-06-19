@@ -11,9 +11,7 @@ Encore
     // will create public/build/app.js and public/build/app.css
     .addEntry('css/app', './resources/assets/js/app.js')
 
-    .addStyleEntry('css/bootstrap', './resources/assets/css/global.scss')
-
-    .enableSassLoader()
+    .addStyleEntry('css/bootstrap', './resources/assets/css/bootstrap.scss')
 
     // allow legacy applications to use $/jQuery as a global variable
     .autoProvidejQuery()
@@ -31,7 +29,7 @@ Encore
     // .enableVersioning()
 
     // allow sass/scss files to be processed
-    // .enableSassLoader()
+    .enableSassLoader()
 ;
 
 // export the final configuration
