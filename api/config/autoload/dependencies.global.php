@@ -41,7 +41,7 @@ return [
             \App\Domain\Handler\User\Logout::class => \App\Core\Factory\LogsHandlerFactory::class,
             \App\Domain\Handler\User\Timeout::class => \App\Core\Factory\LogsHandlerFactory::class,
             \App\Domain\Handler\User\ForgotPassword::class => \App\Core\Factory\ForgotPasswordFactory::class,
-            \App\Domain\Handler\User\ChangePassword::class => \App\Core\Factory\AuthHandlerFactory::class,
+            \App\Domain\Handler\User\ChangePassword::class => \App\Core\Factory\ChangePasswordFactory::class,
             \App\Domain\Handler\User\Create::class => \App\Core\Factory\UsersHandlerFactory::class,
             \App\Domain\Handler\User\GetAll::class => \App\Core\Factory\UsersHandlerFactory::class,
             \App\Domain\Handler\User\Get::class => \App\Core\Factory\UsersHandlerFactory::class,
