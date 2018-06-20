@@ -13,6 +13,14 @@ final class User implements \JsonSerializable
     /**
      * @var int
      */
+    const ACTIVE = true;
+    /**
+     * @var int
+     */
+    const INACTIVE = false;
+    /**
+     * @var int
+     */
     private $id;
     /**
      * @var string

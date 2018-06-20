@@ -66,7 +66,7 @@ final class Log implements \JsonSerializable
         $this->signInDt = $signInDt;
     }
 
-    public function getSignOutDt(): string
+    public function getSignOutDt(): ?string
     {
         return $this->signOutDt;
     }

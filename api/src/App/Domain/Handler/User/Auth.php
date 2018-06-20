@@ -10,6 +10,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use App\Domain\Service\UsersServiceInterface;
 use App\Domain\Service\LogsServiceInterface;
+use App\Domain\Entity\User;
 use App\Domain\Service\Exception\UserNotFoundException;
 use App\Domain\Value\Exception\WrongPasswordException;
 use App\Domain\Value\Password;
@@ -50,6 +51,13 @@ final class Auth implements MiddlewareInterface
                 'code' => '401',
                 'message' => $e->getMessage()
             ], 401);
+        }
+
+        if ($user->getStatus() !== User::ACTIVE) {
+            return new JsonResponse([
+                'code' => '422',
+                'message' => 'user temporarily disabled'
+            ], 422);
         }
 
         try {
