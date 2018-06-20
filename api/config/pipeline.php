@@ -43,6 +43,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // - $app->pipe('/docs', $apiDocMiddleware);
     // - $app->pipe('/files', $filesMiddleware);
     $app->pipe(new \Middlewares\ClientIp());
+    $app->pipe(\Middlewares\AccessLog::class);
 
     $app->pipe(\Zend\Expressive\Session\SessionMiddleware::class);
     $app->pipe(\Zend\Expressive\Flash\FlashMessageMiddleware::class);

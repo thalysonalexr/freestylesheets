@@ -56,7 +56,7 @@ return [
             \App\Domain\Service\UsersServiceInterface::class => \App\Core\Domain\Service\UsersServiceFactory::class,
             \App\Domain\Service\CssServiceInterface::class => \App\Core\Domain\Service\CssServiceFactory::class,
             \App\Domain\Service\LogsServiceInterface::class => \App\Core\Domain\Service\LogsServiceFactory::class,
-            
+
             // repositories
             \App\Infrastructure\Repository\Users::class => \App\Core\Infrastructure\Repository\SqlRepositoryFactory::class,
             \App\Infrastructure\Repository\Css::class => \App\Core\Infrastructure\Repository\SqlRepositoryFactory::class,
@@ -70,7 +70,8 @@ return [
             \App\Middleware\HtmlFormatter::class => \App\Core\Middleware\TemplateResponseFactory::class,
             \App\Middleware\SendMail::class => \App\Core\Middleware\SendMailFactory::class,
             \App\Middleware\CacheMiddleware::class => \App\Core\Middleware\CacheMiddlewareFactory::class,
-    
+            \Middlewares\AccessLog::class => \App\Core\Middleware\AccessLogFactory::class,
+
             // filters
             \App\Middleware\InputFilter\UserInputFilter::class => \App\Core\Middleware\InputFilter\UserInputFilterFactory::class,
             \App\Middleware\InputFilter\LoginInputFilter::class => \App\Core\Middleware\InputFilter\LoginInputFilterFactory::class,
