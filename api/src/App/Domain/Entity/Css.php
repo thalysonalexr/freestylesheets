@@ -3,6 +3,9 @@
 declare(strict_types=1);
 
 namespace App\Domain\Entity;
+
+use App\Domain\Value\Tag;
+use App\Domain\Value\Author;
 /**
  * @Entity @Table(name="css")
  */
@@ -33,13 +36,13 @@ final class Css implements \JsonSerializable
      */
     private $status;
     /**
-     * @var int
+     * @var Author
      */
-    private $idUser;
+    private $author;
     /**
-     * @var int
+     * @var Tag
      */
-    private $idElement;
+    private $tag;
 
     public function getId(): int
     {
@@ -96,24 +99,24 @@ final class Css implements \JsonSerializable
         $this->status = $status;
     }
 
-    public function getIdUser(): int
+    public function getAuthor(): Author
     {
-        return $this->idUser;
+        return $this->author;
     }
 
-    public function setIdUser(int $idUser)
+    public function setAuthor(Author $author)
     {
-        $this->idUser = $idUser;
+        $this->author = $author;
     }
 
-    public function getIdElement(): int
+    public function getTag(): Tag
     {
-        return $this->idElement;
+        return $this->tag;
     }
 
-    public function setIdElement(int $idElement)
+    public function setTag(Tag $tag)
     {
-        $this->idElement = $idElement;
+        $this->tag = $tag;
     }
 
     public function __construct(
@@ -123,8 +126,8 @@ final class Css implements \JsonSerializable
         string $style,
         string $createdAt,
         bool $status,
-        int $idUser,
-        int $idElement
+        Author $author,
+        ?Tag $tag
     )
     {
         $this->id = $id;
@@ -133,8 +136,22 @@ final class Css implements \JsonSerializable
         $this->style = $style;
         $this->createdAt = $createdAt;
         $this->status = $status;
-        $this->idUser = $idUser;
-        $this->idElement = $idElement;
+        $this->author = $author;
+        $this->tag = $tag;
+    }
+
+    public static function fromNativeData(
+        ?int $id,
+        string $name,
+        string $description,
+        string $style,
+        string $createdAt,
+        bool $status,
+        Author $author,
+        ?Tag $tag
+    ): self
+    {
+        return new self($id, $name, $description, $style, $createdAt, $status, $author, $tag);
     }
 
     public static function new(
@@ -142,11 +159,11 @@ final class Css implements \JsonSerializable
         string $name,
         string $description,
         string $style,
-        int $idUser,
-        int $idElement
+        Author $author,
+        ?Tag $tag
     ): self
     {
-        return new self($id, $name, $description, $style, (new \DateTime())->format('Y-m-d H:i:s'), false, $idUser, $idElement);
+        return self::fromNativeData($id, $name, $description, $style, (new \DateTime())->format('Y-m-d H:i:s'), false, $author, $tag);
     }
 
     public function jsonSerialize(): array
@@ -158,8 +175,8 @@ final class Css implements \JsonSerializable
             'style' => $this->style,
             'created_at' => $this->createdAt,
             'status' => $this->status,
-            'id_user' => $this->idUser,
-            'id_element' => $this->idElement
+            'author' => $this->author->jsonSerialize(),
+            'tag' => $this->tag->jsonSerialize()
         ];
     }
 }

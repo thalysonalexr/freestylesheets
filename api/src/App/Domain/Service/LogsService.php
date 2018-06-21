@@ -25,7 +25,7 @@ final class LogsService implements LogsServiceInterface
         return $this->logs->add(Log::checkin($idUser, $status));
     }
 
-    public function logout(int $idUser, string $jti): int
+    public function logout(int $idUser, string $jti): bool
     {
         try {
             return $this->logs->logout($idUser, $jti);
@@ -35,7 +35,7 @@ final class LogsService implements LogsServiceInterface
         
     }
 
-    public function timeout(int $idUser, string $jti): int
+    public function timeout(int $idUser, string $jti): bool
     {
         try {
             return $this->logs->timeout($idUser, $jti);
@@ -47,5 +47,14 @@ final class LogsService implements LogsServiceInterface
     public function tokenInBlacklist(string $jti): bool
     {
         return $this->logs->checkTokenInBlacklist($jti);
+    }
+
+    public function revokeJwt(string $jti): bool
+    {
+        try {
+            return $this->logs->revokeToken($jti);
+        } catch (\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
+            throw JtiAlreadyExistsException::message($jti);
+        }
     }
 }

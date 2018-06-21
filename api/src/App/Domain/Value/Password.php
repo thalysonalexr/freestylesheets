@@ -6,7 +6,7 @@ namespace App\Domain\Value;
 
 use App\Domain\Value\Exception\WrongPasswordException;
 
-class Password
+final class Password
 {
     /**
      * @var array
