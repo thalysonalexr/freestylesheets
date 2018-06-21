@@ -128,6 +128,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->post('/api/v1/css', [
         \Middlewares\HttpAuthentication::class,
         \App\Middleware\CheckBlacklist::class,
+        \App\Middleware\InputFilter\CssInputFilter::class,
         \App\Domain\Handler\Css\Create::class
     ], 'css.post');
 

@@ -78,6 +78,7 @@ return [
             \App\Middleware\InputFilter\LoginInputFilter::class => \App\Core\Middleware\InputFilter\LoginInputFilterFactory::class,
             \App\Middleware\InputFilter\EmailInputFilter::class => \App\Core\Middleware\InputFilter\EmailInputFilterFactory::class,
             \App\Middleware\InputFilter\PasswordInputFilter::class => \App\Core\Middleware\InputFilter\PasswordInputFilterFactory::class,
+            \App\Middleware\InputFilter\CssInputFilter::class => \App\Core\Middleware\InputFilter\CssInputFilterFactory::class,
         ],
     ],
 ];
