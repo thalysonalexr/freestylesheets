@@ -109,7 +109,7 @@ final class Css implements \JsonSerializable
         $this->author = $author;
     }
 
-    public function getTag(): Tag
+    public function getTag(): ?Tag
     {
         return $this->tag;
     }

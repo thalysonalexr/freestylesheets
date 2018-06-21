@@ -68,13 +68,22 @@ final class Create implements MiddlewareInterface, CssCrudInterface
             $user->getId(), $user->getName(), $user->getEmail()
         );
 
-        $category = Category::fromNativeData(
-            null, $body['category_name'], $body['category_description']
-        );
+        if (
+            isset($body['tag_element'])     &&
+            isset($body['tag_description']) &&
+            isset($body['category_name'])   &&
+            isset($body['category_description'])
+        ) {
+            $category = Category::fromNativeData(
+                null, $body['category_name'], $body['category_description']
+            );
 
-        $tag = Tag::fromNativeData(
-            null, $body['tag_element'], $body['tag_description'], $category
-        );
+            $tag = Tag::fromNativeData(
+                null, $body['tag_element'], $body['tag_description'], $category
+            );
+        } else {
+            $tag = null;
+        }
 
         try {
             $id = $this->cssService->register(

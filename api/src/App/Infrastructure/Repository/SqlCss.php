@@ -23,7 +23,9 @@ final class SqlCss implements Css
 
     public function add(CssEntity $css): int
     {
-        $tagId = $this->findOrCreateTagId($css->getTag());
+        if (null !== $css->getTag()) {
+            $tagId = $this->findOrCreateTagId($css->getTag());
+        }
 
         $this->connection->executeUpdate(
             'INSERT INTO CSS (name, description, style, created_at, status, author, tag) '.

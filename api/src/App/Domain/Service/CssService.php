@@ -22,7 +22,7 @@ final class CssService implements CssServiceInterface
         $this->css = $css;
     }
 
-    public function register(string $name, string $description, string $style, Author $author, Tag $tag): int
+    public function register(string $name, string $description, string $style, Author $author, ?Tag $tag): int
     {
         try {
             return $this->css->add(Css::new(null, $name, $description, $style, $author, $tag));
