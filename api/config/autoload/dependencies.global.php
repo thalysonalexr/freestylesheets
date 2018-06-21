@@ -40,6 +40,7 @@ return [
             \App\Domain\Handler\User\Auth::class => \App\Core\Factory\AuthHandlerFactory::class,
             \App\Domain\Handler\User\Logout::class => \App\Core\Factory\LogsHandlerFactory::class,
             \App\Domain\Handler\User\Timeout::class => \App\Core\Factory\LogsHandlerFactory::class,
+            \App\Domain\Handler\User\RevokeJwt::class => \App\Core\Factory\LogsHandlerFactory::class,
             \App\Domain\Handler\User\ForgotPassword::class => \App\Core\Factory\ForgotPasswordFactory::class,
             \App\Domain\Handler\User\ChangePassword::class => \App\Core\Factory\ChangePasswordFactory::class,
             \App\Domain\Handler\User\Create::class => \App\Core\Factory\UsersHandlerFactory::class,
@@ -63,13 +64,13 @@ return [
             \App\Infrastructure\Repository\Logs::class => \App\Core\Infrastructure\Repository\SqlRepositoryFactory::class,
 
             // middlewares
-            \App\Middleware\Authentication::class => \App\Core\Middleware\JwtAuthenticationFactory::class,
             \App\Middleware\CheckBlacklist::class => \App\Core\Middleware\JtiAuthenticationFactory::class,
             \App\Middleware\Authorization::class => \App\Core\Middleware\AuthorizationFactory::class,
             \App\Middleware\XmlFormatter::class => \App\Core\Middleware\TemplateResponseFactory::class,
             \App\Middleware\HtmlFormatter::class => \App\Core\Middleware\TemplateResponseFactory::class,
             \App\Middleware\SendMail::class => \App\Core\Middleware\SendMailFactory::class,
             \App\Middleware\CacheMiddleware::class => \App\Core\Middleware\CacheMiddlewareFactory::class,
+            \Middlewares\HttpAuthentication::class => \App\Core\Middleware\JwtAuthenticationFactory::class,
             \Middlewares\AccessLog::class => \App\Core\Middleware\AccessLogFactory::class,
 
             // filters

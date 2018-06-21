@@ -50,7 +50,6 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
         \App\Handler\Middleware\ContactPostHandler::class
     ], 'contact.post');
 
-    // test
     $app->get('/api/ping', \App\Handler\PingHandler::class, 'api.ping');
 
     // users
@@ -72,6 +71,10 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
         \App\Domain\Handler\User\Logout::class
     ], 'user.logout.post');
 
+    $app->post('/api/v1/users/revoke-token', [
+        \App\Domain\Handler\User\RevokeJwt::class
+    ], 'user.revoke.post');
+
     $app->post('/api/v1/users/change-password', [
         \App\Middleware\InputFilter\PasswordInputFilter::class,
         \App\Domain\Handler\User\ChangePassword::class
@@ -84,7 +87,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     ], 'user.forgot-password.post');
 
     $app->get('/api/v1/users', [
-        \App\Middleware\Authentication::class,
+        \Middlewares\HttpAuthentication::class,
         \App\Middleware\CheckBlacklist::class,
         \App\Middleware\Authorization::class,
         \App\Domain\Handler\User\GetAll::class,
@@ -94,7 +97,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     ], 'user.all.get');
 
     $app->get('/api/v1/users/{id_user}', [
-        \App\Middleware\Authentication::class,
+        \Middlewares\HttpAuthentication::class,
         \App\Middleware\CheckBlacklist::class,
         \App\Domain\Handler\User\Get::class,
         \App\Middleware\JsonFormatter::class,
@@ -103,33 +106,33 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     ], 'user.get');
 
     $app->patch('/api/v1/users/{id_user}', [
-        \App\Middleware\Authentication::class,
+        \Middlewares\HttpAuthentication::class,
         \App\Middleware\CheckBlacklist::class,
         \App\Domain\Handler\User\Patch::class
     ], 'user.patch');
 
     $app->put('/api/v1/users/{id_user}', [
-        \App\Middleware\Authentication::class,
+        \Middlewares\HttpAuthentication::class,
         \App\Middleware\CheckBlacklist::class,
         \App\Middleware\InputFilter\UserInputFilter::class,
         \App\Domain\Handler\User\Put::class
     ], 'user.put');
     
     $app->delete('/api/v1/users/{id_user}', [
-        \App\Middleware\Authentication::class,
+        \Middlewares\HttpAuthentication::class,
         \App\Middleware\CheckBlacklist::class,
         \App\Domain\Handler\User\Delete::class
     ], 'user.delete');
 
     // css
     $app->post('/api/v1/css', [
-        \App\Middleware\Authentication::class,
+        \Middlewares\HttpAuthentication::class,
         \App\Middleware\CheckBlacklist::class,
         \App\Domain\Handler\Css\Create::class
     ], 'css.post');
 
     $app->get('/api/v1/css', [
-        \App\Middleware\Authentication::class,
+        \Middlewares\HttpAuthentication::class,
         \App\Middleware\CheckBlacklist::class,
         \App\Middleware\Authorization::class,
         \App\Domain\Handler\Css\GetAll::class,
@@ -147,19 +150,19 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     ], 'css.get');
 
     $app->patch('/api/v1/css/{id_style}', [
-        \App\Middleware\Authentication::class,
+        \Middlewares\HttpAuthentication::class,
         \App\Middleware\CheckBlacklist::class,
         \App\Domain\Handler\Css\Patch::class
     ], 'css.patch');
 
     $app->put('/api/v1/css/{id_style}', [
-        \App\Middleware\Authentication::class,
+        \Middlewares\HttpAuthentication::class,
         \App\Middleware\CheckBlacklist::class,
         \App\Domain\Handler\Css\Put::class
     ], 'css.put');
 
     $app->delete('/api/v1/css/{id_style}', [
-        \App\Middleware\Authentication::class,
+        \Middlewares\HttpAuthentication::class,
         \App\Middleware\CheckBlacklist::class,
         \App\Middleware\Authorization::class,
         \App\Domain\Handler\Css\Delete::class
