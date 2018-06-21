@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace App\Domain\Service;
 
 use App\Domain\Entity\Css;
+use App\Domain\Value\Author;
+use App\Domain\Value\Tag;
 use App\Infrastructure\Repository\Css as CssS;
+use App\Domain\Service\Exception\StyleExistsException;
 
 final class CssService implements CssServiceInterface
 {
@@ -19,9 +22,13 @@ final class CssService implements CssServiceInterface
         $this->css = $css;
     }
 
-    public function register(string $name, string $description, string $style, int $idUser, int $idElement): int
+    public function register(string $name, string $description, string $style, Author $author, Tag $tag): int
     {
-        return $this->css->add(Css::new(null, $name, $description, $style, $idUser, $idElement));
+        try {
+            return $this->css->add(Css::new(null, $name, $description, $style, $author, $tag));
+        } catch (\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
+            throw StyleExistsException::fromName($name);
+        }
     }
 
     public function getAll(): array
