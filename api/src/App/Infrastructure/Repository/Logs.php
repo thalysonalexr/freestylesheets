@@ -10,9 +10,11 @@ interface Logs
 {
     public function add(Log $log): int;
 
-    public function logout(int $idUser, string $jti): int;
+    public function logout(int $idUser, string $jti): bool;
 
-    public function timeout(int $idUser, string $jti): int;
+    public function timeout(int $idUser, string $jti): bool;
 
     public function checkTokenInBlacklist(string $jti): bool;
+
+    public function revokeToken(string $jti): bool;
 }

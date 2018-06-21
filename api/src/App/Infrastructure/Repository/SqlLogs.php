@@ -38,7 +38,7 @@ final class SqlLogs implements Logs
         return (int) $this->connection->lastInsertId();
     }
 
-    public function logout(int $idUser, string $jti): int
+    public function logout(int $idUser, string $jti): bool
     {
         $update = $this->connection->executeUpdate(
             'UPDATE LOGS SET signout_dt = :signout_dt WHERE id = :id',
@@ -49,15 +49,12 @@ final class SqlLogs implements Logs
         );
 
         // revoke token by jti
-        $create = $this->connection->executeUpdate(
-            'INSERT INTO BLACKLIST (jti) VALUES (:jti)',
-            ['jti' => $jti]
-        );
+        $create = $this->revokeToken($jti);
 
-        return ($create && $update) ? 1 : 0;
+        return $create && $update;
     }
 
-    public function timeout(int $idUser, string $jti): int
+    public function timeout(int $idUser, string $jti): bool
     {
         $update = $this->connection->executeUpdate(
             'UPDATE LOGS SET timeout = :timeout, signout_dt = :signout_dt WHERE id = :id',
@@ -69,21 +66,30 @@ final class SqlLogs implements Logs
         );
 
         // revoke token by jti
-        $create = $this->connection->executeUpdate(
-            'INSERT INTO BLACKLIST (jti) VALUES (:jti)',
-            ['jti' => $jti]
-        );
+        $create = $this->revokeToken($jti);
 
-        return ($create && $update) ? 1 : 0;
+        return $create && $update;
     }
 
     public function checkTokenInBlacklist(string $jti): bool
     {
         $jti = $this->connection->executeQuery(
             'SELECT jti FROM BLACKLIST WHERE jti = :jti',
-            ['jti' => $jti]
+            [
+                'jti' => $jti
+            ]
         );
 
         return $jti->fetch() ? true : false;
+    }
+
+    public function revokeToken(string $jti): bool
+    {
+        $create = $this->connection->executeUpdate(
+            'INSERT INTO BLACKLIST (jti) VALUES (:jti)',
+            ['jti' => $jti]
+        );
+
+        return (bool) $create;
     }
 }

@@ -46,7 +46,7 @@ final class Timeout implements MiddlewareInterface
             ]);
         }
 
-        if (1 === $process) {
+        if (true === $process) {
             return new EmptyResponse();
         } else {
             return new JsonResponse([
