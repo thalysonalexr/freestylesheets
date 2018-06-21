@@ -1,2 +1,7 @@
+.mwb
 *.mwb
+.bak
+.mwb.bak
 *.bak
+*.mwb.bak
+
