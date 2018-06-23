@@ -75,10 +75,21 @@ final class Tag implements \JsonSerializable
         ?int $id,
         string $element,
         string $description,
-        Category $category
+        ?int $categoryId,
+        string $categoryName,
+        string $categoryDescription
     ): self
     {
-        return new self($id, $element, $description, $category);
+        return new self(
+            $id,
+            $element,
+            $description,
+            Category::fromNativeData(
+                $categoryId,
+                $categoryName,
+                $categoryDescription
+            )
+        );
     }
 
     public function jsonSerialize(): array

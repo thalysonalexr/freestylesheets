@@ -147,11 +147,33 @@ final class Css implements \JsonSerializable
         string $style,
         string $createdAt,
         bool $status,
-        Author $author,
-        ?Tag $tag
+        int $userId,
+        string $userName,
+        string $userEmail,
+        ?string $tagId,
+        ?string $tagElement,
+        ?string $tagDescription,
+        ?string $categoryId,
+        ?string $categoryName,
+        ?string $categoryDescription
     ): self
     {
-        return new self($id, $name, $description, $style, $createdAt, $status, $author, $tag);
+        $tag = $tagId === null ? null : Tag::fromNativeData((int) $tagId, $tagElement, $tagDescription, (int) $categoryId, $categoryName, $categoryDescription);
+
+        return new self(
+            $id,
+            $name,
+            $description,
+            $style,
+            $createdAt,
+            $status,
+            Author::fromNativeData(
+                $userId,
+                $userName,
+                $userEmail
+            ),
+            $tag
+        );
     }
 
     public static function new(
@@ -163,7 +185,7 @@ final class Css implements \JsonSerializable
         ?Tag $tag
     ): self
     {
-        return self::fromNativeData($id, $name, $description, $style, (new \DateTime())->format('Y-m-d H:i:s'), false, $author, $tag);
+        return new self($id, $name, $description, $style, (new \DateTime())->format('Y-m-d H:i:s'), false, $author, $tag);
     }
 
     public function jsonSerialize(): array
@@ -176,7 +198,7 @@ final class Css implements \JsonSerializable
             'created_at' => $this->createdAt,
             'status' => $this->status,
             'author' => $this->author->jsonSerialize(),
-            'tag' => $this->tag->jsonSerialize()
+            'tag' => $this->tag instanceof Tag ? $this->tag->jsonSerialize() : null
         ];
     }
 }
