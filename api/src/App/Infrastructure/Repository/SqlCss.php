@@ -37,16 +37,48 @@ final class SqlCss implements Css
                 'created_at' => $css->getCreatedAt(),
                 'status' => $css->getStatus() ? 1 : 0,
                 'author' => $css->getAuthor()->getId(),
-                'tag' => $tagId
+                'tag' => $tagId ?? null
             ]
         );
 
         return (int) $this->connection->lastInsertId();
     }
 
-    public function all(): array
+    public function all(array $filters = []): array
     {
-        throw new \Exception('Method all() is not implemented.');
+        $filtersCss = new CssFilters($filters);
+
+        $allStylesStatement = $this->connection->executeQuery(
+            'SELECT ' .
+            ' style.id AS style_id, ' .
+            ' style.name AS style_name, ' .
+            ' style.description AS style_description, ' .
+            ' style.style AS style_style, ' .
+            ' style.created_at AS style_createdAt, ' .
+            ' style.status AS style_status, ' .
+            ' user.id AS author_id, ' .
+            ' user.name AS author_name, ' .
+            ' user.email AS author_email, ' .
+            ' tags.id AS tag_id, ' .
+            ' tags.element AS tag_element, ' .
+            ' tags.description AS tag_description, ' .
+            ' cat.id AS category_id, ' .
+            ' cat.name AS category_name, ' .
+            ' cat.description AS category_description' .
+            ' FROM CSS AS style ' .
+            ' INNER JOIN USERS AS user ON user.id = style.author ' .
+            ' LEFT JOIN TAGS AS tags ON tags.id = style.tag ' .
+            ' LEFT JOIN CATEGORIES AS cat ON cat.id = tags.id_category ' .
+            $filtersCss->where() .
+            ' GROUP BY style.id, user.id ' .
+            ' ORDER BY style.id ',
+            $filtersCss->setLike()->data()
+        );
+
+        return $allStylesStatement->fetchAll(
+            \PDO::FETCH_FUNC,
+            [self::class, 'createStyle']
+        );
     }
 
     public function findById(int $id): ?CssEntity
@@ -122,5 +154,42 @@ final class SqlCss implements Css
         );
 
         return (int) $this->connection->lastInsertId();
+    }
+
+    public function createStyle(
+        string $id,
+        string $name,
+        string $description,
+        string $style,
+        string $createdAt,
+        bool $status,
+        string $userId,
+        string $userName,
+        string $userEmail,
+        ?string $tagId,
+        ?string $tagElement,
+        ?string $tagDescription,
+        ?string $categoryId,
+        ?string $categoryName,
+        ?string $categoryDescription
+    ): CssEntity
+    {
+        return CssEntity::fromNativeData(
+            (int) $id,
+            $name,
+            $description,
+            $style,
+            $createdAt,
+            $status,
+            (int) $userId,
+            $userName,
+            $userEmail,
+            $tagId,
+            $tagElement,
+            $tagDescription,
+            $categoryId,
+            $categoryName,
+            $categoryDescription
+        );
     }
 }
