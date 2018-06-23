@@ -178,7 +178,8 @@ final class SqlUsers implements Users
         bool $admin,
         string $createdAt,
         bool $status
-    ) {
+    ): User
+    {
         return User::fromNativeData(
             (int) $id,
             $name,
