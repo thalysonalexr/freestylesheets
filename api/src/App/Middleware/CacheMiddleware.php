@@ -50,31 +50,33 @@ class CacheMiddleware implements MiddlewareInterface
             case 'application/xml':
                 $file .= '.xml';
                 break;
+
+            default:
+                $file .= '.html';
+                break;
         }
 
         $file .= self::getExtension($file);
 
         if ($this->config['enabled'] && file_exists($file) && (time() - filemtime($file)) < $this->config['lifetime']) {
 
-            if ($request->getHeaderLine('If-Modified-Since')) {
-                return (new EmptyResponse())
-                    ->withStatus(304)
-                    ->withHeaders([
-                        'Last-Modified' => date('D, d M Y H:i:s T', filemtime($cacheFilePath))
-                    ]);
-            }
-
             switch (pathinfo($file, PATHINFO_EXTENSION)) {
                 case 'json':
-                    return new JsonResponse(json_decode(file_get_contents($file)));
+                    $response = new JsonResponse(json_decode(file_get_contents($file)));
                     break;
                 case 'xml':
-                    return new XmlResponse(file_get_contents($file));
+                    $response = new XmlResponse(file_get_contents($file));
                     break;
                 case 'html':
-                    return new HtmlResponse(file_get_contents($file));
+                    $response = new HtmlResponse(file_get_contents($file));
                     break;
             }
+
+            $this->logger('READ', $fileName);
+
+            return $response->withStatus(304)->withHeader(
+                'Last-Modified', date('D, d M Y H:i:s T', filemtime($cacheFilePath))
+            );
         }
 
         $response = $handler->handle($request);
@@ -83,27 +85,31 @@ class CacheMiddleware implements MiddlewareInterface
             if (pathinfo($file, PATHINFO_EXTENSION) === 'cache') {
                 switch (true) {
                     case $response instanceof HtmlResponse:
-                        $file .= '.html';
+                        file_put_contents($file . '.html', $response->getBody());
                         break;
                     case $response instanceof JsonResponse:
-                        $file .= '.json';
+                        file_put_contents($file . '.json', $response->getBody());
                         break;
                     case $response instanceof XmlResponse:
-                        $file .= '.xml';
+                        file_put_contents($file . '.xml', $response->getBody());
                         break;
                 }
-            }
-
-            if (
-                $response instanceof HtmlResponse ||
-                $response instanceof JsonResponse ||
-                $response instanceof XmlResponse
-            ) {
+            } else {
                 file_put_contents($file, $response->getBody());
             }
+            $this->logger('WRITE', $fileName);
         }
 
         return $response;
+    }
+
+    public function logger(string $mod, string $fileName)
+    {
+        // logger in cache
+        $logger = "date [" . (new \DateTime())->format('D, d M Y H:i:s T') . "] - ";
+        $logger .= "file [{$fileName}] - mod [{$mod}]";
+
+        file_put_contents($this->config['path'] . 'logs.txt', $logger . PHP_EOL, FILE_APPEND);
     }
 
     public static function getExtension(string $file): ?string
