@@ -12,7 +12,7 @@ interface CssServiceInterface
 {
     public function register(string $name, string $description, string $style, Author $author, ?Tag $tag): int;
 
-    public function getAll(): array;
+    public function getAll(array $filters = []): array;
 
     public function getById(int $id): ?Css;
 

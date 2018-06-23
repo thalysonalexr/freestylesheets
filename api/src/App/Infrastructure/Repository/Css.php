@@ -10,7 +10,7 @@ interface Css
 {
     public function add(CssEntity $css): int;
 
-    public function all(): array;
+    public function all(array $filters = []): array;
 
     public function findById(int $id): ?CssEntity;
 

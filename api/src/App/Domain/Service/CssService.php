@@ -31,9 +31,9 @@ final class CssService implements CssServiceInterface
         }
     }
 
-    public function getAll(): array
+    public function getAll(array $filters = []): array
     {
-        throw new \Exception('Method getAll() is not implemented.');
+        return $this->css->all($filters);
     }
 
     public function getById(int $id): ?Css
