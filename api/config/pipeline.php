@@ -42,11 +42,13 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // - $app->pipe('/api', $apiMiddleware);
     // - $app->pipe('/docs', $apiDocMiddleware);
     // - $app->pipe('/files', $filesMiddleware);
-    $app->pipe(new \Middlewares\ClientIp());
+    $app->pipe((new \Middlewares\ClientIp())->attribute('_ip'));
     $app->pipe(\Middlewares\AccessLog::class);
 
     $app->pipe(\Zend\Expressive\Session\SessionMiddleware::class);
     $app->pipe(\Zend\Expressive\Flash\FlashMessageMiddleware::class);
+
+    $app->pipe((new \Middlewares\AuraSession())->attribute('_api_rest_styles'));
 
     // Register the routing middleware in the middleware pipeline.
     // This middleware registers the Zend\Expressive\Router\RouteResult request attribute.

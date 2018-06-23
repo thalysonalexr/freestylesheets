@@ -41,6 +41,7 @@
         "doctrine/dbal": "^2.7",
         "doctrine/orm": "^2.6",
         "middlewares/access-log": "^1.0",
+        "middlewares/aura-session": "^1.0",
         "middlewares/client-ip": "^1.0",
         "middlewares/http-authentication": "^1.0",
         "monolog/monolog": "^1.23",
