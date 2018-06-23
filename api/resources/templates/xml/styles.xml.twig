@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+{% block content %}
+    {% if styles is defined %}
+        <list-stylesheet>
+            {% for style in styles %}
+                <stylesheet>
+                    <id>{{ style.id }}</id>
+                    <name>{{ style.name }}</name>
+                    <description>{{ style.description }}</description>
+                    <style>{{ style.style }}</style>
+                    <created-at>{{ style.createdAt }}</created-at>
+                    <status>{{ style.status == 1 ? 'Validated' : 'Not validated' }}</status>
+                    <author>
+                        <id>{{ style.author.id }}</id>
+                        <name>{{ style.author.name }}</name>
+                        <email>{{ style.author.email }}</email>
+                    </author>
+                    {% if style.tag != null %}
+                    <tag>
+                        <id>{{ style.tag.id }}</id>
+                        <element>{{ style.tag.element }}</element>
+                        <description>{{ style.tag.description }}</description>
+                        <category>
+                            <id>{{ style.tag.category.id }}</id>
+                            <name>{{ style.tag.category.name }}</name>
+                            <description>{{ style.tag.category.description }}</description>
+                        </category>
+                    </tag>
+                    {% endif %}
+                </stylesheet>
+            {% endfor %}
+        </list-stylesheet>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends '@layout/index.html.twig' %}
+
+{% block title %}All stylesheets{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('build/css/bootstrap.css') }}">
+{% endblock %}
+
+{% block content %}
+    {% if styles is defined %}
+        <table class="table table-hover table-dark">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Style</th>
+                    <th scope="col">Created at</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">ID author</th>
+                    <th scope="col">Name author</th>
+                    <th scope="col">Email author</th>
+                    <th scope="col">ID tag</th>
+                    <th scope="col">Element tag</th>
+                    <th scope="col">Description tag</th>
+                    <th scope="col">ID category</th>
+                    <th scope="col">Name category</th>
+                    <th scope="col">Description category</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for style in styles %}
+                    <tr>
+                        <td>{{ style.id }}</td>
+                        <td>{{ style.name }}</td>
+                        <td>{{ style.description }}</td>
+                        <td>{{ style.style }}</td>
+                        <td>{{ style.createdAt }}</td>
+                        <td>{{ style.status }}</td>
+                        <td>{{ style.author.id }}</td>
+                        <td>{{ style.author.name }}</td>
+                        <td>{{ style.author.email }}</td>
+                        {% if style.tag != null %}
+                            <td>{{ style.tag.id }}</td>
+                            <td>{{ style.tag.element }}</td>
+                            <td>{{ style.tag.description }}</td>
+                            <td>{{ style.tag.category.id }}</td>
+                            <td>{{ style.tag.category.name }}</td>
+                            <td>{{ style.tag.category.description }}</td>
+                        {% else %}
+                            {% for i in 0..5 %}
+                                <td>Not defined</td>
+                            {% endfor %}
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
