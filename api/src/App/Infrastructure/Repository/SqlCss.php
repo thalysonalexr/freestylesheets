@@ -6,8 +6,12 @@ namespace App\Infrastructure\Repository;
 
 use Doctrine\DBAL\Connection;
 use App\Domain\Entity\Css as CssEntity;
+use App\Domain\Entity\User as UserEntity;
 use App\Domain\Value\Tag;
 use App\Domain\Value\Category;
+use App\Domain\Value\Status;
+use App\Domain\Value\CssHistory;
+use App\Infrastructure\Exception\InvalidStatusException;
 
 final class SqlCss implements Css
 {
@@ -69,9 +73,7 @@ final class SqlCss implements Css
             ' INNER JOIN USERS AS user ON user.id = style.author ' .
             ' LEFT JOIN TAGS AS tags ON tags.id = style.tag ' .
             ' LEFT JOIN CATEGORIES AS cat ON cat.id = tags.id_category ' .
-            $filtersCss->where() .
-            ' GROUP BY style.id, user.id ' .
-            ' ORDER BY style.id ',
+            $filtersCss->where(),
             $filtersCss->setLike()->data()
         );
 
@@ -83,7 +85,93 @@ final class SqlCss implements Css
 
     public function findById(int $id): ?CssEntity
     {
-        throw new \Exception('Method findById() is not implemented.');
+        $styleStatement = $this->connection->executeQuery(
+            'SELECT ' .
+            ' style.id AS style_id, ' .
+            ' style.name AS style_name, ' .
+            ' style.description AS style_description, ' .
+            ' style.style AS style_style, ' .
+            ' style.created_at AS style_createdAt, ' .
+            ' style.status AS style_status, ' .
+            ' user.id AS author_id, ' .
+            ' user.name AS author_name, ' .
+            ' user.email AS author_email, ' .
+            ' tags.id AS tag_id, ' .
+            ' tags.element AS tag_element, ' .
+            ' tags.description AS tag_description, ' .
+            ' cat.id AS category_id, ' .
+            ' cat.name AS category_name, ' .
+            ' cat.description AS category_description' .
+            ' FROM CSS AS style ' .
+            ' INNER JOIN USERS AS user ON user.id = style.author ' .
+            ' LEFT JOIN TAGS AS tags ON tags.id = style.tag ' .
+            ' LEFT JOIN CATEGORIES AS cat ON cat.id = tags.id_category ' .
+            ' WHERE style.id = :id ' .
+            ' GROUP BY style.id, style.name ',
+            [
+                'id' => (string) $id
+            ]
+        );
+
+        $styleArray = $styleStatement->fetch(\PDO::FETCH_ASSOC);
+
+        if ( ! $styleArray) {
+            return null;
+        }
+
+        return $this->createStyle(
+            $styleArray['style_id'],
+            $styleArray['style_name'],
+            $styleArray['style_description'],
+            $styleArray['style_style'],
+            $styleArray['style_createdAt'],
+            (bool) $styleArray['style_status'],
+            $styleArray['author_id'],
+            $styleArray['author_name'],
+            $styleArray['author_email'],
+            $styleArray['tag_id'],
+            $styleArray['tag_element'],
+            $styleArray['tag_description'],
+            $styleArray['category_id'],
+            $styleArray['category_name'],
+            $styleArray['category_description']
+        );
+    }
+
+    public function approveStyle(CssHistory $transaction): bool
+    {
+        $style = $transaction->getStyle();
+
+        if ($style->isApproved() !== Status::APPROVED) {
+            throw InvalidStatusException::approve();
+        }
+
+        $approveStatus = (bool) $this->connection->executeUpdate(
+            'UPDATE CSS SET status = :status WHERE id = :id',
+            [
+                'id' => (string) $style->getId(),
+                'status' => $style->getStatus() ? 1 : 0
+            ]
+        );
+
+        if ($approveStatus) {
+            $transactionHistory = $this->initTransationHistory($transaction);
+        }
+
+        return $transactionHistory && $approveStatus;
+    }
+
+    public function initTransationHistory(CssHistory $transaction): bool
+    {
+        return (bool) $this->connection->executeUpdate(
+            'INSERT INTO CSS_HISTORY (status, date_time, id_user, id_css) VALUES (:status, :date_time, :id_user, :id_css)',
+            [
+                'status' => $transaction->getStatus()->getValue() ? 1 : 0,
+                'date_time' => $transaction->getDateTime(),
+                'id_user' => $transaction->getUser()->getId(),
+                'id_css' => $transaction->getStyle()->getId()
+            ]
+        );
     }
 
     public function edit(CssEntity $user): int
