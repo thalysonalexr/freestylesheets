@@ -87,6 +87,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     ], 'user.forgot-password.post');
 
     $app->get('/api/v1/users', [
+        \App\Middleware\CacheMiddleware::class,
         \Middlewares\HttpAuthentication::class,
         \App\Middleware\CheckBlacklist::class,
         \App\Middleware\Authorization::class,
@@ -96,7 +97,8 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
         \App\Middleware\HtmlFormatter::class
     ], 'user.all.get');
 
-    $app->get('/api/v1/users/{id_user}', [
+    $app->get('/api/v1/users/{id_user:[0-9]}', [
+        \App\Middleware\CacheMiddleware::class,
         \Middlewares\HttpAuthentication::class,
         \App\Middleware\CheckBlacklist::class,
         \App\Domain\Handler\User\Get::class,
@@ -105,20 +107,20 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
         \App\Middleware\HtmlFormatter::class
     ], 'user.get');
 
-    $app->patch('/api/v1/users/{id_user}', [
+    $app->patch('/api/v1/users/{id_user:[0-9]}', [
         \Middlewares\HttpAuthentication::class,
         \App\Middleware\CheckBlacklist::class,
         \App\Domain\Handler\User\Patch::class
     ], 'user.patch');
 
-    $app->put('/api/v1/users/{id_user}', [
+    $app->put('/api/v1/users/{id_user:[0-9]}', [
         \Middlewares\HttpAuthentication::class,
         \App\Middleware\CheckBlacklist::class,
         \App\Middleware\InputFilter\UserInputFilter::class,
         \App\Domain\Handler\User\Put::class
     ], 'user.put');
     
-    $app->delete('/api/v1/users/{id_user}', [
+    $app->delete('/api/v1/users/{id_user:[0-9]}', [
         \Middlewares\HttpAuthentication::class,
         \App\Middleware\CheckBlacklist::class,
         \App\Domain\Handler\User\Delete::class
@@ -132,7 +134,15 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
         \App\Domain\Handler\Css\Create::class
     ], 'css.post');
 
+    $app->post('/api/v1/css/approve/{id_style:[0-9]}', [
+        \Middlewares\HttpAuthentication::class,
+        \App\Middleware\CheckBlacklist::class,
+        \App\Middleware\Authorization::class,
+        \App\Domain\Handler\Css\Approve::class
+    ], 'css.approve.post');
+
     $app->get('/api/v1/css', [
+        \App\Middleware\CacheMiddleware::class,
         \Middlewares\HttpAuthentication::class,
         \App\Middleware\CheckBlacklist::class,
         \App\Middleware\Authorization::class,
@@ -144,25 +154,26 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 
     $app->get('/api/v1/css/{id_style}', [
         \App\Domain\Handler\Css\Get::class,
-        \App\Middleware\CssResponse::class,
+        \App\Middleware\CssFormatter::class,
+        \Middlewares\HttpAuthentication::class,
         \App\Middleware\JsonFormatter::class,
         \App\Middleware\XmlFormatter::class,
         \App\Middleware\HtmlFormatter::class
     ], 'css.get');
 
-    $app->patch('/api/v1/css/{id_style}', [
+    $app->patch('/api/v1/css/{id_style:[0-9]}', [
         \Middlewares\HttpAuthentication::class,
         \App\Middleware\CheckBlacklist::class,
         \App\Domain\Handler\Css\Patch::class
     ], 'css.patch');
 
-    $app->put('/api/v1/css/{id_style}', [
+    $app->put('/api/v1/css/{id_style:[0-9]}', [
         \Middlewares\HttpAuthentication::class,
         \App\Middleware\CheckBlacklist::class,
         \App\Domain\Handler\Css\Put::class
     ], 'css.put');
 
-    $app->delete('/api/v1/css/{id_style}', [
+    $app->delete('/api/v1/css/{id_style:[0-9]}', [
         \Middlewares\HttpAuthentication::class,
         \App\Middleware\CheckBlacklist::class,
         \App\Middleware\Authorization::class,
