@@ -8,13 +8,12 @@ use Psr\Container\ContainerInterface;
 use App\Domain\Service\CssServiceInterface;
 use App\Domain\Service\UsersServiceInterface;
 use App\Domain\Service\LogsServiceInterface;
-use App\Domain\Handler\Css\Create;
 
-final class CssLogHandlerFactory
+final class CssAndUsersLogHandlerFactory
 {
-    public function __invoke(ContainerInterface $container): Create
+    public function __invoke(ContainerInterface $container, string $name)
     {
-        return new Create(
+        return new $name(
             $container->get(CssServiceInterface::class),
             $container->get(UsersServiceInterface::class),
             $container->get(LogsServiceInterface::class)

@@ -51,8 +51,10 @@ return [
             \App\Domain\Handler\User\Delete::class => \App\Core\Factory\UsersHandlerFactory::class,
 
             // actions | css
-            \App\Domain\Handler\Css\Create::class => \App\Core\Factory\CssLogHandlerFactory::class,
+            \App\Domain\Handler\Css\Create::class => \App\Core\Factory\CssAndUsersLogHandlerFactory::class,
+            \App\Domain\Handler\Css\Approve::class => \App\Core\Factory\CssAndUsersLogHandlerFactory::class,
             \App\Domain\Handler\Css\GetAll::class => \App\Core\Factory\CssHandlerFactory::class,
+            \App\Domain\Handler\Css\Get::class => \App\Core\Factory\CssHandlerFactory::class,
 
             // services
             \App\Domain\Service\UsersServiceInterface::class => \App\Core\Domain\Service\UsersServiceFactory::class,
