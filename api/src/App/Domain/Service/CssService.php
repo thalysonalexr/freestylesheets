@@ -5,10 +5,16 @@ declare(strict_types=1);
 namespace App\Domain\Service;
 
 use App\Domain\Entity\Css;
+use App\Domain\Entity\User;
 use App\Domain\Value\Author;
 use App\Domain\Value\Tag;
-use App\Infrastructure\Repository\Css as CssS;
+use App\Domain\Value\CssHistory;
+use App\Domain\Value\Status;
+use App\Infrastructure\Repository\Css as CssRepository;
 use App\Domain\Service\Exception\StyleExistsException;
+use App\Domain\Service\Exception\StyleNotFoundException;
+use App\Domain\Service\Exception\StyleNotApprovedException;
+use App\Domain\Service\Exception\StyleAlreadyApprovedException;
 
 final class CssService implements CssServiceInterface
 {
@@ -17,7 +23,7 @@ final class CssService implements CssServiceInterface
      */
     private $css;
 
-    public function __construct(CssS $css)
+    public function __construct(CssRepository $css)
     {
         $this->css = $css;
     }
@@ -38,7 +44,43 @@ final class CssService implements CssServiceInterface
 
     public function getById(int $id): ?Css
     {
-        throw new \Exception('Method getById() is not implemented.');
+        $style = $this->css->findById($id);
+
+        if ( ! $style instanceof Css) {
+            throw StyleNotFoundException::fromStyleId($id);
+        }
+
+        return $style;
+    }
+
+    public function getByIdApproved(int $id): ?Css
+    {
+        $style = $this->css->findById($id);
+
+        if ( ! $style instanceof Css) {
+            throw StyleNotFoundException::fromStyleId($id);
+        }
+
+        if ( ! $style->isApproved()) {
+            throw StyleNotApprovedException::fromStyleId($id);
+        }
+
+        return $style;
+    }
+
+    public function approve(Css $style, User $user): bool
+    {
+        $style->approve();
+
+        if ( ! $this->css->approveStyle(
+            CssHistory::newTransaction(
+                Status::get(Status::APPROVED), $user, $style
+            )
+        )) {
+            throw StyleAlreadyApprovedException::fromStyleId($style->getId());
+        }
+
+        return true;
     }
 
     public function editPartial(int $id, array $data): int

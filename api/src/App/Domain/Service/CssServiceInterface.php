@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Service;
 
 use App\Domain\Entity\Css;
+use App\Domain\Entity\User;
 use App\Domain\Value\Author;
 use App\Domain\Value\Tag;
 
@@ -15,6 +16,10 @@ interface CssServiceInterface
     public function getAll(array $filters = []): array;
 
     public function getById(int $id): ?Css;
+
+    public function getByIdApproved(int $id): ?Css;
+
+    public function approve(Css $style, User $user): bool;
 
     public function editPartial(int $id, array $data): int;
 
