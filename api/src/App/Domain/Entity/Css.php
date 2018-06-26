@@ -6,6 +6,7 @@ namespace App\Domain\Entity;
 
 use App\Domain\Value\Tag;
 use App\Domain\Value\Author;
+use App\Domain\Value\Status;
 /**
  * @Entity @Table(name="css")
  */
@@ -185,7 +186,17 @@ final class Css implements \JsonSerializable
         ?Tag $tag
     ): self
     {
-        return new self($id, $name, $description, $style, (new \DateTime())->format('Y-m-d H:i:s'), false, $author, $tag);
+        return new self($id, $name, $description, $style, (new \DateTime())->format('Y-m-d H:i:s'), Status::NOT_APPROVED, $author, $tag);
+    }
+
+    public function isApproved(): bool
+    {
+        return $this->status === Status::APPROVED;
+    }
+
+    public function approve()
+    {
+        $this->status = Status::APPROVED;
     }
 
     public function jsonSerialize(): array
