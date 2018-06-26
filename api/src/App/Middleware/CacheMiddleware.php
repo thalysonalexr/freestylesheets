@@ -35,7 +35,7 @@ class CacheMiddleware implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
-        if ('GET' !== $request->getMethod()) {
+        if ('GET' !== $request->getMethod() || ! $this->config['enabled']) {
             return $handler->handle($request);
         }
 
