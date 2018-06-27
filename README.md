@@ -12,7 +12,11 @@ API with REST (Representational State Transfer) architecture patterns.
 ## Documentation
 
 The documentation was built on the basis of the documentation standard for BluePrint APIs. See more about in https://apiblueprint.org/.
-Documentation for this project is available from this repository at `./docs/rest-css3-v*.apib`. See also in [Github Pages]() rendered by [aglio](https://github.com/danielgtaylor/aglio).
+Documentation for this project is available from this repository at [`./docs/rest-css3-v*.apib`](https://github.com/thalysonrodrigues/REST-STYLES-CSS3/tree/master/docs). See also in [Github Pages](https://thalysonrodrigues.github.io/REST-STYLES-CSS3/) rendered by [aglio](https://github.com/danielgtaylor/aglio).
+
+## View docs
+
+Visit here in [Github Pages](https://thalysonrodrigues.github.io/REST-STYLES-CSS3/)
 
 ## Built with Zend
 
