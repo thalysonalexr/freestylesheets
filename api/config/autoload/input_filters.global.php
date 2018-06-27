@@ -151,6 +151,41 @@ return [
                 'allow_empty' => false
             ],
         ],
+        \App\Middleware\InputFilter\NameAndEmailInputFilter::class => [
+            0 => [
+                'name' => 'name',
+                'required' => true,
+                'filters' => [
+                    ['name' => 'StringTrim']
+                ],
+                'validators' => [
+                    ['name' => 'NotEmpty'],
+                    [
+                        'name' => 'StringLength',
+                        'options' => ['max' => 255]
+                    ]
+                ],
+                'description' => 'Your full name',
+                'allow_empty' => false
+            ],
+            1 => [
+                'name' => 'email',
+                'required' => true,
+                'filters' => [
+                    ['name' => 'StringTrim']
+                ],
+                'validators' => [
+                    ['name' => 'NotEmpty'],
+                    ['name' => 'EmailAddress'],
+                    [
+                        'name' => 'StringLength',
+                        'options' => ['max' => 255]
+                    ]
+                ],
+                'description' => 'Valid email address',
+                'allow_empty' => false
+            ],
+        ],
         // css
         \App\Middleware\InputFilter\CssInputFilter::class => [
             // fields
