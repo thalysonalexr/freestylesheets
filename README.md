@@ -5,6 +5,7 @@
 </p>
 
 REST API for consumption of styles and fonts in css3
+====================================================
 
 [![GitHub version](https://badge.fury.io/gh/thalysonrodrigues%2Frest-styles-css3.svg)](https://badge.fury.io/gh/thalysonrodrigues%2Frest-styles-css3)
 [![Software License](https://img.shields.io/apm/l/vim-mode.svg)](https://github.com/thalysonrodrigues/rest-styles-css3/blob/master/LICENSE)
