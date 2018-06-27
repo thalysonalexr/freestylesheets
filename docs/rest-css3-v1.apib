@@ -5,9 +5,35 @@ HOST: http://reststyles.com/api/v1
 
 API for project REST Styles CSS3
 
-# Group REST-STYLES-CSS3
+# Group Documentation
 
-## About [/]
+## Documentation [/]
+
+### Website home docs [GET]
+
+## Documentation  [/api/versions]
+
+### Page list versions this API [GET]
+
+## Documentation [/api/versions/{version}]
+
+### Page of documentation API [GET]
+
+## Documentation [/api/about]
+
+### Page about project API REST CSS3 [GET]
+
+## Documentation [/api/contact]
+
+### Page for contact with maintainer of this project [GET]
+
+## Documentation [/api/contact]
+
+### Send post contact form [POST]
+
+## Documentation [/api/ping]
+
+### [GET]
 
 ## Group Users
 
@@ -26,6 +52,26 @@ API for project REST Styles CSS3
 ## Users [/users/change-password]
 
 ### Change password - step 2 [POST]
+
+## Users [/users/timeout]
+
+### Timeout session [POST]
+
+## Users [/users/logout]
+
+### Logout session [POST]
+
+## Users [/users/revoke-token]
+
+### Rovoke jwt [POST]
+
+## Users [/users/enable/{id_user}]
+
+### Enable user in system [POST]
+
+## Users [/users/disable/{id_user}]
+
+### Disable user in system [POST]
 
 ## Users [/users]
 
@@ -46,3 +92,33 @@ API for project REST Styles CSS3
 ## Users [/users/{id_user}]
 
 ### Delete user [DELETE]
+
+# Group CSS
+
+## CSS [/css]
+
+### Create a new style [POST]
+
+## CSS [/css/approve/{id_style}]
+
+### Approve style [POST]
+
+## CSS [/css]
+
+### Get all styles [GET]
+
+## CSS [/css/{id_style}]
+
+### Find style [GET]
+
+## CSS [/css/{id_style}]
+
+### Edit partial style [PATCH]
+
+## CSS [/css/{id_style}]
+
+### Edit style [PUT]
+
+## CSS [/css/{id_style}]
+
+### Delete style [DELETE]

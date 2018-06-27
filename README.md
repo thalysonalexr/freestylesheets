@@ -30,9 +30,9 @@ $ git clone https://github.com/thalysonrodrigues/REST-STYLES-CSS3.git
 
 ```
 text/css
+text/html (default)
 application/json
 application/xml
-text/html
 ```
 
 ## Credits
