@@ -4,8 +4,6 @@
     </a>
 </p>
 
-# REST-STYLES-CSS3
-
 REST API for consumption of styles and fonts in css3
 
 [![GitHub version](https://badge.fury.io/gh/thalysonrodrigues%2Frest-styles-css3.svg)](https://badge.fury.io/gh/thalysonrodrigues%2Frest-styles-css3)
