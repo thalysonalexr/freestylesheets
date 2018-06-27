@@ -15,6 +15,7 @@ use App\Domain\Service\Exception\StyleExistsException;
 use App\Domain\Service\Exception\StyleNotFoundException;
 use App\Domain\Service\Exception\StyleNotApprovedException;
 use App\Domain\Service\Exception\StyleAlreadyApprovedException;
+use App\Domain\Service\Exception\InvalidStatusException;
 
 final class CssService implements CssServiceInterface
 {
@@ -70,6 +71,10 @@ final class CssService implements CssServiceInterface
 
     public function approve(Css $style, User $user): bool
     {
+        if ($style->isApproved() === Status::APPROVED) {
+            throw InvalidStatusException::approve();
+        }
+
         $style->approve();
 
         if ( ! $this->css->approveStyle(

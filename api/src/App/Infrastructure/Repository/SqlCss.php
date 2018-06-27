@@ -11,7 +11,6 @@ use App\Domain\Value\Tag;
 use App\Domain\Value\Category;
 use App\Domain\Value\Status;
 use App\Domain\Value\CssHistory;
-use App\Infrastructure\Exception\InvalidStatusException;
 
 final class SqlCss implements Css
 {
@@ -141,10 +140,6 @@ final class SqlCss implements Css
     public function approveStyle(CssHistory $transaction): bool
     {
         $style = $transaction->getStyle();
-
-        if ($style->isApproved() !== Status::APPROVED) {
-            throw InvalidStatusException::approve();
-        }
 
         $approveStatus = (bool) $this->connection->executeUpdate(
             'UPDATE CSS SET status = :status WHERE id = :id',

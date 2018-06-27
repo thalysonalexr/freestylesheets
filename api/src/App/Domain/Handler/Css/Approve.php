@@ -81,7 +81,7 @@ final class Approve implements MiddlewareInterface
             return new JsonResponse([
                 'code' => '304',
                 'message' => $e->getMessage()
-            ]);
+            ], 304);
         }
     }
 }
