@@ -177,6 +177,16 @@ final class User implements \JsonSerializable
         return $this->status;
     }
 
+    public function enable()
+    {
+        $this->status = self::ACTIVE;
+    }
+
+    public function disable()
+    {
+        $this->status = self::INACTIVE;
+    }
+
     public function jsonSerialize(): array
     {
         return [

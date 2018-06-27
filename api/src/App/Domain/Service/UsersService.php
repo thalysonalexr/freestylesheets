@@ -7,6 +7,7 @@ namespace App\Domain\Service;
 use App\Domain\Entity\User;
 use App\Domain\Value\Password;
 use App\Infrastructure\Repository\Users;
+use App\Domain\Service\Exception\InvalidStatusException;
 use App\Domain\Service\Exception\UserNotFoundException;
 use App\Domain\Service\Exception\UserEmailExistsException;
 
@@ -75,13 +76,35 @@ final class UsersService implements UsersServiceInterface
     {
         try {
             if ( ! $data['admin']) {
-                return $this->users->edit(User::new($id, $data['name'], $data['email'], $data['password']));
+                return $this->users->edit(User::new($id, $data['name'], $data['email'], null));
             } else {
-                return $this->users->edit(User::newAdmin($id, $data['name'], $data['email'], $data['password']));
+                return $this->users->edit(User::newAdmin($id, $data['name'], $data['email'], null));
             }
         } catch (\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
             throw UserEmailExistsException::fromUserEmail($data['email']);
         }
+    }
+
+    public function enable(User $user): bool
+    {
+        if ($user->isActive() === User::ACTIVE) {
+            throw InvalidStatusException::enable('active');
+        }
+
+        $user->enable();
+
+        return $this->users->enableOrDisableUser($user);
+    }
+
+    public function disable(User $user): bool
+    {
+        if ($user->isActive() === User::INACTIVE) {
+            throw InvalidStatusException::enable('inactive');
+        }
+
+        $user->disable();
+
+        return $this->users->enableOrDisableUser($user);
     }
 
     public function delete(int $id): int

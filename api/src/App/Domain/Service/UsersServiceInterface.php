@@ -20,6 +20,10 @@ interface UsersServiceInterface
 
     public function edit(int $id, array $data): int;
 
+    public function enable(User $user): bool;
+
+    public function disable(User $user): bool;
+
     public function delete(int $id): int;
 
     public function updatePassword(int $id, array $newPassword): int;

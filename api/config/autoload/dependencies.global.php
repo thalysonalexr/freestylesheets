@@ -43,6 +43,8 @@ return [
             \App\Domain\Handler\User\RevokeJwt::class => \App\Core\Factory\LogsHandlerFactory::class,
             \App\Domain\Handler\User\ForgotPassword::class => \App\Core\Factory\ForgotPasswordFactory::class,
             \App\Domain\Handler\User\ChangePassword::class => \App\Core\Factory\ChangePasswordFactory::class,
+            \App\Domain\Handler\User\Enable::class => \App\Core\Factory\UsersHandlerFactory::class,
+            \App\Domain\Handler\User\Disable::class => \App\Core\Factory\UsersHandlerFactory::class,
             \App\Domain\Handler\User\Create::class => \App\Core\Factory\UsersHandlerFactory::class,
             \App\Domain\Handler\User\GetAll::class => \App\Core\Factory\UsersHandlerFactory::class,
             \App\Domain\Handler\User\Get::class => \App\Core\Factory\UsersHandlerFactory::class,
@@ -82,6 +84,7 @@ return [
             \App\Middleware\InputFilter\EmailInputFilter::class => \App\Core\Middleware\InputFilter\EmailInputFilterFactory::class,
             \App\Middleware\InputFilter\PasswordInputFilter::class => \App\Core\Middleware\InputFilter\PasswordInputFilterFactory::class,
             \App\Middleware\InputFilter\CssInputFilter::class => \App\Core\Middleware\InputFilter\CssInputFilterFactory::class,
+            \App\Middleware\InputFilter\NameAndEmailInputFilter::class => \App\Core\Middleware\InputFilter\NameAndEmailInputFilterFactory::class,
         ],
     ],
 ];

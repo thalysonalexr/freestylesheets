@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\Repository;
 
 use App\Domain\Entity\User;
+use App\Domain\Value\Status;
 use Doctrine\DBAL\Connection;
 
 final class SqlUsers implements Users
@@ -133,13 +134,10 @@ final class SqlUsers implements Users
     public function edit(User $user): int
     {
         return $this->connection->executeUpdate(
-            'UPDATE USERS SET name = :name, email = :email, password = :password, admin = :admin WHERE id = :id',
+            'UPDATE USERS SET name = :name, email = :email WHERE id = :id',
             [
-                'id' => $user->getId(),
                 'name' => $user->getName(),
-                'email' => $user->getEmail(),
-                'password' => $user->getPassword(),
-                'admin' => $user->isAdmin() ? 1 : 0
+                'email' => $user->getEmail()
             ]
         );
     }
@@ -157,6 +155,17 @@ final class SqlUsers implements Users
             implode(', ', $query) .
             ' WHERE id = :id',
             $data
+        );
+    }
+
+    public function enableOrDisableUser(User $user): bool
+    {
+        return (bool) $this->connection->executeUpdate(
+            'UPDATE USERS SET status = :status WHERE id = :id',
+            [
+                'id' => (string) $user->getId(),
+                'status' => $user->getStatus() ? 1 : 0
+            ]
         );
     }
 

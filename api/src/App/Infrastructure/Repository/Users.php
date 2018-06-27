@@ -20,5 +20,7 @@ interface Users
 
     public function editPartial(int $id, array $data): int;
 
+    public function enableOrDisableUser(User $user): bool;
+
     public function remove(int $id): int;
 }
