@@ -35,15 +35,24 @@ use Zend\Expressive\MiddlewareFactory;
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
 
     // documentation
-    $app->get('/', \App\Handler\HomePageHandler::class, 'home');
+    $app->get('/', [
+        \App\Middleware\CacheMiddleware::class,
+        \App\Handler\HomePageHandler::class
+    ], 'home');
 
     $app->get('/api/versions', \App\Handler\VersionsPageHandler::class, 'versions');
 
     $app->get('/api/versions/{version}', \App\Handler\VersionPageHandler::class, 'version');
 
-    $app->get('/api/about', \App\Handler\AboutPageHandler::class, 'about');
+    $app->get('/api/about', [
+        \App\Middleware\CacheMiddleware::class,
+        \App\Handler\AboutPageHandler::class
+    ], 'about');
 
-    $app->get('/api/contact', \App\Handler\ContactPageHandler::class, 'contact');
+    $app->get('/api/contact', [
+        \App\Middleware\CacheMiddleware::class,
+        \App\Handler\ContactPageHandler::class
+    ], 'contact');
 
     $app->post('/api/contact', [
         \App\Handler\Middleware\InputFilter\ContactInputFilter::class,
