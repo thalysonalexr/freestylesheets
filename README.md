@@ -1,13 +1,13 @@
 <p align="center">
     <a href="">
-        <img src="./docs/pages/logo.png" alt="logo" title="API Rest Styles CSS3">
+        <img src="./docs/pages/logo.png" alt="logo" title="Freestylesheets">
     </a>
 </p>
 
 REST API for consumption of styles and fonts in css3
 ====================================================
 
-[![GitHub version](https://badge.fury.io/gh/thalysonrodrigues%2Frest-styles-css3.svg)](https://badge.fury.io/gh/thalysonrodrigues%2Frest-styles-css3)
+[![GitHub version](https://badge.fury.io/gh/thalysonrodrigues%2Ffreestylesheets.svg)](https://badge.fury.io/gh/thalysonrodrigues%2Ffreestylesheets)
 [![Software License](https://img.shields.io/apm/l/vim-mode.svg)](https://github.com/thalysonrodrigues/rest-styles-css3/blob/master/LICENSE)
 
 ## Introduction
@@ -17,11 +17,11 @@ API with REST (Representational State Transfer) architecture patterns.
 ## Documentation
 
 The documentation was built on the basis of the documentation standard for BluePrint APIs. See more about in https://apiblueprint.org/.
-Documentation for this project is available from this repository at [`./docs/rest-css3-v*.apib`](https://github.com/thalysonrodrigues/REST-STYLES-CSS3/tree/master/docs). See also in [Github Pages](https://thalysonrodrigues.github.io/REST-STYLES-CSS3/) rendered by [aglio](https://github.com/danielgtaylor/aglio).
+Documentation for this project is available from this repository at [`./docs/rest-css3-v*.apib`](https://github.com/thalysonrodrigues/freestylesheets/tree/master/docs). See also in [Github Pages](https://thalysonrodrigues.github.io/freestylesheets/) rendered by [aglio](https://github.com/danielgtaylor/aglio).
 
 ## View docs
 
-Visit here in [Github Pages](https://thalysonrodrigues.github.io/REST-STYLES-CSS3/)
+Visit here in [Github Pages](https://thalysonrodrigues.github.io/freestylesheets/)
 
 ## Built with Zend
 
@@ -30,7 +30,7 @@ API built from the skeleton of the micro framework [Zend Expressive](https://doc
 ## Installation
 ```
 ## clone this project with git
-$ git clone https://github.com/thalysonrodrigues/REST-STYLES-CSS3.git
+$ git clone https://github.com/thalysonrodrigues/freestylesheets.git
 ```
 
 ## Outputs
@@ -50,4 +50,4 @@ application/xml
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/thalysonrodrigues/REST-STYLES-CSS3/blob/master/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/thalysonrodrigues/freestylesheets/blob/master/LICENSE) for more information.

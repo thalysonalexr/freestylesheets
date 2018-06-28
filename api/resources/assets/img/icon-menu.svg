@@ -1,18 +1,6 @@
-/* resets */
-
-/* Arimo - font */
-
-/* latin */
-@font-face {
-  font-family: 'Arimo';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Arimo Regular'), local('Arimo-Regular'), url(https://fonts.gstatic.com/s/arimo/v11/P5sMzZCDf9_T_10ZxCE.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-/* Pacifico - font */
-
+<svg width="895" height="176" style="overflow: visible;"><defs><linearGradient x1="0" y1="88" x2="895" y2="88" gradientUnits="userSpaceOnUse" id="linearGradientSjiy8g3kol2"><stop offset="0%" stop-color="#b1b1b1"></stop><stop offset="100%" stop-color="#b1b1b1"></stop></linearGradient></defs><g></g><path fill="none" d="M-229.1640625,105 C-20,104 20,104 229.1640625,105" style=""></path><text fill="url('#linearGradientSjiy8g3kol2')" dy="114.4" x="358" style="font-size: 100px; font-family: Pacifico, cursive; text-anchor: middle;">Freestylesheets</text></svg>
+<defs>
+<style type="text/css">
 /* cyrillic */
 @font-face {
   font-family: 'Pacifico';
@@ -45,54 +33,5 @@
   src: local('Pacifico Regular'), local('Pacifico-Regular'), url(https://fonts.gstatic.com/s/pacifico/v12/FwZY7-Qmy14u9lezJ-6H6Mk.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-
-*{
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-family: 'Arimo', 'Arial', sans-serif;
-    box-sizing: border-box;
-}
-
-html, body{
-    min-height: 100%;
-    min-width: 100%;
-}
-
-.app { padding-top: 90px; }
-
-.app { min-height: 120vh; }
-
-.app-footer { padding-bottom: 1em; }
-
-.freestylesheets{ font-family: 'Pacifico', cursive; }
-
-/* home */
-
-.container-centered{
-  display: flex;
-  justify-content: center;
-}
-
-img#logo{
-  height: 400px;
-}
-
-img#brand{
-  width: 144px;
-}
-
-.logo{ width: 100%; }
-
-.format{
-    background-color: #808080;
-    color: #fcfcfc;
-    padding: 3px;
-    border-radius: 5px;
-}
-
-/* contact */
-
-.title{ margin-bottom: 2%; }
-
-ul{ list-style: none; }
+</style>
+</defs>
