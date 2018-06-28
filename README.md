@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="">
+    <a href="https://github.com/thalysonrodrigues/freestylesheets">
         <img src="./docs/pages/logo.png" alt="logo" title="Freestylesheets">
     </a>
 </p>
