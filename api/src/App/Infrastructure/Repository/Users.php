@@ -23,4 +23,6 @@ interface Users
     public function enableOrDisableUser(User $user): bool;
 
     public function remove(int $id): int;
+
+    public function count(): int;
 }

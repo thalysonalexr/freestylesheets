@@ -144,7 +144,7 @@ final class SqlUsers implements Users
 
     public function editPartial(int $id, array $data): int
     {
-        $query = array_map(function($field){
+        $query = array_map(function($field) {
             return "{$field} = :{$field}";
         }, array_keys($data));
 
@@ -177,6 +177,17 @@ final class SqlUsers implements Users
                 'id' => $id
             ]
         );
+    }
+
+    public function count(array $filters = []): int
+    {
+        $filter = new UsersFilters($filters);
+
+        return (int) $this->connection->executeQuery(
+            "SELECT COUNT(*) AS total FROM USERS AS user " .
+            $filter->where(false),
+            $filter->data() ?: []
+        )->fetchColumn();
     }
 
     public function createUser(
