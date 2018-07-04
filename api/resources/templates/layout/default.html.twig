@@ -18,45 +18,51 @@
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <button id="menu" type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <!-- Brand -->
                     <a class="navbar-brand" href="{{ path('home') }}">
-                        <img id="brand" src="{{ asset('build/images/icon-menu.c3c3dc7d.png') }}" alt="logo">
+                        <img id="brand" src="{{ asset('build/images/icon-menu.8b6dad0c.png') }}" alt="logo">
                     </a>
                 </div>
                 <!-- Links -->
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a href="" target="_blank" class="nav-link">
-                                <i class="fa fa-book"></i> Docs
+                            <a href="" target="_blank" class="nav-link" title="Documentation">
+                                <i class="fa fa-book"></i>
+                                <span class="label-menu"> Docs</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" target="_blank" class="nav-link">
-                                <i class="fas fa-code-branch"></i> Versions
+                            <a href="" target="_blank" class="nav-link" title="Versions">
+                                <i class="fas fa-code-branch"></i>
+                                <span class="label-menu"> Versions</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ path('api.ping') }}" class="nav-link">
-                                <i class="fas fa-wifi"></i> Ping Test
+                            <a href="{{ path('api.ping') }}" class="nav-link" title="Ping Test">
+                                <i class="fas fa-wifi"></i>
+                                <span class="label-menu"> Ping Test</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="https://github.com/thalysonrodrigues/REST-STYLES-CSS3" class="nav-link" target="_blank">
-                                <i class="fab fa-github"></i> Contribute
+                            <a href="https://github.com/thalysonrodrigues/REST-STYLES-CSS3" class="nav-link" target="_blank" title="Contribute">
+                                <i class="fab fa-github"></i>
+                                <span class="label-menu"> Contribute</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ path('contact') }}" class="nav-link">
-                                <i class="fas fa-at"></i> Contact
+                            <a href="{{ path('contact') }}" class="nav-link" title="Contact">
+                                <i class="fas fa-at"></i>
+                                <span class="label-menu"> Contact</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ path('about') }}" class="nav-link">
-                                <i class="fas fa-info"></i> About
+                            <a href="{{ path('about') }}" class="nav-link" title="About">
+                                <i class="fas fa-info"></i>
+                                <span class="label-menu"> About</span>
                             </a>
                         </li>
                     </ul>
@@ -83,5 +89,14 @@
     </footer>
 
     {% block javascript %}{% endblock %}
+    <script type="text/javascript">
+        $('.navbar-toggler').click(function () {
+            if ( ! $('#navbarCollapse').is(':visible')) {
+                $('#navbarCollapse').slideDown();
+            } else {
+                $('#navbarCollapse').slideUp();
+            }
+        });
+    </script>
 </body>
 </html>
