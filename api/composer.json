@@ -38,6 +38,7 @@
     },
     "require": {
         "php": "^7.1",
+        "aura/session": "^2.1",
         "doctrine/dbal": "^2.7",
         "doctrine/orm": "^2.6",
         "marc-mabe/php-enum": "^3.0",
