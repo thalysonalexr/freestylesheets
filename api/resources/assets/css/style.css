@@ -47,16 +47,16 @@
 }
 
 *{
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-family: 'Arimo', 'Arial', sans-serif;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: 'Arimo', 'Arial', sans-serif;
+  box-sizing: border-box;
 }
 
 html, body{
-    min-height: 100%;
-    min-width: 100%;
+  min-height: 100%;
+  min-width: 100%;
 }
 
 .app { padding-top: 90px; }
@@ -67,6 +67,11 @@ html, body{
 
 .freestylesheets{ font-family: 'Pacifico', cursive; }
 
+img#brand{
+  width: 122px;
+  margin-right: 32px;
+}
+
 /* home */
 
 .container-centered{
@@ -75,24 +80,47 @@ html, body{
 }
 
 img#logo{
-  height: 400px;
+  height: 125px;
+  margin-top: 4%;
+  margin-bottom: 4%;
 }
 
-img#brand{
-  width: 144px;
+.title{
+  font-size: 2em;
+  color: #313335;
 }
 
 .logo{ width: 100%; }
 
 .format{
-    background-color: #808080;
-    color: #fcfcfc;
-    padding: 3px;
-    border-radius: 5px;
+  background-color: #808080;
+  color: #fcfcfc;
+  padding: 3px;
+  border-radius: 5px;
 }
 
 /* contact */
 
-.title{ margin-bottom: 2%; }
-
 ul{ list-style: none; }
+
+/* about */
+
+p{ text-align: justify; }
+
+/* responsive */
+
+@media screen and (min-width: 400px){
+  img#logo{ height: 200px; }
+}
+
+@media screen and (min-width: 576px){
+  .label-menu{ display: none; }
+  .nav-item{ margin-right: 16%; }
+}
+
+@media screen and (min-width: 1000px){
+  .label-menu{ display: inline-block; }
+  .nav-item{ margin-right: 0; }
+  .title{ font-size: 3em; }
+  img#logo{ height: 350px; }
+}
