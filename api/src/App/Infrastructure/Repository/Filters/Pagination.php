@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Repository;
+namespace App\Infrastructure\Repository\Filters;
 
-use App\Infrastructure\Exception\OffsetRequireLimitException;
+use App\Infrastructure\Repository\Filters\Exception\OffsetRequireLimitException;
 
 final class Pagination
 {
