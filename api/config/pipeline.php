@@ -48,7 +48,9 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->pipe(\Zend\Expressive\Session\SessionMiddleware::class);
     $app->pipe(\Zend\Expressive\Flash\FlashMessageMiddleware::class);
 
-    $app->pipe((new \Middlewares\AuraSession())->attribute('_api_rest_styles'));
+    $app->pipe((new \Middlewares\AuraSession(
+        (new \Aura\Session\SessionFactory)
+    ))->attribute('_freestylesheets'));
 
     // Register the routing middleware in the middleware pipeline.
     // This middleware registers the Zend\Expressive\Router\RouteResult request attribute.
