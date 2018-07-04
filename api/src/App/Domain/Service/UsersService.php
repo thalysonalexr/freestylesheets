@@ -118,4 +118,19 @@ final class UsersService implements UsersServiceInterface
 
         return $this->users->editPartial($id, $newPassword);
     }
+
+    public function getTotal(): int
+    {
+        return $this->users->count();
+    }
+
+    public function getTotalAdmin(): int
+    {
+        return $this->users->count(['admin' => 1]);
+    }
+
+    public function getTotalActives(): int
+    {
+        return $this->users->count(['status' => 1]);
+    }
 }
