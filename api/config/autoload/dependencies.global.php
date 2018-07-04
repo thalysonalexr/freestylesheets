@@ -31,6 +31,7 @@ return [
             \App\Handler\VersionsPageHandler::class => \App\Handler\TemplateRendererFactory::class,
             \App\Handler\VersionPageHandler::class => \App\Handler\TemplateRendererFactory::class,
             \App\Handler\ContactPageHandler::class => \App\Handler\TemplateRendererFactory::class,
+            \App\Handler\AboutPageHandler::class => \App\Handler\TemplateRendererFactory::class,
             \App\Handler\Middleware\ContactPostHandler::class => \App\Handler\Middleware\ContactPostHandlerFactory::class,
             \App\Handler\Middleware\InputFilter\ContactInputFilter::class => \App\Handler\Middleware\InputFilter\ContactInputFilterFactory::class,
 
@@ -51,6 +52,7 @@ return [
             \App\Domain\Handler\User\Patch::class => \App\Core\Factory\UsersHandlerFactory::class,
             \App\Domain\Handler\User\Put::class => \App\Core\Factory\UsersHandlerFactory::class,
             \App\Domain\Handler\User\Delete::class => \App\Core\Factory\UsersHandlerFactory::class,
+            \App\Domain\Handler\User\Metadata::class => \App\Core\Factory\UsersHandlerFactory::class,
 
             // actions | css
             \App\Domain\Handler\Css\Create::class => \App\Core\Factory\CssAndUsersLogHandlerFactory::class,
