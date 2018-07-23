@@ -6,6 +6,7 @@ namespace App\Infrastructure\Repository;
 
 use App\Domain\Entity\User;
 use App\Domain\Value\Status;
+use App\Domain\Value\PasswordRecovery;
 use Doctrine\DBAL\Connection;
 
 final class SqlUsers implements Users
@@ -209,5 +210,28 @@ final class SqlUsers implements Users
             $createdAt,
             $status
         );
+    }
+
+    public function registerRecoveryPassword(PasswordRecovery $recovery): bool
+    {
+        return (bool) $this->connection->executeUpdate(
+            'INSERT INTO PASSWORD_RECOVERY (jti, latest, id_user) VALUES (:jti, :latest, :id_user)',
+            [
+                'jti' => $recovery->getJti()->getValue(),
+                'latest' => $recovery->getLatest(),
+                'id_user' => $recovery->getUser()->getId()
+            ]
+        );
+    }
+
+    public function checkMaxRequireChangePassword(int $idUser, int $maxDays): int
+    {
+        return (int) $this->connection->executeQuery(
+            'SELECT COUNT(*) AS total FROM PASSWORD_RECOVERY WHERE id_user = :id_user AND DATE_FORMAT(latest, "%Y-%m-%d") BETWEEN CURRENT_DATE() - INTERVAL :max_days DAY AND CURRENT_DATE()',
+            [
+                'id_user' => $idUser,
+                'max_days' => $maxDays
+            ]
+        )->fetchColumn();
     }
 }
