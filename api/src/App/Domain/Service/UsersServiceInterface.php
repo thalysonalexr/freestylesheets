@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Service;
 
 use App\Domain\Entity\User;
+use App\Domain\Value\PasswordRecovery;
 
 interface UsersServiceInterface
 {
@@ -27,4 +28,8 @@ interface UsersServiceInterface
     public function delete(int $id): int;
 
     public function updatePassword(int $id, array $newPassword): int;
+
+    public function recovery(PasswordRecovery $recovery): bool;
+
+    public function checkMaxRequireChangePassword(int $idUser, int $maxDays, int $maxRequests): bool;
 }
