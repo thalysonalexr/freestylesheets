@@ -10,6 +10,8 @@ use Psr\Container\ContainerInterface;
 final class SqlRepositoryFactory
 {
     /**
+     * @param ContainerInterface $container     container dependencies
+     * @param string $name                      name of class
      * @return mixed
      */
     public function __invoke(ContainerInterface $container, string $name)
@@ -20,7 +22,14 @@ final class SqlRepositoryFactory
             $container->get(Connection::class)
         );
     }
-    private function addSqlToClassName($name)
+
+    /**
+     * Add extension Sql for class
+     *
+     * @param string $name      name to class
+     * @return string
+     */
+    private function addSqlToClassName(string $name): string
     {
         $exploded = explode('\\', $name);
         $interfaceName = array_pop($exploded);
