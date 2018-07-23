@@ -6,10 +6,12 @@ namespace App\Domain\Service;
 
 use App\Domain\Entity\User;
 use App\Domain\Value\Password;
-use App\Infrastructure\Repository\Users;
+use App\Domain\Value\PasswordRecovery;
 use App\Domain\Service\Exception\InvalidStatusException;
 use App\Domain\Service\Exception\UserNotFoundException;
 use App\Domain\Service\Exception\UserEmailExistsException;
+use App\Domain\Service\Exception\MaxChangeRecoveryPasswordException;
+use App\Infrastructure\Repository\Users;
 
 final class UsersService implements UsersServiceInterface
 {
@@ -132,5 +134,19 @@ final class UsersService implements UsersServiceInterface
     public function getTotalActives(): int
     {
         return $this->users->count(['status' => 1]);
+    }
+
+    public function recovery(PasswordRecovery $recovery): bool
+    {
+        return $this->users->registerRecoveryPassword($recovery);
+    }
+
+    public function checkMaxRequireChangePassword(int $idUser, int $maxDays, int $maxRequests): bool
+    {
+        if ($this->users->checkMaxRequireChangePassword($idUser, $maxDays) >= $maxRequests) {
+            throw MaxChangeRecoveryPasswordException::message($maxRequests, $maxDays);
+        }
+
+        return false;
     }
 }
