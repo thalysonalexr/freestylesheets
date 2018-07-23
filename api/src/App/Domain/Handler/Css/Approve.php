@@ -11,7 +11,6 @@ use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response\JsonResponse;
 use App\Domain\Service\CssServiceInterface;
 use App\Domain\Service\UsersServiceInterface;
-use App\Domain\Service\LogsServiceInterface;
 use App\Domain\Service\Exception\StyleNotFoundException;
 use App\Domain\Service\Exception\StyleNotApprovedException;
 use App\Domain\Service\Exception\StyleAlreadyApprovedException;
@@ -27,20 +26,14 @@ final class Approve implements MiddlewareInterface
      * @var UsersServiceInterface
      */
     private $usersService;
-    /** 
-     * @var LogsServiceInterface;
-     */
-    private $logsService;
 
     public function __construct(
         CssServiceInterface $cssService,
-        UsersServiceInterface $usersService,
-        LogsServiceInterface $logsService
+        UsersServiceInterface $usersService
     )
     {
         $this->cssService = $cssService;
         $this->usersService = $usersService;
-        $this->logsService = $logsService;
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
@@ -52,8 +45,6 @@ final class Approve implements MiddlewareInterface
         try {
             $user = $this->usersService->getByEmail($email);
         } catch (UserNotFoundException $e) {
-            $this->logsService->revokeJwt($request->getAttribute(JwtAuthentication::class)['jti']);
-
             return new JsonResponse([
                 'code' => '404',
                 'message' => 'This user is not valid'
