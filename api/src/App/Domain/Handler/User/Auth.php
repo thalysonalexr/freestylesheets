@@ -10,13 +10,15 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use App\Domain\Service\UsersServiceInterface;
 use App\Domain\Service\LogsServiceInterface;
-use App\Domain\Entity\User;
 use App\Domain\Service\Exception\UserNotFoundException;
-use App\Domain\Value\Exception\WrongPasswordException;
+use App\Domain\Entity\User;
 use App\Domain\Value\Password;
+use App\Domain\Value\Exception\WrongPasswordException;
 use Tuupola\Base62;
 use Firebase\JWT\JWT;
 use Zend\Diactoros\Response\JsonResponse;
+
+use function random_bytes;
 
 final class Auth implements MiddlewareInterface
 {
