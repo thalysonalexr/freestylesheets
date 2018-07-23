@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+{% block content %}
+    {% if styles_embedded is defined %}
+        <links-download-styles>
+            {% for style in styles_embedded %}
+                <style>
+                    <id>{{ style.id }}</id>
+                    <name>{{ style.name }}</name>
+                    <created-at>{{ style.createdAt }}</created-at>
+                    <link>{{ style.getLink('download') }}</link>
+                </style>
+            {% endfor %}
+        </links-download-styles>
+    {% endif %}
+{% endblock %}
