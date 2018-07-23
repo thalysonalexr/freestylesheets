@@ -6,6 +6,7 @@ namespace App\Infrastructure\Repository;
 
 use Doctrine\DBAL\Connection;
 use App\Domain\Entity\Log;
+use App\Domain\Value\Jti;
 
 final class SqlLogs implements Logs
 {
@@ -38,7 +39,7 @@ final class SqlLogs implements Logs
         return (int) $this->connection->lastInsertId();
     }
 
-    public function logout(int $idUser, string $jti): bool
+    public function logout(int $idUser, Jti $jti): bool
     {
         $update = $this->connection->executeUpdate(
             'UPDATE LOGS SET signout_dt = :signout_dt WHERE id = :id',
@@ -54,7 +55,7 @@ final class SqlLogs implements Logs
         return $create && $update;
     }
 
-    public function timeout(int $idUser, string $jti): bool
+    public function timeout(int $idUser, Jti $jti): bool
     {
         $update = $this->connection->executeUpdate(
             'UPDATE LOGS SET timeout = :timeout, signout_dt = :signout_dt WHERE id = :id',
@@ -71,23 +72,25 @@ final class SqlLogs implements Logs
         return $create && $update;
     }
 
-    public function checkTokenInBlacklist(string $jti): bool
+    public function checkTokenInBlacklist(Jti $jti): bool
     {
-        $jti = $this->connection->executeQuery(
+        $check = $this->connection->executeQuery(
             'SELECT jti FROM BLACKLIST WHERE jti = :jti',
             [
-                'jti' => $jti
+                'jti' => $jti->getValue()
             ]
         );
 
-        return $jti->fetch() ? true : false;
+        return $check->fetch() ? true : false;
     }
 
-    public function revokeToken(string $jti): bool
+    public function revokeToken(Jti $jti): bool
     {
         $create = $this->connection->executeUpdate(
             'INSERT INTO BLACKLIST (jti) VALUES (:jti)',
-            ['jti' => $jti]
+            [
+                'jti' => $jti->getValue()
+            ]
         );
 
         return (bool) $create;
