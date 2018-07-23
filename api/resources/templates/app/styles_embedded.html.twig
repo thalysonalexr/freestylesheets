@@ -1,0 +1,17 @@
+{% extends '@layout/index.html.twig' %}
+
+{% block title %}Download of style{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('build/css/bootstrap.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <ul>
+            {% for style in styles_embedded %}
+                <a class="nav-link" href="{{ style.getLink('download') }}" title="{{ style.name }}">{{ style.id }} - {{ style.name }} - {{ style.createdAt }}</a>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
