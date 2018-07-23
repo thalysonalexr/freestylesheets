@@ -21,6 +21,7 @@ final class AccessLogFactory
 
         $accessLog->format('%v %h %u %t "%r" %>s %b "%{Referer}i" -> %U "%{User-Agent}i" ClientIp: %a Duration: %{us}T');
         $accessLog->ipAttribute('client-ip');
+
         return $accessLog;
     }
 }

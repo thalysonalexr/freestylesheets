@@ -10,9 +10,9 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 
 final class SendMailFactory
 {
-    public function __invoke(ContainerInterface $container) : SendMail
+    public function __invoke(ContainerInterface $container): SendMail
     {
-        $config = $container->get('config')['smtp']['mailtrap.io'];
+        $config = $container->get('config')['mail']['smtp'];
 
         $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
         $mail->isSMTP();
