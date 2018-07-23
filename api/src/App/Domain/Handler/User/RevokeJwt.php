@@ -9,10 +9,11 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use App\Domain\Service\LogsServiceInterface;
-use Firebase\JWT\JWT;
+use App\Domain\Service\Exception\JtiAlreadyExistsException;
+use App\Domain\Value\Jti;
 use Zend\Diactoros\Response\EmptyResponse;
 use Zend\Diactoros\Response\JsonResponse;
-use App\Domain\Service\Exception\JtiAlreadyExistsException;
+use Firebase\JWT\JWT;
 
 final class RevokeJwt implements MiddlewareInterface
 {
@@ -38,7 +39,7 @@ final class RevokeJwt implements MiddlewareInterface
         $payload = JWT::decode($query['token'], $this->jwtSecret, ['HS256']);
 
         try {
-            if ($this->logsService->revokeJwt($payload->jti)) {
+            if ($this->logsService->revokeJwt(Jti::new($payload->jti))) {
                 return new EmptyResponse();
             }
         } catch (JtiAlreadyExistsException $e) {
