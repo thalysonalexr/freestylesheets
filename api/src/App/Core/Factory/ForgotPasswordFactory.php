@@ -16,7 +16,8 @@ final class ForgotPasswordFactory
         return new ForgotPassword(
             $container->get(UsersServiceInterface::class),
             $container->get(TemplateRendererInterface::class),
-            $container->get('config')['jwt']['secret']
+            $container->get('config')['jwt']['secret'],
+            $container->get('config')['recovery']['password']
         );
     }
 }

@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Core\Factory;
 
-use App\Domain\Service\UsersServiceInterface;
-use App\Domain\Service\LogsServiceInterface;
 use Psr\Container\ContainerInterface;
+use App\Domain\Service\UsersServiceInterface;
 use App\Domain\Handler\User\ChangePassword;
 
 final class ChangePasswordFactory
