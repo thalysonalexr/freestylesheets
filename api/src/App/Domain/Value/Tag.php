@@ -33,7 +33,7 @@ final class Tag implements \JsonSerializable
         return $this->element;
     }
 
-    public function setElement(string $element)
+    public function setElement(string $element): void
     {
         $this->element = $element;
     }
@@ -43,7 +43,7 @@ final class Tag implements \JsonSerializable
         return $this->description;
     }
 
-    public function setDescription(string $description)
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
@@ -53,7 +53,7 @@ final class Tag implements \JsonSerializable
         return $this->category;
     }
 
-    public function setCategory(Category $category)
+    public function setCategory(Category $category): void
     {
         $this->category = $category;
     }
