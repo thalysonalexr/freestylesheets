@@ -7,11 +7,10 @@ namespace App\Domain\Entity;
 use App\Domain\Value\Tag;
 use App\Domain\Value\Author;
 use App\Domain\Value\Status;
-use App\Domain\Value\LinkClass;
 /**
  * @Entity @Table(name="css")
  */
-final class Css extends LinkClass implements \JsonSerializable
+final class Css implements \JsonSerializable
 {
     /**
      * @var int
@@ -210,8 +209,7 @@ final class Css extends LinkClass implements \JsonSerializable
             'created_at' => $this->createdAt,
             'status' => $this->status,
             'author' => $this->author->jsonSerialize(),
-            'tag' => $this->tag instanceof Tag ? $this->tag->jsonSerialize() : null,
-            'linkClass' => $this->jsonSerialize()
+            'tag' => $this->tag instanceof Tag ? $this->tag->jsonSerialize() : null
         ];
     }
 }

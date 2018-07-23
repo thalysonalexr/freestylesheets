@@ -53,7 +53,7 @@ final class LinksEmbedded implements MiddlewareInterface
 
         array_map(function(\App\Domain\Entity\Css $object) use ($server, &$newData) {
             $object->setLink('download', $server . $this->router->generateUri('css.download.get', [
-                'id_style' => $object->getId() . self::EXTENSION
+                'id' => $object->getId() . self::EXTENSION
             ]));
 
             $newData[] = $object;

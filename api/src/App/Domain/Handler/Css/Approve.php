@@ -38,7 +38,7 @@ final class Approve implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $id = $request->getAttribute('id_style');
+        $id = $request->getAttribute('id');
 
         $email = $request->getAttribute(JwtAuthentication::class)['data']->email;
 

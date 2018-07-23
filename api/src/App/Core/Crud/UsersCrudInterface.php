@@ -13,5 +13,7 @@ interface UsersCrudInterface
      *
      * @param UsersServiceInterface $usersService
      */
-    public function __construct(UsersServiceInterface $usersService);
+    public function __construct(
+        UsersServiceInterface $usersService
+    );
 }

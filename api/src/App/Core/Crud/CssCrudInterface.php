@@ -13,5 +13,7 @@ interface CssCrudInterface
      *
      * @param CssServiceInterface $cssService
      */
-    public function __construct(CssServiceInterface $cssService);
+    public function __construct(
+        CssServiceInterface $cssService
+    );
 }

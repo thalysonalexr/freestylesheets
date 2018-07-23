@@ -10,7 +10,6 @@ return [
             'pages'  => ['resources/templates/pages'],
             'layout' => ['resources/templates/layout'],
             'error'  => ['resources/templates/error'],
-            'xml'    => ['resources/templates/xml'],
         ],
     ],
     'twig' => [

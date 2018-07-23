@@ -34,6 +34,8 @@ services:
         volumes:
             - ./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini
             - ./api:/var/www/html
+        environment:
+            - PHP_CONF_MEMORY_LIMIT=512MB
 
     composer:
         image: composer

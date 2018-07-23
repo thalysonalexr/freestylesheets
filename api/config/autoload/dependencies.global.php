@@ -19,6 +19,11 @@ return [
             // Fully\Qualified\InterfaceName::class => Fully\Qualified\ClassName::class,
             \App\Handler\PingHandler::class => \App\Handler\PingHandler::class,
         ],
+        'delegators' => [
+            \Zend\Hydrator\HydratorPluginManager::class => [
+                \App\Core\Infrastructure\Hydrators\HydratorPluginManagerFactory::class
+            ]
+        ],
         // Use 'factories' for services provided by callbacks/factory classes.
         'factories'  => [
             // Fully\Qualified\ClassName::class => Fully\Qualified\FactoryName::class,
@@ -49,8 +54,8 @@ return [
             \App\Domain\Handler\User\Enable::class => \App\Core\Factory\UsersHandlerFactory::class,
             \App\Domain\Handler\User\Disable::class => \App\Core\Factory\UsersHandlerFactory::class,
             \App\Domain\Handler\User\Create::class => \App\Core\Factory\UsersHandlerFactory::class,
-            \App\Domain\Handler\User\GetAll::class => \App\Core\Factory\UsersHandlerFactory::class,
-            \App\Domain\Handler\User\Get::class => \App\Core\Factory\UsersHandlerFactory::class,
+            \App\Domain\Handler\User\GetAll::class => \App\Core\Factory\UsersHalHandlerFactory::class,
+            \App\Domain\Handler\User\Get::class => \App\Core\Factory\UsersHalHandlerFactory::class,
             \App\Domain\Handler\User\Patch::class => \App\Core\Factory\UsersHandlerFactory::class,
             \App\Domain\Handler\User\Put::class => \App\Core\Factory\UsersHandlerFactory::class,
             \App\Domain\Handler\User\Delete::class => \App\Core\Factory\UsersHandlerFactory::class,
@@ -59,8 +64,8 @@ return [
             // actions | css
             \App\Domain\Handler\Css\Create::class => \App\Core\Factory\CssAndUsersHandlerFactory::class,
             \App\Domain\Handler\Css\Approve::class => \App\Core\Factory\CssAndUsersHandlerFactory::class,
-            \App\Domain\Handler\Css\GetAll::class => \App\Core\Factory\CssHandlerFactory::class,
-            \App\Domain\Handler\Css\Get::class => \App\Core\Factory\CssHandlerFactory::class,
+            \App\Domain\Handler\Css\GetAll::class => \App\Core\Factory\CssHalHandlerFactory::class,
+            \App\Domain\Handler\Css\Get::class => \App\Core\Factory\CssHalHandlerFactory::class,
             \App\Domain\Handler\Css\LinksEmbedded::class => \App\Core\Factory\LinksEmbeddedFactory::class,
 
             // services
