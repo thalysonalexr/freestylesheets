@@ -2,3 +2,4 @@
 /etc/
 /data/
 /php/
+.docker-compose.yml.swp
