@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Domain\Handler\User;
 
-use App\Core\Crud\CrudInterface;
-use App\Domain\Service\UsersServiceInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Firebase\JWT\JWT;
+use App\Domain\Service\UsersServiceInterface;
+use App\Domain\Service\Exception\UserNotFoundException;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\Response\RedirectResponse;
+use Firebase\JWT\JWT;
 
 final class ChangePassword implements MiddlewareInterface
 {
@@ -25,7 +25,10 @@ final class ChangePassword implements MiddlewareInterface
      */
     private $jwtSecret;
 
-    public function __construct(UsersServiceInterface $usersService, string $jwtSecret)
+    public function __construct(
+        UsersServiceInterface $usersService,
+        string $jwtSecret
+    )
     {
         $this->usersService = $usersService;
         $this->jwtSecret = $jwtSecret;
@@ -44,15 +47,19 @@ final class ChangePassword implements MiddlewareInterface
         try {
             $token = JWT::decode($token['token'], $this->jwtSecret, ['HS256']);
         } catch (\Exception $e) {
-            $error['code'] = '500';
-            $error['message'] = $e->getMessage();
+            return new JsonResponse([
+                'code' => '500',
+                'message' => $e->getMessage()
+            ]);
         }
 
-        if (isset($error['code'])) {
+        try {
+            $user = $this->usersService->getById((int) $token->data->id);
+        } catch (UserNotFoundException $e) {
             return new JsonResponse([
-                'code' => $error['code'],
-                'message' => $error['message']
-            ]);
+                'code' => '404',
+                'message' => $e->getMessage()
+            ], 404);
         }
 
         $updated = $this->usersService->updatePassword((int) $token->data->id, $data);
