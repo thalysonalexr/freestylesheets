@@ -57,7 +57,7 @@ final class ContactPostHandler implements MiddlewareInterface
         return new HtmlResponse($this->template->render('pages::contact', $flashMessages->getFlash(self::FLASH_KEY)));
     }
 
-    public function setDataMail($data)
+    public function setDataMail(array $data)
     {
         $this->mail->setFrom($data['email']);
         $this->mail->addAddress('tha.motog@gmail.com');
@@ -67,7 +67,7 @@ final class ContactPostHandler implements MiddlewareInterface
         $this->mail->MsgHTML($data["message"]);
     }
 
-    public static function getFullName($data)
+    public static function getFullName(array $data)
     {
         return $data['firstName'] . ' ' . $data['lastName'];
     }
