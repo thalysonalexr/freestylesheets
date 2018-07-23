@@ -9,6 +9,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use App\Domain\Service\LogsServiceInterface;
+use App\Domain\Value\Jti;
 use Zend\Diactoros\Response\EmptyResponse;
 use Firebase\JWT\JWT;
 
@@ -35,7 +36,7 @@ final class CheckBlacklist implements MiddlewareInterface
 
         $payload = JWT::decode($token, $this->jwtSecret, ['HS256']);
 
-        if ($this->log->tokenInBlacklist($payload->jti)) {
+        if ($this->log->tokenInBlacklist(Jti::new($payload->jti))) {
             return new EmptyResponse(401);
         }
 
