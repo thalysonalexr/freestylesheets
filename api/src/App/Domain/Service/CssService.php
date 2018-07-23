@@ -10,12 +10,12 @@ use App\Domain\Value\Author;
 use App\Domain\Value\Tag;
 use App\Domain\Value\CssHistory;
 use App\Domain\Value\Status;
-use App\Infrastructure\Repository\Css as CssRepository;
 use App\Domain\Service\Exception\StyleExistsException;
 use App\Domain\Service\Exception\StyleNotFoundException;
 use App\Domain\Service\Exception\StyleNotApprovedException;
 use App\Domain\Service\Exception\StyleAlreadyApprovedException;
 use App\Domain\Service\Exception\InvalidStatusException;
+use App\Infrastructure\Repository\Css as CssRepository;
 
 final class CssService implements CssServiceInterface
 {
@@ -24,11 +24,20 @@ final class CssService implements CssServiceInterface
      */
     private $css;
 
+    /**
+     * Constructor this class
+     *
+     * @param Css $css                      style object repository
+     */
     public function __construct(CssRepository $css)
     {
         $this->css = $css;
     }
 
+    /**
+     * { @inheritdoc }
+     * @throws StyleExistsException         if unique id exists in database
+     */
     public function register(string $name, string $description, string $style, Author $author, ?Tag $tag): int
     {
         try {
@@ -38,11 +47,18 @@ final class CssService implements CssServiceInterface
         }
     }
 
+    /**
+     * { @inheritdoc }
+     */
     public function getAll(array $filters = []): array
     {
         return $this->css->all($filters);
     }
 
+    /**
+     * { @inheritdoc }
+     * @throws StyleNotFoundException           if style not found
+     */
     public function getById(int $id): ?Css
     {
         $style = $this->css->findById($id);
@@ -54,6 +70,11 @@ final class CssService implements CssServiceInterface
         return $style;
     }
 
+    /**
+     * { @inheritdoc }
+     * @throws StyleNotFoundException           if style not found
+     * @throws StyleNotApprovedException        if style not approved
+     */
     public function getByIdApproved(int $id): ?Css
     {
         $style = $this->css->findById($id);
@@ -69,6 +90,11 @@ final class CssService implements CssServiceInterface
         return $style;
     }
 
+    /**
+     * { @inheritdoc }
+     * @throws InvalidStatusException           if status is invalid
+     * @throws StyleAlreadyApprovedException    if style already approved
+     */
     public function approve(Css $style, User $user): bool
     {
         if ($style->isApproved() === Status::APPROVED) {

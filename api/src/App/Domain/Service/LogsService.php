@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Domain\Service;
 
 use App\Domain\Entity\Log;
-use App\Infrastructure\Repository\Logs;
+use App\Domain\Value\Jti;
 use App\Domain\Service\Exception\JtiAlreadyExistsException;
+use App\Infrastructure\Repository\Logs;
 
 final class LogsService implements LogsServiceInterface
 {
@@ -15,17 +16,29 @@ final class LogsService implements LogsServiceInterface
      */
     private $logs;
 
+    /**
+     * Constructor this class
+     *
+     * @param Logs $logs                           log object repository
+     */
     public function __construct(Logs $logs)
     {
         $this->logs = $logs;
     }
 
+    /**
+     * { @inheritdoc }
+     */
     public function login(int $idUser, bool $status): int
     {
         return $this->logs->add(Log::checkin($idUser, $status));
     }
 
-    public function logout(int $idUser, string $jti): bool
+    /**
+     * { @inheritdoc }
+     * @throws JtiAlreadyExistsException           if jti of token already exists
+     */
+    public function logout(int $idUser, Jti $jti): bool
     {
         try {
             return $this->logs->logout($idUser, $jti);
@@ -35,7 +48,11 @@ final class LogsService implements LogsServiceInterface
         
     }
 
-    public function timeout(int $idUser, string $jti): bool
+    /**
+     * { @inheritdoc }
+     * @throws JtiAlreadyExistsException            if jti of token already exists
+     */
+    public function timeout(int $idUser, Jti $jti): bool
     {
         try {
             return $this->logs->timeout($idUser, $jti);
@@ -44,12 +61,19 @@ final class LogsService implements LogsServiceInterface
         }
     }
 
-    public function tokenInBlacklist(string $jti): bool
+    /**
+     * { @inheritdoc }
+     */
+    public function tokenInBlacklist(Jti $jti): bool
     {
         return $this->logs->checkTokenInBlacklist($jti);
     }
 
-    public function revokeJwt(string $jti): bool
+    /**
+     * { @inheritdoc }
+     * @throws JtiAlreadyExistsException            if jti of token already exists
+     */
+    public function revokeJwt(Jti $jti): bool
     {
         try {
             return $this->logs->revokeToken($jti);
