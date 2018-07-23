@@ -9,10 +9,10 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use App\Domain\Service\CssServiceInterface;
-use App\Core\Crud\CssCrudInterface;
-use App\Middleware\TemplateFormatterInterface;
 use App\Domain\Service\Exception\StyleNotFoundException;
 use App\Domain\Service\Exception\StyleNotApprovedException;
+use App\Core\Crud\CssCrudInterface;
+use App\Middleware\TemplateFormatterInterface;
 use Zend\Diactoros\Response\JsonResponse;
 
 final class Get implements MiddlewareInterface, CssCrudInterface
@@ -41,7 +41,7 @@ final class Get implements MiddlewareInterface, CssCrudInterface
 
         } catch(StyleNotApprovedException $e) {
             return new JsonResponse([
-                'code' => '404',
+                'code' => '401',
                 'message' => $e->getMessage()
             ], 401);
         }
