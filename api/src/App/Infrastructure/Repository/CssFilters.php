@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Infrastructure\Repository;
 
 use App\Infrastructure\Repository\Filters\Filters;
-use App\Infrastructure\Repository\Filters\FiltersInterface;
 
-final class CssFilters extends Filters implements FiltersInterface
+final class CssFilters extends Filters
 {
     /**
      * @var string
@@ -29,7 +28,7 @@ final class CssFilters extends Filters implements FiltersInterface
         'order'
     ];
 
-    public function __construct(array $filters)
+    public function __construct(array $filters = [])
     {
         $this->alias = self::ALIAS;
         $this->cssFilters = parent::selectFilters($filters, self::POSSIBLE_FILTERS);
