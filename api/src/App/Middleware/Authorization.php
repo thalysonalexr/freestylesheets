@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Middleware;
 
-use App\Domain\Service\UsersServiceInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use App\Domain\Service\UsersServiceInterface;
 use Tuupola\Middleware\JwtAuthentication;
 use Zend\Diactoros\Response\JsonResponse;
 
