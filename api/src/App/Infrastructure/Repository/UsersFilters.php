@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Infrastructure\Repository;
 
 use App\Infrastructure\Repository\Filters\Filters;
-use App\Infrastructure\Repository\Filters\FiltersInterface;
 
-final class UsersFilters extends Filters implements FiltersInterface
+final class UsersFilters extends Filters
 {
     /**
      * @var string
@@ -21,7 +20,7 @@ final class UsersFilters extends Filters implements FiltersInterface
         'status'
     ];
 
-    public function __construct(array $filters)
+    public function __construct(array $filters = [])
     {
         $this->filters = self::ALIAS;
         $this->filters = parent::selectFilters($filters, self::POSSIBLE_FILTERS);
