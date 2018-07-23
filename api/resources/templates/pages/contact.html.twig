@@ -3,7 +3,7 @@
 {% block title %}Contact{% endblock %}
 
 {% block content %}
-    <div>
+    <section>
         {% if errors is defined %}
             <div id="errors">
                 <ul>
@@ -16,7 +16,7 @@
         <!-- title and subtitle -->
         <header class="title">
             <h1>Send a message to us!</h1>
-            <h2 class="text-muted lead"><small>Get in touch, suggest solutions, ask questions, open new paths...</small></h2>
+            <h2 class="text-muted lead"><small class="subtitle">Get in touch, suggest solutions, ask questions, open new paths...</small></h2>
         </header>
         <!-- form contact -->
         <form action="{{ path('contact.post') }}" method="POST">
@@ -55,5 +55,5 @@
             </div>
             <button class="btn btn-primary" type="submit">Send my message!</button>
         </form>
-    </div>
+    </section>
 {% endblock %}

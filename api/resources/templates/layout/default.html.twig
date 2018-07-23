@@ -9,7 +9,7 @@
     <meta name="author" content="Thalyson Alexandre Rodrigues de Sousa">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('build/css/app.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('build/css/bootstrap.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('build/css/bootstrap.css') }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     {% block stylesheets %}{% endblock %}
 </head>
@@ -30,13 +30,7 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a href="" target="_blank" class="nav-link" title="Documentation">
-                                <i class="fa fa-book"></i>
-                                <span class="label-menu"> Docs</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" target="_blank" class="nav-link" title="Versions">
+                            <a href="{{ path('versions') }}" class="nav-link" title="Versions">
                                 <i class="fas fa-code-branch"></i>
                                 <span class="label-menu"> Versions</span>
                             </a>
@@ -48,7 +42,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="https://github.com/thalysonrodrigues/REST-STYLES-CSS3" class="nav-link" target="_blank" title="Contribute">
+                            <a href="https://github.com/thalysonrodrigues/freestylesheets" class="nav-link" target="_blank" title="Contribute">
                                 <i class="fab fa-github"></i>
                                 <span class="label-menu"> Contribute</span>
                             </a>
@@ -79,7 +73,7 @@
 
     <footer class="app-footer">
         <div class="container">
-            <hr />
+            <hr>
             {% block footer %}
                 <p>
                     &copy; {{ "now"|date("Y") }} by Thalyson Rodrigues. All rights reserved.
@@ -88,15 +82,6 @@
         </div>
     </footer>
 
-    {% block javascript %}{% endblock %}
-    <script type="text/javascript">
-        $('.navbar-toggler').click(function () {
-            if ( ! $('#navbarCollapse').is(':visible')) {
-                $('#navbarCollapse').slideDown();
-            } else {
-                $('#navbarCollapse').slideUp();
-            }
-        });
-    </script>
+    <script type="text/javascript" src="{{ asset('build/css/app.js') }}"></script>
 </body>
 </html>

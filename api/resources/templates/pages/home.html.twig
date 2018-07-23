@@ -3,121 +3,125 @@
 {% block title %}API - Freestylesheets{% endblock %}
 
 {% block content %}
-    <div class="jumbotron">
-        <h1 class="title">Welcome to <span class="freestylesheets">Freestylesheets</span> API!</h1>
-        <p>
-            Hello to you that is visiting this page. This is an open source project for deploying, maintaining and reusing style codes in <span class="format">text/css</span> format and fonts for it. Learn more <a href="{{ path('about') }}">here</a>.
-            <!-- Olá para você que está visitando esta página. Este é um projeto open source para implantação, manutenção e reutilização de códigos de estilo no formato text/css3 e fontes para o mesmo. Saiba mais aqui. -->
-        </p>
-        <div class="container-centered">
-            <img id="logo" src="{{ asset('build/images/logo.3ccf57ed.png') }}" alt="logo" title="API Freestylesheets">
-        </div>
-        <p>
-            Simple and easy to use, this API was built on ZF expressive skeleton base. For more information, visit <a href="https://docs.zendframework.com/zend-expressive/" target="_blank">https://docs.zendframework.com/zend-expressive/</a>
-            <!-- Simples e fácil de utilizar, esta API foi construída em base do esqueleto do expressive da ZF. Para mais informações, visite <a href="https://docs.zendframework.com/zend-expressive/">https://docs.zendframework.com/zend-expressive/</a> -->
-        </p>
-    </div>
-
-    <div class="row">
-        <div class="col-md-4">
-            <h2>
-                <a href="https://docs.zendframework.com/zend-expressive/getting-started/features" target="_blank">
-                    <i class="fa fa-bolt"></i> Agile &amp; Lean
-                </a>
-            </h2>
+    <section>
+        <div class="jumbotron">
+            <h1 class="title">Welcome to <span class="freestylesheets">Freestylesheets</span> API!</h1>
             <p>
-                Expressive is fast, small and perfect for rapid application development, prototyping and api's.
-                You decide how you extend it and choose the best packages from major framework or standalone projects.
+                Olá para você que está visitando esta página. Este é um projeto open source para implantação, manutenção e reutilização de códigos de estilo no formato <span class="format">text/css</span> e fontes para o mesmo. Saiba mais <a href="{{ path('about') }}">aqui</a>.
+            </p>
+            <div class="container-centered">
+                <img id="logo" src="{{ asset('build/images/logo.3ccf57ed.png') }}" alt="logo" title="API Freestylesheets">
+            </div>
+            <p>
+                Simples e fácil de utilizar, esta API foi construída em base do esqueleto do expressive da ZF. Para mais informações, visite <a class="mylink" href="https://docs.zendframework.com/zend-expressive/" target="_blank" title="Expressive">https://docs.zendframework.com/zend-expressive/</a>
             </p>
         </div>
 
-        <div class="col-md-4">
-            <h2>
-                <a href="https://github.com/zendframework/zend-diactoros" target="_blank">
-                    <i class="fa fa-exchange-alt"></i> HTTP Messages
-                </a>
-            </h2>
-            <p>
-                HTTP messages are the foundation of web development. Web browsers and HTTP clients such as cURL create
-                HTTP request messages that are sent to a web server, which provides an HTTP response message.
-                Server-side code receives an HTTP request message, and returns an HTTP response message.
-            </p>
+        <div class="container">
+            <h2 class="subtitle">Características do Expressive</h2>
         </div>
 
-        <div class="col-md-4">
-            <h2>
-                <a href="https://github.com/zendframework/zend-stratigility" target="_blank">
-                    <i class="fa fa-dot-circle"></i> Middleware
-                </a>
-            </h2>
-            <p>
-                Middleware is code that exists between the request and response, and which can take the incoming
-                request, perform actions based on it, and either complete the response or pass delegation on to the
-                next middleware in the queue. Your application is easily extended with custom middleware created by
-                yourself or <a href="https://packagist.org/search/?q=middleware" target="_blank">others</a>.
-            </p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-4">
-            <h2>
-                <a href="https://docs.zendframework.com/zend-expressive/features/container/intro" target="_blank">
-                    <i class="fa fa-cube"></i> Containers
-                </a>
-            </h2>
-            <p>
-                Expressive promotes and advocates the usage of Dependency Injection/Inversion of Control containers
-                when writing your applications. Expressive supports multiple containers which typehints against
-                <a href="https://github.com/php-fig/container" target="_blank">PSR Container</a>.
-            </p>
-            {% if containerName is defined %}
-                <p>
-                    <a href="{{ containerDocs }}" target="_blank">
-                        Get started with {{ containerName }}.
+        <div class="row">
+            <div class="col-md-4">
+                <h2>
+                    <a href="https://docs.zendframework.com/zend-expressive/getting-started/features" target="_blank">
+                        <i class="fa fa-bolt"></i> Agile &amp; Lean
                     </a>
+                </h2>
+                <p>
+                    Expressive is fast, small and perfect for rapid application development, prototyping and api's.
+                    You decide how you extend it and choose the best packages from major framework or standalone projects.
                 </p>
-            {% endif %}
+            </div>
+
+            <div class="col-md-4">
+                <h2>
+                    <a href="https://github.com/zendframework/zend-diactoros" target="_blank">
+                        <i class="fa fa-exchange-alt"></i> HTTP Messages
+                    </a>
+                </h2>
+                <p>
+                    HTTP messages are the foundation of web development. Web browsers and HTTP clients such as cURL create
+                    HTTP request messages that are sent to a web server, which provides an HTTP response message.
+                    Server-side code receives an HTTP request message, and returns an HTTP response message.
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <h2>
+                    <a href="https://github.com/zendframework/zend-stratigility" target="_blank">
+                        <i class="fa fa-dot-circle"></i> Middleware
+                    </a>
+                </h2>
+                <p>
+                    Middleware is code that exists between the request and response, and which can take the incoming
+                    request, perform actions based on it, and either complete the response or pass delegation on to the
+                    next middleware in the queue. Your application is easily extended with custom middleware created by
+                    yourself or <a href="https://packagist.org/search/?q=middleware" target="_blank">others</a>.
+                </p>
+            </div>
         </div>
 
-        <div class="col-md-4">
-            <h2>
-                <a href="https://docs.zendframework.com/zend-expressive/features/router/intro" target="_blank">
-                    <i class="fa fa-plane"></i> Routers
-                </a>
-            </h2>
-            <p>
-                One fundamental feature of zend-expressive is that it provides mechanisms for implementing dynamic
-                routing, a feature required in most modern web applications. Expressive ships with multiple adapters.
-            </p>
-            {% if routerName is defined %}
-                <p>
-                    <a href="{{ routerDocs }}" target="_blank">
-                        Get started with {{ routerName }}.
+        <div class="row">
+            <div class="col-md-4">
+                <h2>
+                    <a href="https://docs.zendframework.com/zend-expressive/features/container/intro" target="_blank">
+                        <i class="fa fa-cube"></i> Containers
                     </a>
+                </h2>
+                <p>
+                    Expressive promotes and advocates the usage of Dependency Injection/Inversion of Control containers
+                    when writing your applications. Expressive supports multiple containers which typehints against
+                    <a href="https://github.com/php-fig/container" target="_blank">PSR Container</a>.
                 </p>
-            {% endif %}
-        </div>
+                {% if containerName is defined %}
+                    <p>
+                        <a href="{{ containerDocs }}" target="_blank">
+                            Get started with {{ containerName }}.
+                        </a>
+                    </p>
+                {% endif %}
+            </div>
 
-        <div class="col-md-4">
-            <h2>
-                <a href="https://docs.zendframework.com/zend-expressive/features/template/twig" target="_blank">
-                    <i class="fa fa-edit"></i> Templating
-                </a>
-            </h2>
-            <p>
-                By default, no middleware in Expressive is templated. We do not even provide a default templating
-                engine, as the choice of templating engine is often very specific to the project and/or organization.
-                However, Expressive does provide abstraction for templating, which allows you to write middleware that
-                is engine-agnostic.
-            </p>
-            {% if templateName is defined %}
-                <p>
-                    <a href="{{ templateDocs }}" target="_blank">
-                        Get started with {{ templateName }}.
+            <div class="col-md-4">
+                <h2>
+                    <a href="https://docs.zendframework.com/zend-expressive/features/router/intro" target="_blank">
+                        <i class="fa fa-plane"></i> Routers
                     </a>
+                </h2>
+                <p>
+                    One fundamental feature of zend-expressive is that it provides mechanisms for implementing dynamic
+                    routing, a feature required in most modern web applications. Expressive ships with multiple adapters.
                 </p>
-            {% endif %}
+                {% if routerName is defined %}
+                    <p>
+                        <a href="{{ routerDocs }}" target="_blank">
+                            Get started with {{ routerName }}.
+                        </a>
+                    </p>
+                {% endif %}
+            </div>
+
+            <div class="col-md-4">
+                <h2>
+                    <a href="https://docs.zendframework.com/zend-expressive/features/template/twig" target="_blank">
+                        <i class="fa fa-edit"></i> Templating
+                    </a>
+                </h2>
+                <p>
+                    By default, no middleware in Expressive is templated. We do not even provide a default templating
+                    engine, as the choice of templating engine is often very specific to the project and/or organization.
+                    However, Expressive does provide abstraction for templating, which allows you to write middleware that
+                    is engine-agnostic.
+                </p>
+                {% if templateName is defined %}
+                    <p>
+                        <a href="{{ templateDocs }}" target="_blank">
+                            Get started with {{ templateName }}.
+                        </a>
+                    </p>
+                {% endif %}
+            </div>
         </div>
-    </div>
+    </section>
 {% endblock %}

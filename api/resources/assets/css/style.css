@@ -1,7 +1,4 @@
-/* resets */
-
 /* Arimo - font */
-
 /* latin */
 @font-face {
   font-family: 'Arimo';
@@ -12,7 +9,6 @@
 }
 
 /* Pacifico - font */
-
 /* cyrillic */
 @font-face {
   font-family: 'Pacifico';
@@ -46,6 +42,34 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+/* QuickSand - font */
+/* vietnamese */
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Quicksand Regular'), local('Quicksand-Regular'), url(https://fonts.gstatic.com/s/quicksand/v7/6xKtdSZaM9iE8KbpRA_hJFQNcOM.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Quicksand Regular'), local('Quicksand-Regular'), url(https://fonts.gstatic.com/s/quicksand/v7/6xKtdSZaM9iE8KbpRA_hJVQNcOM.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Quicksand Regular'), local('Quicksand-Regular'), url(https://fonts.gstatic.com/s/quicksand/v7/6xKtdSZaM9iE8KbpRA_hK1QN.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* resets */
+
 *{
   margin: 0;
   padding: 0;
@@ -65,14 +89,31 @@ html, body{
 
 .app-footer { padding-bottom: 1em; }
 
-.freestylesheets{ font-family: 'Pacifico', cursive; }
+.freestylesheets{
+  font-family: 'Pacifico', cursive;
+  color: #ff1658;
+  text-shadow: 2px 2px 4px #938f91;
+}
 
 img#brand{
   width: 122px;
   margin-right: 32px;
 }
 
+.mylink{
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+}
+
+/* menu */
+
+.label-menu{ font-family: 'Quicksand', sans-serif; }
+
 /* home */
+
+.title, p{ font-family: 'Quicksand', sans-serif; }
+
+.jumbotron p{ font-size: 1.2em; }
 
 .container-centered{
   display: flex;
@@ -87,7 +128,13 @@ img#logo{
 
 .title{
   font-size: 2em;
-  color: #313335;
+  margin-bottom: 3%;
+  color: #5b595a;
+}
+
+.subtitle{
+  margin-bottom: 2%;
+  color: #5b595a;
 }
 
 .logo{ width: 100%; }
@@ -99,13 +146,54 @@ img#logo{
   border-radius: 5px;
 }
 
+/* footer */
+
+.app-footer p{ font-weight: 600; }
+
 /* contact */
 
 ul{ list-style: none; }
 
+label,
+.subtitle,
+.form-control,
+.btn-primary
+{ font-family: 'Quicksand', sans-serif; }
+
+.box-send{
+  width: 50%!important;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+  padding: 4% 6%;
+  box-shadow: 2px 2px 3px #dbdbdb;
+}
+
+.box-send i{
+  color: #ff1658;
+}
+
+.box-send h2{
+  text-align: center;
+  font-size: 3em;
+  margin-bottom: 5%;
+}
+
+.box-send p{
+  font-size: 1.5em;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
 /* about */
 
 p{ text-align: justify; }
+
+.box-radius{
+  border-radius: 5px;
+  border: 1px solid #dbdbdb;
+  padding: 2%;
+  box-shadow: 2px 2px 3px #dbdbdb;
+}
 
 /* responsive */
 

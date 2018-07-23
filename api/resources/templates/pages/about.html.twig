@@ -3,29 +3,32 @@
 {% block title %}About of project{% endblock %}
 
 {% block content %}
-    <div class="container" class="articles">
-        <h2>About <span class="freestylesheets">Freestylesheets</span> API</h2>
+    <section class="container" class="articles">
+        <h2 class="title">About <span class="freestylesheets">Freestylesheets</span> API</h2>
         <article>
-            <h3>What it this?</h3>
-            <p>
-                Freestylesheets is an API (application programming interface) that is intended to operate through REST requests for the management of cascade style sheets and fonts in <span class="format">text/css</span> format.
-                <!-- Freestylesheets é uma API (application programming interface) que tem o intuito de operar por meio de requisições REST para o gerenciamento de folhas de estilos cascata e fontes no formato text/css. -->
+            <h3 class="subtitle">What it this?</h3>
+            <p class="box-radius">
+                Freestylesheets é uma API que tem como objetivo operar por meio de requisições REST o gerenciamento de folhas de estilos cascata e fontes no formato <span class="format">text/css</span> embutindo estes em aplicações e sites da web previamente cadastrados no projeto.
             </p>
         </article>
         <article>
-            <h3>Architecture</h3>
-            <p>
-                This is a RESTful API, which means you use http verbosity to accomplish your tasks, learn more about how it works in the real world in the documentation for this project. For the architectural model of the application was used the skeleton of the Zend Expressive micro framework and thus is based on a middleware architecture that facilitates the communication of this interface.
-                <!-- Esta é uma API RESTful, o que significa que utiliza da verbosidade http para realização de suas tarefas, saiba mais sobre como funciona no mundo real na documentação deste projeto. Já para o modelo arquitetural da aplicação foi utlizado o esqueleto do micro framework Zend Expressive sendo assim se baseia em uma arquitetura de middlewares que facilita a comunicação desta interface. -->
+            <h3 class="subtitle">Architecture</h3>
+            <p class="box-radius">
+                Esta é uma API RESTful, o que significa que utiliza da verbosidade http para realização de suas tarefas, saiba mais sobre como funciona no mundo real na documentação deste projeto. Já para o modelo arquitetural da aplicação foi utlizado o esqueleto do micro framework Zend Expressive sendo assim se baseia em uma arquitetura de middlewares que facilita a comunicação desta interface. Sendo assim utilizando middlewares com assinatura de acordo com a psr-15 definida pela PHP-FIG. Leia mais sobre a psr-15 e middlewares neste <a class="mylink" href="https://www.php-fig.org/psr/psr-15/" target="_blank">link</a> e veja suas vantagens para essa abordagem.
             </p>
         </article>
         <article>
-            <h3>Creator</h3>
-            <p>
-                My name is Thalyson Alexandre Rodrigues de Sousa, I have as main area of ​​interest software architectures. I work as a developer with PHP in the backend and frontend part with JS, Vue, HTML5 and CSS3 and graduated in Information Systems from UFMT/Rondonópolis.
-                <!-- Meu nome é Thalyson Alexandre Rodrigues de Sousa, tenho como principal área de interesse arquiteturas de softwares. Atuo como desenvolvedor com PHP na parte do backend e no frontend com JS, Vue, HTML5 e CSS3 e graduando de Sistemas de Informação pela UFMT/Rondonópolis. -->
+            <h3 class="subtitle">Data storage</h3>
+            <p class="box-radius">
+                Este projeto utiliza como base o sgbd do MySql com interface de comunicação do doctrine, <a class="mylink" href="https://www.doctrine-project.org/projects/dbal.html" title="Doctrine DBAL" target="_blank">Doctrine DBAL</a>. Talvez em atualizações futuras devido a demanda de requisições pode-se utilizar noSql como MongoDb para esta abstração caso seja uma possibilidade viável.
             </p>
         </article>
-    </div>
+        <article>
+            <h3 class="subtitle">Creator</h3>
+            <p class="box-radius">
+                Meu nome é Thalyson Rodrigues, tenho como principal área de interesse Arquitetura de Software. Atuo como desenvolvedor com PHP na parte do backend e no frontend com JavaScript, Vue, HTML5 e CSS3. Graduando de Sistemas de Informação pela UFMT/Rondonópolis MT (Brasil) já tive experiência com Python, Delphi, Java e outras linguagens. Atualmente trabalhando como freelancer pela plataforma <a class="mylink" href="https://www.workana.com/freelancer/1b998943a09048dc68b8ded25b8b6856?ref=user_dropdown" title="perfil na Workana" target="_blank">Workana</a> e em projetos pessoais assim como este. Para mais informações pode se visitar meu <a class="mylink" href="https://thalyson.000webhostapp.com/" title="Portfólio Thalyson R." target="_blank">portfólio</a> ou meu <a class="mylink" href="https://github.com/thalysonrodrigues" title="Github Profile Thalyson R." target="_blank">perfil no github</a>.
+            </p>
+        </article>
+    </section>
     
 {% endblock %}

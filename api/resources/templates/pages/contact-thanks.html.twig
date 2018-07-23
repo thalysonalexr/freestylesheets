@@ -1,11 +1,14 @@
 {% extends '@layout/default.html.twig' %}
 
-{% block title %}Thank you!{% endblock %}
+{% block title %}Thank you for contact!{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <h1>
+    <div class="container box-send">
+        <h2 class="subtitle">
+            Message sent! <i class="fas fa-envelope-square"></i>
+        </h2>
+        <p>
             Thank you {{ firstName }} for your feedback. We'll get back to you soon <i class="far fa-thumbs-up"></i>
-        </h1>
+        </p>
     </div>
 {% endblock %}
