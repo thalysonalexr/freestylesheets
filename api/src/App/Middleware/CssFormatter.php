@@ -15,7 +15,7 @@ final class CssFormatter implements MiddlewareInterface
 {
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        if ($request->getHeaderLine('Accept') === 'text/css') {
+        if ($request->getHeaderLine('Accept') === 'text/css' || strpos(end(explode('/', $request->getUri()->getPath())), '.css')) {
 
             $style = $request->getAttribute(TemplateFormatterInterface::class)['style'];
 
