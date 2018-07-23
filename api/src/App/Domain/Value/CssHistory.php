@@ -31,7 +31,7 @@ final class CssHistory implements \JsonSerializable
         return $this->status;
     }
 
-    public function setStatus(Status $status)
+    public function setStatus(Status $status): void
     {
         $this->status = $status;
     }
@@ -41,7 +41,7 @@ final class CssHistory implements \JsonSerializable
         return $this->dateTime;
     }
 
-    public function setDateTime(string $dateTime)
+    public function setDateTime(string $dateTime): void
     {
         $this->dateTime = $dateTime;
     }
@@ -51,7 +51,7 @@ final class CssHistory implements \JsonSerializable
         return $this->user;
     }
 
-    public function setUser(User $user)
+    public function setUser(User $user): void
     {
         $this->user =$user;
     }
@@ -61,7 +61,7 @@ final class CssHistory implements \JsonSerializable
         return $this->style;
     }
 
-    public function setStyle(Css $style)
+    public function setStyle(Css $style): void
     {
         $this->style = $style;
     }

@@ -29,7 +29,7 @@ final class Category implements \JsonSerializable
         return $this->name;
     }
 
-    public function setName(string $name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -39,7 +39,7 @@ final class Category implements \JsonSerializable
         return $this->description;
     }
 
-    public function setDescription(string $description)
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
