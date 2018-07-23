@@ -6,7 +6,5 @@ namespace App\Infrastructure\Repository\Filters;
 
 interface FiltersInterface
 {
-    public function __construct(array $filters);
-
     public function where(bool $like = true): string;
 }

@@ -14,7 +14,7 @@ use function explode;
 use function array_filter;
 use function in_array;
 
-class Filters
+class Filters implements FiltersInterface
 {
     /**
      * @var array
@@ -72,7 +72,7 @@ class Filters
     {
         $this->filters = array_map(function (string $value) {
             return '%' . $value . '%';
-        }, $this->filters);
+        }, $this->filters ?: []);
 
         return $this;
     }
