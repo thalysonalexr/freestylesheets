@@ -51,7 +51,7 @@ final class Log implements \JsonSerializable
         return $this->idUser;
     }
 
-    public function setIdUser(int $idUser)
+    public function setIdUser(int $idUser): void
     {
         $this->idUser = $idUser;
     }
@@ -61,7 +61,7 @@ final class Log implements \JsonSerializable
         return $this->signInDt;
     }
 
-    public function setSignInDt(string $signInDt)
+    public function setSignInDt(string $signInDt): void
     {
         $this->signInDt = $signInDt;
     }
@@ -71,7 +71,7 @@ final class Log implements \JsonSerializable
         return $this->signOutDt;
     }
 
-    public function setSignOutDt(string $signOutDt)
+    public function setSignOutDt(string $signOutDt): void
     {
         $this->signOutDt = $signOutDt;
     }
@@ -81,7 +81,7 @@ final class Log implements \JsonSerializable
         return $this->status;
     }
 
-    public function setStatus(bool $status)
+    public function setStatus(bool $status): void
     {
         $this->status = $status;
     }
@@ -91,7 +91,7 @@ final class Log implements \JsonSerializable
         return $this->timeout;
     }
 
-    public function setTimeout(bool $timeout)
+    public function setTimeout(bool $timeout): void
     {
         $this->timeout = $timeout;
     }
@@ -101,7 +101,7 @@ final class Log implements \JsonSerializable
         return $this->ip;
     }
 
-    public function setIp(string $ip)
+    public function setIp(string $ip): void
     {
         $this->ip = $ip;
     }
@@ -111,7 +111,7 @@ final class Log implements \JsonSerializable
         return $this->browser;
     }
 
-    public function setBrowser(string $browser)
+    public function setBrowser(string $browser): void
     {
         $this->browser = $browser;
     }

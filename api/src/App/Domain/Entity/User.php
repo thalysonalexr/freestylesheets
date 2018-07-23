@@ -57,7 +57,7 @@ final class User implements \JsonSerializable
         return $this->name;
     }
 
-    public function setName(string $name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -67,7 +67,7 @@ final class User implements \JsonSerializable
         return $this->email;
     }
 
-    public function setEmail(string $email)
+    public function setEmail(string $email): void
     {
         $this->email = $email;
     }
@@ -77,7 +77,7 @@ final class User implements \JsonSerializable
         return $this->password;
     }
 
-    public function setPassword(string $password)
+    public function setPassword(string $password): void
     {
         $this->password = $password;
     }
@@ -87,7 +87,7 @@ final class User implements \JsonSerializable
         return $this->admin;
     }
 
-    public function setAdmin(bool $admin)
+    public function setAdmin(bool $admin): void
     {
         $this->admin = $admin;
     }
@@ -102,7 +102,7 @@ final class User implements \JsonSerializable
         return $this->status;
     }
 
-    public function setStatus(bool $status)
+    public function setStatus(bool $status): void
     {
         $this->status = $status;
     }
@@ -177,12 +177,12 @@ final class User implements \JsonSerializable
         return $this->status;
     }
 
-    public function enable()
+    public function enable(): void
     {
         $this->status = self::ACTIVE;
     }
 
-    public function disable()
+    public function disable(): void
     {
         $this->status = self::INACTIVE;
     }
