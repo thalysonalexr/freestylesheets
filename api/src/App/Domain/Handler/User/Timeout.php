@@ -9,9 +9,10 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use App\Domain\Service\LogsServiceInterface;
+use App\Domain\Service\Exception\JtiAlreadyExistsException;
+use App\Domain\Value\Jti;
 use Zend\Diactoros\Response\EmptyResponse;
 use Zend\Diactoros\Response\JsonResponse;
-use App\Domain\Service\Exception\JtiAlreadyExistsException;
 use Firebase\JWT\JWT;
 
 final class Timeout implements MiddlewareInterface
@@ -38,7 +39,7 @@ final class Timeout implements MiddlewareInterface
         $payload = JWT::decode($query['token'], $this->jwtSecret, ['HS256']);
 
         try {
-            $process = $this->log->timeout((int) $payload->data->id, (string) $payload->jti);
+            $process = $this->log->timeout((int) $payload->data->id, Jti::new($payload->jti));
         } catch (JtiAlreadyExistsException $e) {
             return new JsonResponse([
                 'code' => '500',
