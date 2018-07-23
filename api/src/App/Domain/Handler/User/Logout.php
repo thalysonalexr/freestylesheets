@@ -9,10 +9,11 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use App\Domain\Service\LogsServiceInterface;
-use Firebase\JWT\JWT;
 use App\Domain\Service\Exception\JtiAlreadyExistsException;
+use App\Domain\Value\Jti;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\Response\EmptyResponse;
+use Firebase\JWT\JWT;
 
 final class Logout implements MiddlewareInterface
 {
@@ -38,7 +39,7 @@ final class Logout implements MiddlewareInterface
         $payload = JWT::decode($query['token'], $this->jwtSecret, ['HS256']);
 
         try {
-            $process = $this->log->logout((int) $payload->data->id, (string) $payload->jti);
+            $process = $this->log->logout((int) $payload->data->id, Jti::new($payload->jti));
         } catch (JtiAlreadyExistsException $e) {
             return new JsonResponse([
                 'code' => '500',
