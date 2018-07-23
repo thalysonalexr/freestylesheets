@@ -7,10 +7,11 @@ namespace App\Domain\Entity;
 use App\Domain\Value\Tag;
 use App\Domain\Value\Author;
 use App\Domain\Value\Status;
+use App\Domain\Value\LinkClass;
 /**
  * @Entity @Table(name="css")
  */
-final class Css implements \JsonSerializable
+final class Css extends LinkClass implements \JsonSerializable
 {
     /**
      * @var int
@@ -55,7 +56,7 @@ final class Css implements \JsonSerializable
         return $this->name;
     }
 
-    public function setName(string $name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -65,7 +66,7 @@ final class Css implements \JsonSerializable
         return $this->description;
     }
 
-    public function setDescription(string $description)
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
@@ -75,7 +76,7 @@ final class Css implements \JsonSerializable
         return $this->style;
     }
 
-    public function setStyle(string $style)
+    public function setStyle(string $style): void
     {
         $this->style = $style;
     }
@@ -85,7 +86,7 @@ final class Css implements \JsonSerializable
         return $this->createdAt;
     }
 
-    public function setCreatedAt(string $createdAt)
+    public function setCreatedAt(string $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
@@ -95,7 +96,7 @@ final class Css implements \JsonSerializable
         return $this->status;
     }
 
-    public function setStatus(bool $status)
+    public function setStatus(bool $status): void
     {
         $this->status = $status;
     }
@@ -105,7 +106,7 @@ final class Css implements \JsonSerializable
         return $this->author;
     }
 
-    public function setAuthor(Author $author)
+    public function setAuthor(Author $author): void
     {
         $this->author = $author;
     }
@@ -115,7 +116,7 @@ final class Css implements \JsonSerializable
         return $this->tag;
     }
 
-    public function setTag(Tag $tag)
+    public function setTag(Tag $tag): void
     {
         $this->tag = $tag;
     }
@@ -194,7 +195,7 @@ final class Css implements \JsonSerializable
         return $this->status === Status::APPROVED;
     }
 
-    public function approve()
+    public function approve(): void
     {
         $this->status = Status::APPROVED;
     }
@@ -209,7 +210,8 @@ final class Css implements \JsonSerializable
             'created_at' => $this->createdAt,
             'status' => $this->status,
             'author' => $this->author->jsonSerialize(),
-            'tag' => $this->tag instanceof Tag ? $this->tag->jsonSerialize() : null
+            'tag' => $this->tag instanceof Tag ? $this->tag->jsonSerialize() : null,
+            'linkClass' => $this->jsonSerialize()
         ];
     }
 }
