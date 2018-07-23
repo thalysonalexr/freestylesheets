@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace App\Domain\Handler\User;
 
-use App\Domain\Service\UsersServiceInterface;
-use App\Domain\Service\Exception\UserNotFoundException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use PHPMailer\PHPMailer\PHPMailer;
+use App\Middleware\SendMail;
+use App\Domain\Value\Jti;
+use App\Domain\Value\PasswordRecovery;
+use App\Domain\Service\UsersServiceInterface;
+use App\Domain\Service\Exception\UserNotFoundException;
+use App\Domain\Service\Exception\MaxChangeRecoveryPasswordException;
 use Zend\Expressive\Twig\TwigRenderer;
+use Zend\Diactoros\Response\JsonResponse;
 use Tuupola\Base62;
 use Firebase\JWT\JWT;
-use Zend\Diactoros\Response\JsonResponse;
-use App\Middleware\SendMail;
 
 final class ForgotPassword implements MiddlewareInterface
 {
@@ -32,11 +34,17 @@ final class ForgotPassword implements MiddlewareInterface
      */
     private $jwtSecret;
 
-    public function __construct(UsersServiceInterface $usersService, TwigRenderer $template, string $jwtSecret)
+    public function __construct(
+        UsersServiceInterface $usersService,
+        TwigRenderer $template,
+        string $jwtSecret,
+        array $recovery
+    )
     {
         $this->usersService = $usersService;
         $this->template = $template;
         $this->jwtSecret = $jwtSecret;
+        $this->recovery = $recovery;
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
@@ -52,17 +60,33 @@ final class ForgotPassword implements MiddlewareInterface
             ], 404);
         }
 
+        // verify max(10) of request in 5 last days
+        try {
+            $this->usersService->checkMaxRequireChangePassword($user->getId(), $this->recovery['max_days'], $this->recovery['max_try']);
+        } catch (MaxChangeRecoveryPasswordException $e) {
+            return new JsonResponse([
+                'code' => '500',
+                'message' => $e->getMessage()
+            ]);
+        }
+
+        $jti = Jti::new((new Base62)->encode(random_bytes(16)));
         $future = new \DateTime('+12 hours');
 
         $payload = [
             'iat' => (new \DateTime())->getTimestamp(),
             'exp' => $future->getTimestamp(),
-            'jti' => (new Base62)->encode(random_bytes(16)),
+            'jti' => $jti->getValue(),
             'data' => [
                 'id' => (string) $user->getId(),
                 'email' => $user->getEmail()
             ]
         ];
+
+        // register request
+        $recovery = PasswordRecovery::fromNativeData(null, $jti, (new \DateTime())->format('Y-m-d H:i:s'), $user);
+
+        $this->usersService->recovery($recovery);
 
         $data['name'] = $user->getName();
         $data['token'] = JWT::encode($payload, $this->jwtSecret, 'HS256');
