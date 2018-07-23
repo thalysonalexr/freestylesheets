@@ -33,9 +33,11 @@ return [
             \App\Handler\ContactPageHandler::class => \App\Handler\TemplateRendererFactory::class,
             \App\Handler\AboutPageHandler::class => \App\Handler\TemplateRendererFactory::class,
             \App\Handler\Middleware\ContactPostHandler::class => \App\Handler\Middleware\ContactPostHandlerFactory::class,
-            \App\Handler\Middleware\InputFilter\ContactInputFilter::class => \App\Handler\Middleware\InputFilter\ContactInputFilterFactory::class,
+            \App\Handler\Middleware\InputFilter\ContactInputFilter::class => \App\Core\Middleware\InputFilter\InputFilterFactory::class,
 
-            // bussiness | my domain
+            /**
+             * bussiness | my domain
+             */
 
             // actions | users
             \App\Domain\Handler\User\Auth::class => \App\Core\Factory\AuthHandlerFactory::class,
@@ -55,10 +57,11 @@ return [
             \App\Domain\Handler\User\Metadata::class => \App\Core\Factory\UsersHandlerFactory::class,
 
             // actions | css
-            \App\Domain\Handler\Css\Create::class => \App\Core\Factory\CssAndUsersLogHandlerFactory::class,
-            \App\Domain\Handler\Css\Approve::class => \App\Core\Factory\CssAndUsersLogHandlerFactory::class,
+            \App\Domain\Handler\Css\Create::class => \App\Core\Factory\CssAndUsersHandlerFactory::class,
+            \App\Domain\Handler\Css\Approve::class => \App\Core\Factory\CssAndUsersHandlerFactory::class,
             \App\Domain\Handler\Css\GetAll::class => \App\Core\Factory\CssHandlerFactory::class,
             \App\Domain\Handler\Css\Get::class => \App\Core\Factory\CssHandlerFactory::class,
+            \App\Domain\Handler\Css\LinksEmbedded::class => \App\Core\Factory\LinksEmbeddedFactory::class,
 
             // services
             \App\Domain\Service\UsersServiceInterface::class => \App\Core\Domain\Service\UsersServiceFactory::class,
@@ -81,12 +84,12 @@ return [
             \Middlewares\AccessLog::class => \App\Core\Middleware\AccessLogFactory::class,
 
             // filters
-            \App\Middleware\InputFilter\UserInputFilter::class => \App\Core\Middleware\InputFilter\UserInputFilterFactory::class,
-            \App\Middleware\InputFilter\LoginInputFilter::class => \App\Core\Middleware\InputFilter\LoginInputFilterFactory::class,
-            \App\Middleware\InputFilter\EmailInputFilter::class => \App\Core\Middleware\InputFilter\EmailInputFilterFactory::class,
-            \App\Middleware\InputFilter\PasswordInputFilter::class => \App\Core\Middleware\InputFilter\PasswordInputFilterFactory::class,
-            \App\Middleware\InputFilter\CssInputFilter::class => \App\Core\Middleware\InputFilter\CssInputFilterFactory::class,
-            \App\Middleware\InputFilter\NameAndEmailInputFilter::class => \App\Core\Middleware\InputFilter\NameAndEmailInputFilterFactory::class,
+            \App\Middleware\InputFilter\UserInputFilter::class => \App\Core\Middleware\InputFilter\InputFilterFactory::class,
+            \App\Middleware\InputFilter\LoginInputFilter::class => \App\Core\Middleware\InputFilter\InputFilterFactory::class,
+            \App\Middleware\InputFilter\EmailInputFilter::class => \App\Core\Middleware\InputFilter\InputFilterFactory::class,
+            \App\Middleware\InputFilter\PasswordInputFilter::class => \App\Core\Middleware\InputFilter\InputFilterFactory::class,
+            \App\Middleware\InputFilter\CssInputFilter::class => \App\Core\Middleware\InputFilter\InputFilterFactory::class,
+            \App\Middleware\InputFilter\NameAndEmailInputFilter::class => \App\Core\Middleware\InputFilter\InputFilterFactory::class,
         ],
     ],
 ];
