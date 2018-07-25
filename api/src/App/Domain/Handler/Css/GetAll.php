@@ -46,11 +46,14 @@ final class GetAll implements MiddlewareInterface, CssHalInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $filters = $request->getQueryParams();
+        $page = $request->getQueryParams()['page'] ?? 1;
 
         $css = $this->cssService->getAll($filters);
 
         if ($request->getHeaderLine('Accept') === 'application/json' || $request->getHeaderLine('Accept') === 'application/xml') {
-            $resource = $this->resourceGenerator->fromObject(new CssCollection($css), $request);
+            $resource = $this->resourceGenerator->fromObject(
+                (new CssCollection($css))->setItemCountPerPage(25)->setCurrentPageNumber($page)
+            , $request);
 
             return $this->responseFactory->createResponse($request, $resource);
         }

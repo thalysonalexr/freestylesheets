@@ -4,20 +4,13 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Hydrators;
 
-final class UsersCollection implements \IteratorAggregate
-{
-    /**
-     * @var array
-     */
-    private $users;
+use Zend\Paginator\Paginator;
+use Zend\Paginator\Adapter\ArrayAdapter;
 
+final class UsersCollection extends Paginator implements \IteratorAggregate
+{
     public function __construct(array $users)
     {
-        $this->users = $users;
-    }
-
-    public function getIterator(): \Traversable
-    {
-        return new \ArrayIterator($this->users);
+        $this->adapter = new ArrayAdapter($users);
     }
 }

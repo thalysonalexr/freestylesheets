@@ -44,11 +44,14 @@ final class GetAll implements MiddlewareInterface, UsersHalInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
         $filters = $request->getQueryParams();
+        $page = $request->getQueryParams()['page'] ?? 1;
 
         $users = $this->usersService->getAll($filters);
 
         if ($request->getHeaderLine('Accept') === 'application/json' || $request->getHeaderLine('Accept') === 'application/xml') {
-            $resource = $this->resourceGenerator->fromObject(new UsersCollection($users), $request);
+            $resource = $this->resourceGenerator->fromObject(
+                (new UsersCollection($users))->setItemCountPerPage(25)->setCurrentPageNumber($page)
+            , $request);
 
             return $this->responseFactory->createResponse($request, $resource);
         }
