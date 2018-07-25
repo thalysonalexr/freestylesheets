@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Repository\Filters;
 
-use App\Infrastructure\Repository\OrderBy;
-use App\Infrastructure\Repository\Pagination;
+use App\Infrastructure\Repository\Filters\OrderBy;
+use App\Infrastructure\Repository\Filters\Pagination;
 
 use function implode;
 use function array_map;
@@ -31,17 +31,18 @@ class Filters implements FiltersInterface
 
     public function where(bool $like = true): string
     {
-        if (empty($this->filters)) {
+        if (empty($this->filters) && empty($this->statements)) {
             return '';
         }
 
         $statement = $this->setStatements();
         $equals = $like ? "LIKE" : "=";
 
-        $where = ' WHERE ' .
-            implode(' AND ', array_map(function (string $key) use ($equals) {
-                return $this->alias . $key . " {$equals} :{$key}";
-            }, array_keys($this->filters)));
+        $where = implode(' AND ', array_map(function (string $key) use ($equals) {
+            return $this->alias . $key . " {$equals} :{$key}";
+        }, array_keys($this->filters)));
+
+        $where = ! empty($where) ? ' WHERE ' . $where : '';
 
         return $where . $statement;
     }
