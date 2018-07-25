@@ -33,6 +33,15 @@ API built from the skeleton of the micro framework [Zend Expressive](https://doc
 $ git clone https://github.com/thalysonrodrigues/freestylesheets.git
 ```
 
+### Docker
+
+With Docker and docker-compose installed in your environment, run this command in folder root:
+
+```
+## create all containers this application
+$ sudo docker-compose up
+```
+
 ## Outputs
 
 ### The responses of this API may have the following formats
