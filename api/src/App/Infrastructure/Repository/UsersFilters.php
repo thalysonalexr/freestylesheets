@@ -22,7 +22,7 @@ final class UsersFilters extends Filters
 
     public function __construct(array $filters = [])
     {
-        $this->filters = self::ALIAS;
+        $this->alias = self::ALIAS;
         $this->filters = parent::selectFilters($filters, self::POSSIBLE_FILTERS);
     }
 }
