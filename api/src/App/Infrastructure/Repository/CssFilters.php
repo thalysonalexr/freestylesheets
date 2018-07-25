@@ -31,7 +31,7 @@ final class CssFilters extends Filters
     public function __construct(array $filters = [])
     {
         $this->alias = self::ALIAS;
-        $this->cssFilters = parent::selectFilters($filters, self::POSSIBLE_FILTERS);
+        $this->filters = parent::selectFilters($filters, self::POSSIBLE_FILTERS);
         $this->statements = parent::selectFilters($filters, self::STATEMENTS);
     }
 }
