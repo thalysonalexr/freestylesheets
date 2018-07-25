@@ -35,7 +35,7 @@ $ git clone https://github.com/thalysonrodrigues/freestylesheets.git
 
 ### Docker
 
-With Docker and docker-compose installed in your environment, run this command in folder root:
+With Docker and docker-compose installed in your environment, run this command in root folder
 
 ```
 ## create all containers this application
