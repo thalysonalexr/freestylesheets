@@ -209,7 +209,7 @@ final class Css implements \JsonSerializable
             'created_at' => $this->createdAt,
             'status' => $this->status,
             'author' => $this->author->jsonSerialize(),
-            'tag' => $this->tag instanceof Tag ? $this->tag->jsonSerialize() : null
+            'tag' => $this->tag instanceof Tag ? $this->tag->jsonSerialize() : ''
         ];
     }
 }
