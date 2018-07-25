@@ -11,7 +11,7 @@ final class ContactPostHandlerFactory
 {
     public function __invoke(ContainerInterface $container) : ContactPostHandler
     {
-        $config = $container->get('config')['smtp']['mailtrap.io'];
+        $config = $container->get('config')['mail']['smtp'];
 
         $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
         $mail->isSMTP();
