@@ -106,6 +106,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->patch('/api/v1/users/{id}', [
         \Middlewares\HttpAuthentication::class,
         \App\Middleware\CheckBlacklist::class,
+        \App\Middleware\InputFilter\PatchUserInputFilter::class,
         \App\Domain\Handler\User\Patch::class
     ], 'user.patch');
 
