@@ -2,9 +2,9 @@
 
 namespace App\Middleware;
 
-use Zend\Expressive\Twig\TwigRenderer;
+use Zend\Expressive\Template\TemplateRendererInterface;
 
 interface TemplateFormatterInterface
 {
-    public function __construct(TwigRenderer $template);
+    public function __construct(TemplateRendererInterface $template);
 }
