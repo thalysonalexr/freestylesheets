@@ -57,9 +57,32 @@ interface CssServiceInterface
      */
     public function approve(Css $style, User $user): bool;
 
-    public function editPartial(int $id, array $data): int;
+    /**
+     * Edit partial value in Css
+     * 
+     * @param int $id                   identifier of style
+     * @param array $data               only key and value
+     * 
+     * @return bool                     true if successfully or false for failed
+     */
+    public function editPartial(int $id, array $data): bool;
 
-    public function edit(int $id, array $data): int;
+    /**
+     * Edit a entity Style complete
+     * 
+     * @param int $id                   identifier of style
+     * @param array $data               keys and values of entity
+     * 
+     * @return bool                     true if successfully or false for failed
+     */
+    public function edit(int $id, array $data): bool;
 
-    public function delete(int $id): int;
+    /**
+     * Delete a style
+     * 
+     * @param int $id                   identifier of style
+     * 
+     * @return bool                     true if successfully or false for failed
+     */
+    public function delete(int $id): bool;
 }
