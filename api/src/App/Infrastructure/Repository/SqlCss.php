@@ -169,12 +169,12 @@ final class SqlCss implements Css
         );
     }
 
-    public function edit(CssEntity $user): int
+    public function edit(CssEntity $style): bool
     {
         throw new \Exception('Method findById() is not implemented.');
     }
 
-    public function editPartial(int $id, array $data): int
+    public function editPartial(int $id, array $data): bool
     {
         throw new \Exception('Method editPartial() is not implemented.');
     }
