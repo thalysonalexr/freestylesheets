@@ -16,9 +16,9 @@ interface Users
 
     public function findByEmail(string $email): ?User;
 
-    public function edit(User $user): int;
+    public function edit(User $user): bool;
 
-    public function editPartial(int $id, array $data): int;
+    public function editPartial(int $id, array $data): bool;
 
     public function remove(int $id): int;
 }
