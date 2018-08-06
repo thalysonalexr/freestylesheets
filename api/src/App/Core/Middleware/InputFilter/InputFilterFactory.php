@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Core\Middleware\InputFilter;
 
 use Psr\Container\ContainerInterface;
-use App\Middleware\InputFilter\UserInputFilter;
 
 final class InputFilterFactory
 {
