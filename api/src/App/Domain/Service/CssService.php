@@ -16,6 +16,7 @@ use App\Domain\Service\Exception\StyleNotApprovedException;
 use App\Domain\Service\Exception\StyleAlreadyApprovedException;
 use App\Domain\Service\Exception\InvalidStatusException;
 use App\Infrastructure\Repository\Css as CssRepository;
+use App\Infrastructure\Repository\Exception\ManyValuesException;
 
 final class CssService implements CssServiceInterface
 {
@@ -114,17 +115,25 @@ final class CssService implements CssServiceInterface
         return true;
     }
 
-    public function editPartial(int $id, array $data): int
+    public function editPartial(int $id, array $data): bool
     {
-        throw new \Exception('Method getById() is not implemented.');
+        if (count($data) !== 1) {
+            throw ManyValuesException::message();
+        }
+
+        try {
+            return $this->css->editPartial($id, $data);
+        } catch (\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
+            //throw UserEmailExistsException::fromUserEmail($data['email']);
+        }
     }
 
-    public function edit(int $id, array $data): int
+    public function edit(int $id, array $data): bool
     {
         throw new \Exception('Method edit() is not implemented.');
     }
 
-    public function delete(int $id): int
+    public function delete(int $id): bool
     {
         throw new \Exception('Method delete() is not implemented.');
     }
