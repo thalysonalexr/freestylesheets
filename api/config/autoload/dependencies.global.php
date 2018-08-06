@@ -95,6 +95,7 @@ return [
             \App\Middleware\InputFilter\PasswordInputFilter::class => \App\Core\Middleware\InputFilter\InputFilterFactory::class,
             \App\Middleware\InputFilter\CssInputFilter::class => \App\Core\Middleware\InputFilter\InputFilterFactory::class,
             \App\Middleware\InputFilter\NameAndEmailInputFilter::class => \App\Core\Middleware\InputFilter\InputFilterFactory::class,
+            \App\Middleware\InputFilter\PatchUserInputFilter::class => \App\Core\Middleware\InputFilter\InputManagerFactory::class,
         ],
     ],
 ];
