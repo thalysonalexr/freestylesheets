@@ -26,7 +26,7 @@ final class Delete implements MiddlewareInterface, UsersCrudInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
-        $id = $request->getAttribute('id_user');
+        $id = $request->getAttribute('id');
 
         if (1 === $this->usersService->delete((int) $id)) {
             return new JsonResponse([

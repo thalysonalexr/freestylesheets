@@ -29,7 +29,7 @@ final class Enable implements MiddlewareInterface, UsersCrudInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $id = $request->getAttribute('id_user');
+        $id = $request->getAttribute('id');
 
         try {
             $user = $this->usersService->getById((int) $id);
