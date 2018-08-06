@@ -8,18 +8,18 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Expressive\Twig\TwigRenderer;
-use Zend\Diactoros\Response\HtmlResponse;
 use App\Middleware\TemplateFormatterInterface;
+use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Expressive\Template\TemplateRendererInterface;
 
 final class HtmlFormatter implements MiddlewareInterface, TemplateFormatterInterface
 {
     /**
-     * @var TwigRenderer
+     * @var TemplateRendererInterface
      */
     private $template;
 
-    public function __construct(TwigRenderer $template)
+    public function __construct(TemplateRendererInterface $template)
     {
         $this->template = $template;
     }
