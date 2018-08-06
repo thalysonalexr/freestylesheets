@@ -12,6 +12,7 @@ use App\Domain\Service\Exception\UserNotFoundException;
 use App\Domain\Service\Exception\UserEmailExistsException;
 use App\Domain\Service\Exception\MaxChangeRecoveryPasswordException;
 use App\Infrastructure\Repository\Users;
+use App\Infrastructure\Repository\Exception\ManyValuesException;
 
 final class UsersService implements UsersServiceInterface
 {
@@ -65,8 +66,12 @@ final class UsersService implements UsersServiceInterface
         return $user;
     }
 
-    public function editPartial(int $id, array $data): int
+    public function editPartial(int $id, array $data): bool
     {
+        if (count($data) !== 1) {
+            throw ManyValuesException::message();
+        }
+
         try {
             return $this->users->editPartial($id, $data);
         } catch (\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
@@ -74,7 +79,7 @@ final class UsersService implements UsersServiceInterface
         }
     }
 
-    public function edit(int $id, array $data): int
+    public function edit(int $id, array $data): bool
     {
         try {
             if ( ! $data['admin']) {
