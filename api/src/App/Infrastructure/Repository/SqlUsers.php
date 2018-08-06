@@ -7,6 +7,7 @@ namespace App\Infrastructure\Repository;
 use App\Domain\Entity\User;
 use App\Domain\Value\Status;
 use App\Domain\Value\PasswordRecovery;
+use App\Infrastructure\Repository\Exception\ManyValuesException;
 use Doctrine\DBAL\Connection;
 
 final class SqlUsers implements Users
@@ -132,9 +133,9 @@ final class SqlUsers implements Users
         );
     }
 
-    public function edit(User $user): int
+    public function edit(User $user): bool
     {
-        return $this->connection->executeUpdate(
+        return (bool) $this->connection->executeUpdate(
             'UPDATE USERS SET name = :name, email = :email WHERE id = :id',
             [
                 'name' => $user->getName(),
@@ -143,18 +144,18 @@ final class SqlUsers implements Users
         );
     }
 
-    public function editPartial(int $id, array $data): int
+    public function editPartial(int $id, array $data): bool
     {
-        $query = array_map(function($field) {
-            return "{$field} = :{$field}";
-        }, array_keys($data));
+        if (count($data) !== 1) {
+            throw ManyValuesException::message();
+        }
+
+        $query = key($data) . " = :" . key($data);
 
         $data['id'] = $id;
 
-        return $this->connection->executeUpdate(
-            'UPDATE USERS SET ' .
-            implode(', ', $query) .
-            ' WHERE id = :id',
+        return (bool) $this->connection->executeUpdate(
+            "UPDATE USERS SET {$query} WHERE id = :id",
             $data
         );
     }
