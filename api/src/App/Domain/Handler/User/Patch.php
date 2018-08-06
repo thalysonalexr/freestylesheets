@@ -10,7 +10,6 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use App\Core\Crud\UsersCrudInterface;
 use App\Domain\Service\UsersServiceInterface;
-use App\Domain\Service\Exception\UserEmailExistsException;
 use Zend\Diactoros\Response\JsonResponse;
 
 final class Patch implements MiddlewareInterface, UsersCrudInterface
@@ -27,23 +26,23 @@ final class Patch implements MiddlewareInterface, UsersCrudInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
-        $id = $request->getAttribute('id_user');
+        $id = $request->getAttribute('id');
 
         $body = $request->getParsedBody();
 
         try {
-            $count = $this->usersService->editPartial((int) $id, $body);
-        } catch (UserEmailExistsException $e) {
+            $success = $this->usersService->editPartial((int) $id, $body);
+        } catch (\Exception $e) {
             return new JsonResponse([
                 'code' => '400',
                 'message' => $e->getMessage()
             ], 400);
         }
 
-        if (1 === $count) {
+        if ($success) {
             return new JsonResponse([
                 'code' => '200',
-                'message' => 'Update success'
+                'message' => 'Updated user successfully'
             ], 200);
         }
 
