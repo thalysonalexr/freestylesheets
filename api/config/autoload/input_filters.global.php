@@ -112,6 +112,24 @@ return [
                 'allow_empty' => false
             ],
         ],
+        \App\Middleware\InputFilter\NameInputFilter::class => [
+            0 => [
+                'name' => 'name',
+                'required' => true,
+                'filters' => [
+                    ['name' => 'StringTrim']
+                ],
+                'validators' => [
+                    ['name' => 'NotEmpty'],
+                    [
+                        'name' => 'StringLength',
+                        'options' => ['max' => 255]
+                    ]
+                ],
+                'description' => 'Your full name',
+                'allow_empty' => false
+            ],
+        ],
         \App\Middleware\InputFilter\EmailInputFilter::class => [
             0 => [
                 'name' => 'email',
