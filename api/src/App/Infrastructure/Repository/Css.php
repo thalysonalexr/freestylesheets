@@ -18,9 +18,9 @@ interface Css
 
     public function approveStyle(CssHistory $history): bool;
 
-    public function edit(CssEntity $user): int;
+    public function edit(CssEntity $style): bool;
 
-    public function editPartial(int $id, array $data): int;
+    public function editPartial(int $id, array $data): bool;
 
     public function remove(int $id): int;
 }
