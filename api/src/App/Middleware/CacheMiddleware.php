@@ -20,7 +20,7 @@ use function file_put_contents;
 use function json_decode;
 use function strpos;
 
-class CacheMiddleware implements MiddlewareInterface
+final class CacheMiddleware implements MiddlewareInterface
 {
     /**
      * @var array
