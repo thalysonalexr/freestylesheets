@@ -41,6 +41,8 @@ final class SqlLogs implements Logs
 
     public function logout(int $idUser, Jti $jti): bool
     {
+        /* update method why this process update all logs in table
+        /* correct is update a table logs by jti | add jti in table LOGS
         $update = $this->connection->executeUpdate(
             'UPDATE LOGS SET signout_dt = :signout_dt WHERE id = :id',
             [
@@ -53,6 +55,7 @@ final class SqlLogs implements Logs
         $create = $this->revokeToken($jti);
 
         return $create && $update;
+        */
     }
 
     public function timeout(int $idUser, Jti $jti): bool
